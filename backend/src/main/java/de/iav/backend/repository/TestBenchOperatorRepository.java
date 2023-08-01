@@ -1,10 +1,9 @@
 package de.iav.backend.repository;
 
-import de.iav.backend.model.Metrologist;
+import de.iav.backend.model.TestBenchOperator;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MetroligistRepository extends MongoRepository<Metrologist, String> {
-
+public interface TestBenchOperatorRepository extends MongoRepository<TestBenchOperator,String> {
 }
