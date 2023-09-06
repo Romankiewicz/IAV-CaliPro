@@ -4,6 +4,8 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import java.util.List;
+
 @Document(collation = "Operator")
 public record TestBenchOperator(
         @MongoId
@@ -12,6 +14,6 @@ public record TestBenchOperator(
         String lastName,
         String eMail,
         @DBRef(lazy = true)
-        TestBench testBench
+        List<TestBench> testBench
         ) {
 }

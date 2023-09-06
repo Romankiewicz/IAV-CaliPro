@@ -95,8 +95,10 @@ public class TestBenchService {
         TestBenchOperator testBenchOperator = testBenchOperatorRepository
                 .findById(testBenchOperatorId)
                 .orElseThrow(() -> new NoSuchTestBenchOperatorExeption(testBenchOperatorId));
+        testBenchOperator.testBench().remove(testBench);
         testBench.testBenchOperator().remove(testBenchOperator);
         testBenchRepository.save(testBench);
+        testBenchOperatorRepository.save(testBenchOperator);
     }
 
 }
