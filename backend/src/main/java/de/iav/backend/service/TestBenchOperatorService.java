@@ -30,7 +30,7 @@ public class TestBenchOperatorService {
         ));
     }
 
-    public TestBenchOperator updateTestbenchOperatorById(String operatorId, TestBenchOperator updatedOperator) throws NoSuchTestBenchOperatorExeption {
+    public TestBenchOperator updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) throws NoSuchTestBenchOperatorExeption {
         testBenchOperatorRepository.findById(operatorId)
                 .orElseThrow(() -> new NoSuchTestBenchOperatorExeption(operatorId));
         return testBenchOperatorRepository

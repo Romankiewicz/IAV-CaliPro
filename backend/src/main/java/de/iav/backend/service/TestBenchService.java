@@ -29,11 +29,11 @@ public class TestBenchService {
         return testBenchRepository.findAll();
     }
 
-    public Optional<TestBench> getTestbenchById(String testBenchId) {
+    public Optional<TestBench> getTestBenchById(String testBenchId) {
         return testBenchRepository.findById(testBenchId);
     }
 
-    public TestBench setTestBenchMaintannaceDate(String testBenchId, int newMaintenanceDate) throws NoSuchTestBenchException {
+    public TestBench setTestBenchMaintenanceDate(String testBenchId, int newMaintenanceDate) throws NoSuchTestBenchException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
@@ -77,7 +77,7 @@ public class TestBenchService {
 
     //TestBenchOperator related Methods
 
-    public void addTestbenchOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorExeption {
+    public void addTestBenchOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorExeption {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
