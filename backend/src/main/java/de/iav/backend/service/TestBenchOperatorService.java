@@ -41,7 +41,10 @@ public class TestBenchOperatorService {
                         updatedOperator.eMail(),
                         updatedOperator.testBench()
                 ));
+    }
 
+    public void deleteTestBenchOperator(String operatorId) {
+        testBenchOperatorRepository.deleteById(operatorId);
     }
 
 }
