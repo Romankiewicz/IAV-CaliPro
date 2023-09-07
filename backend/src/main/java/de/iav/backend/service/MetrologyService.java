@@ -14,28 +14,35 @@ public class MetrologyService {
 
     private final MetrologyRepository metrologyRepository;
 
+    public Metrology findMetrologyById(String metrologyId) throws NoSuchMetrologyException {
+        return metrologyRepository
+                .findById(metrologyId)
+                .orElseThrow(()->new NoSuchMetrologyException(metrologyId));
+    }
+
     public Metrology addMetrology(Metrology metrologyToAdd) {
-        return metrologyRepository.save(new Metrology(
-                metrologyToAdd.metrologyId(),
-                metrologyToAdd.iavInventory(),
-                metrologyToAdd.manufacturer(),
-                metrologyToAdd.type(),
-                metrologyToAdd.maintenance(),
-                metrologyToAdd.calibration()));
+        return metrologyRepository
+                .save(
+                        new Metrology(
+                                metrologyToAdd.metrologyId(),
+                                metrologyToAdd.iavInventory(),
+                                metrologyToAdd.manufacturer(),
+                                metrologyToAdd.type(),
+                                metrologyToAdd.maintenance(),
+                                metrologyToAdd.calibration()));
     }
 
     public Metrology updateMetology(String metrologyId, Metrology metrologyToUpdate) throws NoSuchMetrologyException {
-        metrologyRepository
-                .findById(metrologyId)
-                .orElseThrow(()->new NoSuchMetrologyException(metrologyId));
+        findMetrologyById(metrologyId);
         return metrologyRepository
-                .save(new Metrology(
-                        metrologyId,
-                        metrologyToUpdate.iavInventory(),
-                        metrologyToUpdate.manufacturer(),
-                        metrologyToUpdate.type(),
-                        metrologyToUpdate.maintenance(),
-                        metrologyToUpdate.calibration()));
+                .save(
+                        new Metrology(
+                                metrologyId,
+                                metrologyToUpdate.iavInventory(),
+                                metrologyToUpdate.manufacturer(),
+                                metrologyToUpdate.type(),
+                                metrologyToUpdate.maintenance(),
+                                metrologyToUpdate.calibration()));
     }
 
     public Metrology setMetrologymaintenanceDate(String metrologyId, int date, int month, int year) throws NoSuchMetrologyException {
