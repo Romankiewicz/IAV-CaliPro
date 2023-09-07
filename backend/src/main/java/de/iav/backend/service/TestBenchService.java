@@ -33,21 +33,25 @@ public class TestBenchService {
         return testBenchRepository.findById(testBenchId);
     }
 
-    public TestBench setTestBenchMaintenanceDate(String testBenchId, int newMaintenanceDate) throws NoSuchTestBenchException {
+    public TestBench setTestBenchMaintenanceDate(String testBenchId, int date, int month, int year) throws NoSuchTestBenchException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
 
-        testBench.maintenance().setDate(newMaintenanceDate);
+        testBench.maintenance().setDate(date);
+        testBench.maintenance().setMonth(month);
+        testBench.maintenance().setYear(year);
         testBenchRepository.save(testBench);
         return testBench;
     }
 
-    public TestBench setTestBenchCalibrationDate(String testBenchId, int newCalibrationDate) throws NoSuchTestBenchException {
+    public TestBench setTestBenchCalibrationDate(String testBenchId, int date, int month, int year) throws NoSuchTestBenchException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
-        testBench.calibration().setDate(newCalibrationDate);
+        testBench.calibration().setDate(date);
+        testBench.calibration().setMonth(month);
+        testBench.calibration().setYear(year);
         testBenchRepository.save(testBench);
         return testBench;
     }
