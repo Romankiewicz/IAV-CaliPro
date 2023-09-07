@@ -12,6 +12,7 @@ import de.iav.backend.repository.TestBenchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -25,12 +26,26 @@ public class TestBenchService {
     private final TestBenchOperatorRepository testBenchOperatorRepository;
 
 
-    public List<TestBench> getAllTestBenches() {
+    public List<TestBench> listAllTestBenches() {
         return testBenchRepository.findAll();
     }
 
-    public Optional<TestBench> getTestBenchById(String testBenchId) {
+    public Optional<TestBench> findTestBenchById(String testBenchId) {
         return testBenchRepository.findById(testBenchId);
+    }
+
+    public TestBench addTestBench(TestBench testBenchToAdd){
+        return testBenchRepository
+                .save(
+                        new TestBench(
+                                testBenchToAdd.benchId(),
+                                testBenchToAdd.name(),
+                                new ArrayList<>(),
+                                new ArrayList<>(),
+                                testBenchToAdd.calibration(),
+                                testBenchToAdd.maintenance()
+                        )
+                );
     }
 
     public TestBench setTestBenchMaintenanceDate(String testBenchId, int date, int month, int year) throws NoSuchTestBenchException {
