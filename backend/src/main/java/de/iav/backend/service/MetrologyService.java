@@ -27,7 +27,7 @@ public class MetrologyService {
     public Metrology updateMetology(String metrologyId, Metrology metrologyToUpdate) throws NoSuchMetrologyException {
         metrologyRepository
                 .findById(metrologyId)
-                .orElseThrow(()->new NoSuchMetrologyException(metrologyId));
+                .orElseThrow(() -> new NoSuchMetrologyException(metrologyId));
         return metrologyRepository
                 .save(new Metrology(
                         metrologyId,
@@ -58,4 +58,5 @@ public class MetrologyService {
         metrology.calibration().setYear(year);
         metrologyRepository.save(metrology);
         return metrology;
+    }
 }

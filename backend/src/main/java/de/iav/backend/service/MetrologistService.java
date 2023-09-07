@@ -1,5 +1,6 @@
 package de.iav.backend.service;
 
+import de.iav.backend.exceptions.NoSuchMetrologistException;
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.repository.MetrologistRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,22 @@ public class MetrologistService {
                         metrologistToAdd.firstName(),
                         metrologistToAdd.lastName(),
                         metrologistToAdd.eMail()
-                ));
+                )
+        );
     }
+
+    public Metrologist findMetrologistById(String metrologistId) throws NoSuchMetrologistException {
+        return metrologistRepository
+                .findById(metrologistId)
+                .orElseThrow(()->new NoSuchMetrologistException(metrologistId));
+    }
+
+    public Metrologist updateMetrologist(String metrologistId, Metrologist metrologistToUpdate) throws NoSuchMetrologistException {
+        return metrologistRepository.save(findMetrologistById(metrologistId));
+    }
+
+    public void deleteMetrologist(String metrologistId){
+        metrologistRepository.deleteById(metrologistId);
+    }
+
 }
