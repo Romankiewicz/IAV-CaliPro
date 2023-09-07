@@ -31,7 +31,15 @@ public class MetrologistService {
     }
 
     public Metrologist updateMetrologist(String metrologistId, Metrologist metrologistToUpdate) throws NoSuchMetrologistException {
-        return metrologistRepository.save(findMetrologistById(metrologistId));
+        findMetrologistById(metrologistId);
+        return metrologistRepository.save(
+                new Metrologist(
+                        metrologistId,
+                        metrologistToUpdate.firstName(),
+                        metrologistToUpdate.lastName(),
+                        metrologistToUpdate.eMail()
+                )
+        );
     }
 
     public void deleteMetrologist(String metrologistId){
