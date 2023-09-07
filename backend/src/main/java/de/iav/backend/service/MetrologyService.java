@@ -8,6 +8,8 @@ import de.iav.backend.repository.MetrologyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MetrologyService {
@@ -18,6 +20,10 @@ public class MetrologyService {
         return metrologyRepository
                 .findById(metrologyId)
                 .orElseThrow(()->new NoSuchMetrologyException(metrologyId));
+    }
+
+    public List<Metrology> listAllMerology(){
+        return metrologyRepository.findAll();
     }
 
     public Metrology addMetrology(Metrology metrologyToAdd) {
