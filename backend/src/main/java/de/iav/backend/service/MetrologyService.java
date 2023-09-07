@@ -58,4 +58,9 @@ public class MetrologyService {
         metrology.calibration().setYear(year);
         metrologyRepository.save(metrology);
         return metrology;
+    }
+
+    public void deleteMetrology(String metrologyId){
+        metrologyRepository.deleteById(metrologyId);
+    }
 }
