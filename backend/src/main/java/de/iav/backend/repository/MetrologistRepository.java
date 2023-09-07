@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MetroligistRepository extends MongoRepository<Metrologist, String> {
+public interface MetrologistRepository extends MongoRepository<Metrologist, String> {
 
 }
