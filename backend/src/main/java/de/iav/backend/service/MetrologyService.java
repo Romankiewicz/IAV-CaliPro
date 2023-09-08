@@ -1,9 +1,7 @@
 package de.iav.backend.service;
 
 import de.iav.backend.exceptions.NoSuchMetrologyException;
-import de.iav.backend.exceptions.NoSuchTestBenchException;
 import de.iav.backend.model.Metrology;
-import de.iav.backend.model.TestBench;
 import de.iav.backend.repository.MetrologyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +14,7 @@ public class MetrologyService {
 
     private final MetrologyRepository metrologyRepository;
 
-    public Metrology findMetrologyById(String metrologyId) throws NoSuchMetrologyException {
+    public Metrology getMetrologyById(String metrologyId) throws NoSuchMetrologyException {
         return metrologyRepository
                 .findById(metrologyId)
                 .orElseThrow(()->new NoSuchMetrologyException(metrologyId));
@@ -39,7 +37,7 @@ public class MetrologyService {
     }
 
     public Metrology updateMetology(String metrologyId, Metrology metrologyToUpdate) throws NoSuchMetrologyException {
-        findMetrologyById(metrologyId);
+        getMetrologyById(metrologyId);
         return metrologyRepository
                 .save(
                         new Metrology(
@@ -51,7 +49,7 @@ public class MetrologyService {
                                 metrologyToUpdate.calibration()));
     }
 
-    public Metrology setMetrologymaintenanceDate(String metrologyId, int date, int month, int year) throws NoSuchMetrologyException {
+    public Metrology setMetrologyMaintenanceDate(String metrologyId, int date, int month, int year) throws NoSuchMetrologyException {
         Metrology metrology = metrologyRepository
                 .findById(metrologyId)
                 .orElseThrow(() -> new NoSuchMetrologyException(metrologyId));
@@ -72,7 +70,7 @@ public class MetrologyService {
         metrologyRepository.save(metrology);
         return metrology;
     }
-}
+
 
     public void deleteMetrology(String metrologyId){
         metrologyRepository.deleteById(metrologyId);
