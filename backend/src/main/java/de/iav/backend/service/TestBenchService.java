@@ -12,6 +12,7 @@ import de.iav.backend.repository.TestBenchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -25,29 +26,47 @@ public class TestBenchService {
     private final TestBenchOperatorRepository testBenchOperatorRepository;
 
 
-    public List<TestBench> getAllTestBenches() {
+    public List<TestBench> listAllTestBenches() {
         return testBenchRepository.findAll();
     }
 
-    public Optional<TestBench> getTestBenchById(String testBenchId) {
+    public Optional<TestBench> findTestBenchById(String testBenchId) {
         return testBenchRepository.findById(testBenchId);
     }
 
-    public TestBench setTestBenchMaintenanceDate(String testBenchId, int newMaintenanceDate) throws NoSuchTestBenchException {
+    public TestBench addTestBench(TestBench testBenchToAdd){
+        return testBenchRepository
+                .save(
+                        new TestBench(
+                                testBenchToAdd.benchId(),
+                                testBenchToAdd.name(),
+                                new ArrayList<>(),
+                                new ArrayList<>(),
+                                testBenchToAdd.calibration(),
+                                testBenchToAdd.maintenance()
+                        )
+                );
+    }
+
+    public TestBench setTestBenchMaintenanceDate(String testBenchId, int date, int month, int year) throws NoSuchTestBenchException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
 
-        testBench.maintenance().setDate(newMaintenanceDate);
+        testBench.maintenance().setDate(date);
+        testBench.maintenance().setMonth(month);
+        testBench.maintenance().setYear(year);
         testBenchRepository.save(testBench);
         return testBench;
     }
 
-    public TestBench setTestBenchCalibrationDate(String testBenchId, int newCalibrationDate) throws NoSuchTestBenchException {
+    public TestBench setTestBenchCalibrationDate(String testBenchId, int date, int month, int year) throws NoSuchTestBenchException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
-        testBench.calibration().setDate(newCalibrationDate);
+        testBench.calibration().setDate(date);
+        testBench.calibration().setMonth(month);
+        testBench.calibration().setYear(year);
         testBenchRepository.save(testBench);
         return testBench;
     }
