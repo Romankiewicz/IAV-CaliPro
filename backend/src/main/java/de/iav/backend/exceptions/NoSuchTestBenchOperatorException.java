@@ -1,8 +1,8 @@
 package de.iav.backend.exceptions;
 
-public class NoSuchTestBenchOperatorExeption extends Exception{
+public class NoSuchTestBenchOperatorException extends Exception{
 
-    public NoSuchTestBenchOperatorExeption(String testBenchOperatorId) {
+    public NoSuchTestBenchOperatorException(String testBenchOperatorId) {
         super("Der Prüfstandsfahrer:\n"
                 + testBenchOperatorId
                 + "\nexistiert nicht!");

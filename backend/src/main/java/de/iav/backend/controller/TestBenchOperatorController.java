@@ -1,6 +1,6 @@
 package de.iav.backend.controller;
 
-import de.iav.backend.exceptions.NoSuchTestBenchOperatorExeption;
+import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.model.TestBenchOperator;
 import de.iav.backend.service.TestBenchOperatorService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class TestBenchOperatorController {
 
     @PutMapping("/{operatorId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public TestBenchOperator updateTestBenchOperator(@PathVariable String operatorId, @RequestBody TestBenchOperator testBenchOperatorToUpdate) throws NoSuchTestBenchOperatorExeption {
+    public TestBenchOperator updateTestBenchOperator(@PathVariable String operatorId, @RequestBody TestBenchOperator testBenchOperatorToUpdate) throws NoSuchTestBenchOperatorException {
         return testBenchOperatorService.updateTestBenchOperatorById(operatorId, testBenchOperatorToUpdate);
     }
 

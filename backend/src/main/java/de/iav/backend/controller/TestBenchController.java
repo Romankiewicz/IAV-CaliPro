@@ -2,7 +2,7 @@ package de.iav.backend.controller;
 
 import de.iav.backend.exceptions.NoSuchMetrologyException;
 import de.iav.backend.exceptions.NoSuchTestBenchException;
-import de.iav.backend.exceptions.NoSuchTestBenchOperatorExeption;
+import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.model.TestBench;
 import de.iav.backend.service.TestBenchService;
 import lombok.RequiredArgsConstructor;
@@ -63,13 +63,13 @@ public class TestBenchController {
 
     @PutMapping("/operator/{testBenchId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addTestBenchOperatorToTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorExeption {
+    public void addTestBenchOperatorToTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         testBenchService.addTestBenchOperatorToTestBench(testBenchId, operatorId);
     }
 
     @DeleteMapping("/operator/{testBenchId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeTestBechOperatorFromTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorExeption {
+    public void removeTestBechOperatorFromTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         testBenchService.removeTestBenchOperatorFromTestBench(testBenchId, operatorId);
     }
 

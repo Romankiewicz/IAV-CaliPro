@@ -1,6 +1,6 @@
 package de.iav.backend.service;
 
-import de.iav.backend.exceptions.NoSuchTestBenchOperatorExeption;
+import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.model.TestBenchOperator;
 import de.iav.backend.repository.TestBenchOperatorRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +30,9 @@ public class TestBenchOperatorService {
         ));
     }
 
-    public TestBenchOperator updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) throws NoSuchTestBenchOperatorExeption {
+    public TestBenchOperator updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) throws NoSuchTestBenchOperatorException {
         testBenchOperatorRepository.findById(operatorId)
-                .orElseThrow(() -> new NoSuchTestBenchOperatorExeption(operatorId));
+                .orElseThrow(() -> new NoSuchTestBenchOperatorException(operatorId));
         return testBenchOperatorRepository
                 .save(new TestBenchOperator(
                         operatorId,

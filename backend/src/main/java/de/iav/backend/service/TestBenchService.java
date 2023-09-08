@@ -2,7 +2,7 @@ package de.iav.backend.service;
 
 import de.iav.backend.exceptions.NoSuchMetrologyException;
 import de.iav.backend.exceptions.NoSuchTestBenchException;
-import de.iav.backend.exceptions.NoSuchTestBenchOperatorExeption;
+import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.model.Metrology;
 import de.iav.backend.model.TestBench;
 import de.iav.backend.model.TestBenchOperator;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -96,26 +95,26 @@ public class TestBenchService {
 
     //TestBenchOperator related Methods
 
-    public void addTestBenchOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorExeption {
+    public void addTestBenchOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
         TestBenchOperator testBenchOperator = testBenchOperatorRepository
                 .findById(testBenchOperatorId)
-                .orElseThrow(() -> new NoSuchTestBenchOperatorExeption(testBenchOperatorId));
+                .orElseThrow(() -> new NoSuchTestBenchOperatorException(testBenchOperatorId));
         testBench.testBenchOperator().add(testBenchOperator);
         testBenchOperator.testBench().add(testBench);
         testBenchOperatorRepository.save(testBenchOperator);
         testBenchRepository.save(testBench);
     }
 
-    public void removeTestBenchOperatorFromTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorExeption {
+    public void removeTestBenchOperatorFromTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
         TestBenchOperator testBenchOperator = testBenchOperatorRepository
                 .findById(testBenchOperatorId)
-                .orElseThrow(() -> new NoSuchTestBenchOperatorExeption(testBenchOperatorId));
+                .orElseThrow(() -> new NoSuchTestBenchOperatorException(testBenchOperatorId));
         testBenchOperator.testBench().remove(testBench);
         testBench.testBenchOperator().remove(testBenchOperator);
         testBenchRepository.save(testBench);
