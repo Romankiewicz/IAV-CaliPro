@@ -3,7 +3,6 @@ package de.iav.backend.controller;
 import de.iav.backend.exceptions.NoSuchTestBenchOperatorExeption;
 import de.iav.backend.model.TestBenchOperator;
 import de.iav.backend.service.TestBenchOperatorService;
-import jdk.incubator.vector.VectorOperators;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
