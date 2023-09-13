@@ -69,6 +69,6 @@ jobs:
           script: |
             sudo docker stop muc-java-23-1-mathias
             sudo docker rm muc-java-23-1-mathias
-            sudo docker run --pull=always --name muc-java-23-1-mathias --network capstones --ip 10.0.6.6 --detach --env MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} muc-java-23-1-mathias/iav-calipro:latest
+            sudo docker run --pull=always --name IAV-CaliPro --network capstones --ip 10.0.6.6 --detach --env MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} muc-java-23-1-mathias/iav-calipro:latest
             sleep 15s
             sudo docker logs muc-java-23-1-mathias
