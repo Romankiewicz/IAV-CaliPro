@@ -59,7 +59,7 @@ jobs:
       - name: Restart docker container
         uses: appleboy/ssh-action@master
         with:
-          host: https://muc-java-23-1-mathias.capstone-project.de
+          host: capstone-project.de
           #Set App Name (replace "example" with your ssh user name)
           username: muc-java-23-1-mathias
           password: ${{ secrets.SSH_PASSWORD }}
