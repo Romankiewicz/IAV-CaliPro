@@ -65,6 +65,7 @@
     </dependencies>
 
     <build>
+        <finalName>CaliPro</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

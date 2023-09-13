@@ -1,0 +1,74 @@
+name: "Deploy CaliPro"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          #Set Java Version
+          java-version: '17'
+          distribution: 'adopt'
+          cache: 'maven'
+
+      - name: Build with maven
+        run: mvn -B package --file backend/pom.xml
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: app.jar
+          path: backend/target/CaliPro.jar
+
+  push-to-docker-hub:
+    runs-on: ubuntu-latest
+    needs: build-backend
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: app.jar
+          path: backend/target
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          #Set dockerhub username
+          username: mathiasromankiewicz
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
+          tags: mathiasromankiewicz/IAV-CaliPro:latest
+          context: .
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: push-to-docker-hub
+    steps:
+      - name: Restart docker container
+        uses: appleboy/ssh-action@master
+        with:
+          host: capstone-project.de
+          #Set App Name (replace "example" with your ssh user name)
+          username: muc-java-23-1-mathias
+          password: ${{ secrets.SSH_PASSWORD }}
+          #Set App Name (replace "example" with your ssh user name)
+          #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
+          #Set IP (replace "10.0.1.99" with your ip address)
+          script: |
+            sudo docker stop muc-java-23-1-mathias
+            sudo docker rm muc-java-23-1-mathias
+            sudo docker run --pull=always --name muc-java-23-1-mathias --network capstones --ip 10.0.6.6 --detach --env MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} muc-java-23-1-mathias/IAV-CaliPro:latest
+            sleep 15s
+            sudo docker logs muc-java-23-1-mathias
