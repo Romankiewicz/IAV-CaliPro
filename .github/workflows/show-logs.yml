@@ -16,4 +16,4 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           #Set App Name (replace "example" with "alpha"-"tango")
           script: |
-            sudo docker logs example
+            sudo docker logs muc-java-23-1-mathias
