@@ -49,7 +49,7 @@ jobs:
         with:
           push: true
           #Set dockerhub project (replace "bartfastiel/java-capstone-project.de-example-app")
-          tags: mathiasromankiewicz/IAV-CaliPro:latest
+          tags: mathiasromankiewicz/iav-calipro:latest
           context: .
 
   deploy:
@@ -69,6 +69,6 @@ jobs:
           script: |
             sudo docker stop muc-java-23-1-mathias
             sudo docker rm muc-java-23-1-mathias
-            sudo docker run --pull=always --name muc-java-23-1-mathias --network capstones --ip 10.0.6.6 --detach --env MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} muc-java-23-1-mathias/IAV-CaliPro:latest
+            sudo docker run --pull=always --name muc-java-23-1-mathias --network capstones --ip 10.0.6.6 --detach --env MONGO_DB_URI=${{ secrets.MONGO_DB_URI }} muc-java-23-1-mathias/iav-calipro:latest
             sleep 15s
             sudo docker logs muc-java-23-1-mathias
