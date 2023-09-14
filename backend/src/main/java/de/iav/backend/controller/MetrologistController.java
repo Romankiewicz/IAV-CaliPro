@@ -5,10 +5,7 @@ import de.iav.backend.model.Metrologist;
 import de.iav.backend.service.MetrologistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("/api/metrologist")
 @RequiredArgsConstructor
@@ -21,4 +18,12 @@ public class MetrologistController {
     public Metrologist findMetrologistById(@PathVariable String metrologistId) throws NoSuchMetrologistException {
         return metrologistService.getMetrologistById(metrologistId);
     }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Metrologist addMetrologist(@RequestBody Metrologist metrologistToAdd) {
+        return metrologistService.addMetrologist(metrologistToAdd);
+    }
+
+
 }
