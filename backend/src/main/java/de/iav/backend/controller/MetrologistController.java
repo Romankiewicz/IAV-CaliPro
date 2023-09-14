@@ -31,5 +31,10 @@ public class MetrologistController {
         return metrologistService.updateMetrologist(metrologistId, metrologistToUpdate);
     }
 
+    @DeleteMapping("/{metrologistId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMetrologist(@PathVariable String metrologistId) {
+        metrologistService.deleteMetrologist(metrologistId);
+    }
 
 }
