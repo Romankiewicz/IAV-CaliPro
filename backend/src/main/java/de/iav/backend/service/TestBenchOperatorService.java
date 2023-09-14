@@ -6,7 +6,6 @@ import de.iav.backend.repository.TestBenchOperatorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -17,18 +16,43 @@ public class TestBenchOperatorService {
 
 
     public Optional<TestBenchOperator> getTestBenchOperatorById(String operatorId) {
-        return testBenchOperatorRepository.findById(operatorId);
+        return testBenchOperatorRepository.findTestBenchOperatorByOperatorId(operatorId);
+    }
+//      Old Method => PLEASE DELETE AFTER INCLUDE NEW METHOD!!!
+//    public TestBenchOperator addTestBenchOperator(TestBenchOperator newOperator) {
+//        return testBenchOperatorRepository.save(new TestBenchOperator(
+//                newOperator.operatorId(),
+//                newOperator.firstName(),
+//                newOperator.lastName(),
+//                newOperator.eMail(),
+//                new ArrayList<>()
+//        ));
+//    }
+
+    public TestBenchOperatorResponse
+    public FliprUserResponse saveFliprUser(FliprUserDTO userToSave) {
+        if (fliprUserRepo.existsByUsername(userToSave.username())) {
+            throw new FliprUserAlreadyExistException();
+        }
+
+        FliprUser fliprUser = new FliprUser(
+                idService.generateId(),
+                userToSave.username(),
+                argon2Service.encode(userToSave.password()),
+                new ArrayList<>(),
+                new ArrayList<>()
+        );
+
+        fliprUserRepo.save(fliprUser);
+
+        return new FliprUserResponse(
+                fliprUser.id(),
+                fliprUser.username(),
+                fliprUser.fliprs(),
+                fliprUser.likedFliprs()
+        );
     }
 
-    public TestBenchOperator addTestBenchOperator(TestBenchOperator newOperator) {
-        return testBenchOperatorRepository.save(new TestBenchOperator(
-                newOperator.operatorId(),
-                newOperator.firstName(),
-                newOperator.lastName(),
-                newOperator.eMail(),
-                new ArrayList<>()
-        ));
-    }
 
     public TestBenchOperator updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) throws NoSuchTestBenchOperatorException {
         testBenchOperatorRepository.findById(operatorId)

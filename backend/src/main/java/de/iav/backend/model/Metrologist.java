@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @Document("Metrologist")
 public record Metrologist(
         @MongoId
-        String MetrologistId,
+        String metrologistId,
         @Indexed(unique = true)
         String username,
         String password,
