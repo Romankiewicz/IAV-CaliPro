@@ -24,14 +24,15 @@ public class MetrologistService {
         );
     }
 
-    public Metrologist findMetrologistById(String metrologistId) throws NoSuchMetrologistException {
+    public Metrologist getMetrologistById(String metrologistId) throws NoSuchMetrologistException {
         return metrologistRepository
                 .findById(metrologistId)
                 .orElseThrow(()->new NoSuchMetrologistException(metrologistId));
     }
 
+
     public Metrologist updateMetrologist(String metrologistId, Metrologist metrologistToUpdate) throws NoSuchMetrologistException {
-        findMetrologistById(metrologistId);
+        getMetrologistById(metrologistId);
         return metrologistRepository.save(
                 new Metrologist(
                         metrologistId,
