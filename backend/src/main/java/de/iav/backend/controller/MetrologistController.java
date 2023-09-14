@@ -25,5 +25,11 @@ public class MetrologistController {
         return metrologistService.addMetrologist(metrologistToAdd);
     }
 
+    @PutMapping("/{metrologistId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Metrologist updateMetrologist(@PathVariable String metrologistId, @RequestBody Metrologist metrologistToUpdate) throws NoSuchMetrologistException {
+        return metrologistService.updateMetrologist(metrologistId, metrologistToUpdate);
+    }
+
 
 }
