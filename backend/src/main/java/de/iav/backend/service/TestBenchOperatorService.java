@@ -1,11 +1,15 @@
 package de.iav.backend.service;
 
 import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
+import de.iav.backend.exceptions.TestBenchOperatorAlreadyExistException;
 import de.iav.backend.model.TestBenchOperator;
+import de.iav.backend.model.TestBenchOperatorDTO;
+import de.iav.backend.model.TestBenchOperatorResponse;
 import de.iav.backend.repository.TestBenchOperatorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -13,59 +17,54 @@ import java.util.Optional;
 public class TestBenchOperatorService {
 
     private final TestBenchOperatorRepository testBenchOperatorRepository;
+    private final IdService idService;
+    private final Argon2Service argon2Service;
 
 
     public Optional<TestBenchOperator> getTestBenchOperatorById(String operatorId) {
         return testBenchOperatorRepository.findTestBenchOperatorByOperatorId(operatorId);
     }
-//      Old Method => PLEASE DELETE AFTER INCLUDE NEW METHOD!!!
-//    public TestBenchOperator addTestBenchOperator(TestBenchOperator newOperator) {
-//        return testBenchOperatorRepository.save(new TestBenchOperator(
-//                newOperator.operatorId(),
-//                newOperator.firstName(),
-//                newOperator.lastName(),
-//                newOperator.eMail(),
-//                new ArrayList<>()
-//        ));
-//    }
 
-    public TestBenchOperatorResponse
-    public FliprUserResponse saveFliprUser(FliprUserDTO userToSave) {
-        if (fliprUserRepo.existsByUsername(userToSave.username())) {
-            throw new FliprUserAlreadyExistException();
+
+    public TestBenchOperatorResponse addTestBenchOperator(TestBenchOperatorDTO operatorToAdd){
+        if(testBenchOperatorRepository.existsByUsername(operatorToAdd.username())) {
+            throw new TestBenchOperatorAlreadyExistException();
         }
 
-        FliprUser fliprUser = new FliprUser(
+        TestBenchOperator testBenchOperator = new TestBenchOperator(
                 idService.generateId(),
-                userToSave.username(),
-                argon2Service.encode(userToSave.password()),
-                new ArrayList<>(),
+                operatorToAdd.username(),
+                argon2Service.encode(operatorToAdd.password()),
+                operatorToAdd.firstName(),
+                operatorToAdd.lastName(),
+                operatorToAdd.eMail(),
                 new ArrayList<>()
         );
 
-        fliprUserRepo.save(fliprUser);
+        testBenchOperatorRepository.save(testBenchOperator);
 
-        return new FliprUserResponse(
-                fliprUser.id(),
-                fliprUser.username(),
-                fliprUser.fliprs(),
-                fliprUser.likedFliprs()
+        return new TestBenchOperatorResponse(
+                testBenchOperator.operatorId(),
+                testBenchOperator.username(),
+                testBenchOperator.firstName(),
+                testBenchOperator.lastName(),
+                testBenchOperator.eMail(),
+                testBenchOperator.testBench()
         );
     }
 
-
-    public TestBenchOperator updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) throws NoSuchTestBenchOperatorException {
-        testBenchOperatorRepository.findById(operatorId)
-                .orElseThrow(() -> new NoSuchTestBenchOperatorException(operatorId));
-        return testBenchOperatorRepository
-                .save(new TestBenchOperator(
-                        operatorId,
-                        updatedOperator.firstName(),
-                        updatedOperator.lastName(),
-                        updatedOperator.eMail(),
-                        updatedOperator.testBench()
-                ));
-    }
+//    public TestBenchOperator updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) throws NoSuchTestBenchOperatorException {
+//        testBenchOperatorRepository.findById(operatorId)
+//                .orElseThrow(() -> new NoSuchTestBenchOperatorException(operatorId));
+//        return testBenchOperatorRepository
+//                .save(new TestBenchOperator(
+//                        operatorId,
+//                        updatedOperator.firstName(),
+//                        updatedOperator.lastName(),
+//                        updatedOperator.eMail(),
+//                        updatedOperator.testBench()
+//                ));
+//    }
 
     public void deleteTestBenchOperator(String operatorId) {
         testBenchOperatorRepository.deleteById(operatorId);

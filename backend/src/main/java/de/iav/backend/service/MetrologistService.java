@@ -36,7 +36,6 @@ public class MetrologistService {
 
         return new MetrologistResponse(
                 metrologist.username(),
-                metrologist.password(),
                 metrologist.firstName(),
                 metrologist.lastName(),
                 metrologist.eMail()
