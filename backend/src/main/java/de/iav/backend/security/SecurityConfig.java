@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(customizer -> {
-                    customizer.requestMatchers(HttpMethod.GET, "").permitAll();
+                    customizer.requestMatchers(HttpMethod.GET, "**").permitAll();
                     customizer.requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll();
                     customizer.anyRequest().permitAll();
                 })
