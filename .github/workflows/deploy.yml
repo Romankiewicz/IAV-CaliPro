@@ -1,9 +1,7 @@
 name: "Deploy CaliPro"
 
-on:
-  push:
-    branches:
-      - main
+on: push
+
 
 jobs:
   build-backend:
