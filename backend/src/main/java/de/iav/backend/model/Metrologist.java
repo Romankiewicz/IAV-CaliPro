@@ -4,7 +4,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Document("Metrologist")
+@Document(collection = "Metrologist")
 public record Metrologist(
         @MongoId
         String metrologistId,

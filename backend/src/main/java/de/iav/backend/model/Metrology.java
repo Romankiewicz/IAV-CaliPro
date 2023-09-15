@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.Date;
 
-@Document("Metrology")
+@Document(collection = "Metrology")
 public record Metrology(
         @MongoId
         String metrologyId,

@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.List;
 
-@Document(collation = "Operator")
+@Document(collection = "Operator")
 public record TestBenchOperator(
         @MongoId
         String operatorId,

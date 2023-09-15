@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import java.util.Date;
 import java.util.List;
 
-@Document(collation = "TestBench")
+@Document(collection = "TestBench")
 public record TestBench(
         @MongoId
         String benchId,

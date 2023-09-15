@@ -1,13 +1,14 @@
 package de.iav.backend.service;
 
 import de.iav.backend.exceptions.MetologistAlredyExistException;
-import de.iav.backend.exceptions.NoSuchMetrologistException;
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
 import de.iav.backend.model.MetrologistResponse;
 import de.iav.backend.repository.MetrologistRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,10 +44,8 @@ public class MetrologistService {
     }
 
 
-    public Metrologist getMetrologistById(String metrologistId) throws NoSuchMetrologistException {
-        return metrologistRepository
-                .findById(metrologistId)
-                .orElseThrow(()->new NoSuchMetrologistException(metrologistId));
+    public Optional<Metrologist> getMetologistById(String metrologistId) {
+        return metrologistRepository.findMetrologistByMetrologistId(metrologistId);
     }
 
 
@@ -62,7 +61,7 @@ public class MetrologistService {
 //        );
 //    }
 
-    public void deleteMetrologist(String metrologistId){
+    public void deleteMetrologist(String metrologistId) {
         metrologistRepository.deleteById(metrologistId);
     }
 
