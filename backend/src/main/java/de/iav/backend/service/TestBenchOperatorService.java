@@ -52,7 +52,7 @@ public class TestBenchOperatorService {
         );
     }
 
-    public TestBenchOperatorResponse updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) {
+    public TestBenchOperatorResponse updateTestBenchOperatorById(String operatorId, TestBenchOperatorDTO updatedOperator) {
         testBenchOperatorRepository.findById(operatorId);
 
         TestBenchOperator testBenchOperator = new TestBenchOperator(
@@ -62,8 +62,9 @@ public class TestBenchOperatorService {
                 updatedOperator.firstName(),
                 updatedOperator.lastName(),
                 updatedOperator.eMail(),
-                updatedOperator.testBench()
+                testBenchOperatorRepository.findById(operatorId).get().testBench()
         );
+
 
         testBenchOperatorRepository.save(testBenchOperator);
 

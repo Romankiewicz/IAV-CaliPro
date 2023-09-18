@@ -19,5 +19,5 @@ public record TestBenchOperator(
         String eMail,
         @DBRef(lazy = true)
         List<TestBench> testBench
-        ) {
+) {
 }

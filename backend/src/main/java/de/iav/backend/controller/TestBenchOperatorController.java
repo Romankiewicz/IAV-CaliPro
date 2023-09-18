@@ -54,7 +54,7 @@ public class TestBenchOperatorController {
 
     @PutMapping("/{operatorId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public TestBenchOperatorResponse updateTestBenchOperator(@PathVariable String operatorId, @RequestBody TestBenchOperator testBenchOperatorToUpdate) {
+    public TestBenchOperatorResponse updateTestBenchOperator(@PathVariable String operatorId, @RequestBody TestBenchOperatorDTO testBenchOperatorToUpdate) {
         return testBenchOperatorService.updateTestBenchOperatorById(operatorId, testBenchOperatorToUpdate);
     }
 
