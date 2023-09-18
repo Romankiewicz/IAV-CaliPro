@@ -53,18 +53,31 @@ public class TestBenchOperatorService {
         );
     }
 
-//    public TestBenchOperator updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) throws NoSuchTestBenchOperatorException {
-//        testBenchOperatorRepository.findById(operatorId)
-//                .orElseThrow(() -> new NoSuchTestBenchOperatorException(operatorId));
-//        return testBenchOperatorRepository
-//                .save(new TestBenchOperator(
-//                        operatorId,
-//                        updatedOperator.firstName(),
-//                        updatedOperator.lastName(),
-//                        updatedOperator.eMail(),
-//                        updatedOperator.testBench()
-//                ));
-//    }
+    public TestBenchOperatorResponse updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) throws NoSuchTestBenchOperatorException {
+        testBenchOperatorRepository.findById(operatorId)
+                .orElseThrow(() -> new NoSuchTestBenchOperatorException(operatorId));
+
+        TestBenchOperator testBenchOperator =new TestBenchOperator(
+                operatorId,
+                updatedOperator.username(),
+                argon2Service.encode(updatedOperator.password()),
+                updatedOperator.firstName(),
+                updatedOperator.lastName(),
+                updatedOperator.eMail(),
+                updatedOperator.testBench()
+        );
+
+        testBenchOperatorRepository.save(testBenchOperator);
+
+        return new TestBenchOperatorResponse(
+                testBenchOperator.operatorId(),
+                testBenchOperator.username(),
+                testBenchOperator.firstName(),
+                testBenchOperator.lastName(),
+                testBenchOperator.eMail(),
+                testBenchOperator.testBench()
+        );
+    }
 
     public void deleteTestBenchOperator(String operatorId) {
         testBenchOperatorRepository.deleteById(operatorId);

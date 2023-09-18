@@ -30,11 +30,11 @@ public class TestBenchOperatorController {
         return testBenchOperatorService.addTestBenchOperator(testBenchOperatorToAdd);
     }
 
-//    @PutMapping("/{operatorId}")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public TestBenchOperator updateTestBenchOperator(@PathVariable String operatorId, @RequestBody TestBenchOperator testBenchOperatorToUpdate) throws NoSuchTestBenchOperatorException {
-//        return testBenchOperatorService.updateTestBenchOperatorById(operatorId, testBenchOperatorToUpdate);
-//    }
+    @PutMapping("/{operatorId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TestBenchOperatorResponse updateTestBenchOperator(@PathVariable String operatorId, @RequestBody TestBenchOperator testBenchOperatorToUpdate) throws NoSuchTestBenchOperatorException {
+        return testBenchOperatorService.updateTestBenchOperatorById(operatorId, testBenchOperatorToUpdate);
+    }
 
     @DeleteMapping("/{operatorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
