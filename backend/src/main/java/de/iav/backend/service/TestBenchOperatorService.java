@@ -53,9 +53,8 @@ public class TestBenchOperatorService {
         );
     }
 
-    public TestBenchOperatorResponse updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) throws NoSuchTestBenchOperatorException {
-        testBenchOperatorRepository.findById(operatorId)
-                .orElseThrow(() -> new NoSuchTestBenchOperatorException(operatorId));
+    public TestBenchOperatorResponse updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) {
+        testBenchOperatorRepository.findById(operatorId);
 
         TestBenchOperator testBenchOperator =new TestBenchOperator(
                 operatorId,
