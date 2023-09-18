@@ -1,6 +1,5 @@
 package de.iav.backend.service;
 
-import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.exceptions.TestBenchOperatorAlreadyExistException;
 import de.iav.backend.model.TestBenchOperator;
 import de.iav.backend.model.TestBenchOperatorDTO;
@@ -26,8 +25,8 @@ public class TestBenchOperatorService {
     }
 
 
-    public TestBenchOperatorResponse addTestBenchOperator(TestBenchOperatorDTO operatorToAdd){
-        if(testBenchOperatorRepository.existsByUsername(operatorToAdd.username())) {
+    public TestBenchOperatorResponse addTestBenchOperator(TestBenchOperatorDTO operatorToAdd) {
+        if (testBenchOperatorRepository.existsByUsername(operatorToAdd.username())) {
             throw new TestBenchOperatorAlreadyExistException();
         }
 
@@ -56,7 +55,7 @@ public class TestBenchOperatorService {
     public TestBenchOperatorResponse updateTestBenchOperatorById(String operatorId, TestBenchOperator updatedOperator) {
         testBenchOperatorRepository.findById(operatorId);
 
-        TestBenchOperator testBenchOperator =new TestBenchOperator(
+        TestBenchOperator testBenchOperator = new TestBenchOperator(
                 operatorId,
                 updatedOperator.username(),
                 argon2Service.encode(updatedOperator.password()),
