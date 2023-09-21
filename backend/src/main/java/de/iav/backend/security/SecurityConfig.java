@@ -1,15 +1,17 @@
 package de.iav.backend.security;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -22,28 +24,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .authorizeHttpRequests(c -> {
+                    c.requestMatchers(HttpMethod.GET, "/**").permitAll();
+                    c.requestMatchers(HttpMethod.POST, "/api/metrologist/**").permitAll();
+                    c.requestMatchers(HttpMethod.GET, "/test").permitAll();
+                    c.anyRequest().permitAll();
+                })
+                .httpBasic(Customizer.withDefaults())
+                .formLogin(AbstractHttpConfigurer::disable)
+                .logout(Customizer.withDefaults())
+                .build();
     }
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-//                .authorizeHttpRequests(c -> {
-//                    c.requestMatchers(HttpMethod.POST, "/api/metrologist/**").permitAll();
-//                    c.requestMatchers(HttpMethod.GET, "/test").permitAll();
-//                    c.anyRequest().permitAll();
-//                })
-//                .httpBasic(Customizer.withDefaults())
-//                .formLogin(AbstractHttpConfigurer::disable)
-//                .logout(Customizer.withDefaults())
-//                .build();
 }
 
 
