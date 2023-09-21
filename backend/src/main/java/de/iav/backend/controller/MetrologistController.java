@@ -4,10 +4,13 @@ import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
 import de.iav.backend.model.MetrologistResponse;
 import de.iav.backend.service.MetrologistService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +19,27 @@ import java.util.Optional;
 public class MetrologistController {
 
     private final MetrologistService metrologistService;
+
+
+    @GetMapping("/me")
+    public String helloMe(Principal principal) {
+        if (principal != null) {
+            return principal.getName();
+        }
+        return "anonymousUser";
+    }
+    @PostMapping("/login")
+    public Object login() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+
+    @PostMapping("/logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.invalidate();
+        SecurityContextHolder.clearContext();
+        return "anonymousUser";
+    }
 
     @GetMapping("/{metrologistId}")
     @ResponseStatus(HttpStatus.ACCEPTED)

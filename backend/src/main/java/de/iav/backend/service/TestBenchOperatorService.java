@@ -1,10 +1,12 @@
 package de.iav.backend.service;
 
 import de.iav.backend.exceptions.TestBenchOperatorAlreadyExistException;
+import de.iav.backend.model.TestBench;
 import de.iav.backend.model.TestBenchOperator;
 import de.iav.backend.model.TestBenchOperatorDTO;
 import de.iav.backend.model.TestBenchOperatorResponse;
 import de.iav.backend.repository.TestBenchOperatorRepository;
+import de.iav.backend.security.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +39,8 @@ public class TestBenchOperatorService {
                 operatorToAdd.firstName(),
                 operatorToAdd.lastName(),
                 operatorToAdd.eMail(),
-                new ArrayList<>()
+                new ArrayList<>(),
+                UserRole.Operator
         );
 
         testBenchOperatorRepository.save(testBenchOperator);
@@ -62,8 +65,11 @@ public class TestBenchOperatorService {
                 updatedOperator.firstName(),
                 updatedOperator.lastName(),
                 updatedOperator.eMail(),
-                testBenchOperatorRepository.findById(operatorId).get().testBench()
+                testBenchOperatorRepository.findById(operatorId).get().testBench(),
+                UserRole.Operator
+
         );
+
 
 
         testBenchOperatorRepository.save(testBenchOperator);

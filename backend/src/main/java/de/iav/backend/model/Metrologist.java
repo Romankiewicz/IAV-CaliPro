@@ -1,5 +1,6 @@
 package de.iav.backend.model;
 
+import de.iav.backend.security.UserRole;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -13,6 +14,7 @@ public record Metrologist(
         String password,
         String firstName,
         String lastName,
-        String eMail
+        String eMail,
+        UserRole role
 ) {
 }

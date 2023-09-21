@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface TestBenchOperatorRepository extends MongoRepository<TestBenchOperator,String> {
 
     Optional<TestBenchOperator>findTestBenchOperatorByOperatorId(String operatorId);
+    Optional<TestBenchOperator> findTestBenchOperatorByUsername(String username);
     boolean existsByUsername(String username);
 }

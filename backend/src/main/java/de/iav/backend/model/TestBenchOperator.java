@@ -1,5 +1,6 @@
 package de.iav.backend.model;
 
+import de.iav.backend.security.UserRole;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,6 +19,7 @@ public record TestBenchOperator(
         String lastName,
         String eMail,
         @DBRef(lazy = true)
-        List<TestBench> testBench
+        List<TestBench> testBench,
+        UserRole role
 ) {
 }

@@ -5,6 +5,7 @@ import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
 import de.iav.backend.model.MetrologistResponse;
 import de.iav.backend.repository.MetrologistRepository;
+import de.iav.backend.security.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,8 @@ public class MetrologistService {
                 argon2Service.encode(metrologistToAdd.password()),
                 metrologistToAdd.firstName(),
                 metrologistToAdd.lastName(),
-                metrologistToAdd.email()
+                metrologistToAdd.email(),
+                UserRole.Metrologist
         );
         metrologistRepository.save(metrologist);
 
