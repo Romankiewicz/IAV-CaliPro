@@ -2,7 +2,6 @@ package de.iav.backend.security;
 
 import de.iav.backend.exceptions.TestBenchOperatorUsernameNotFoundExeption;
 import de.iav.backend.repository.TestBenchOperatorRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
