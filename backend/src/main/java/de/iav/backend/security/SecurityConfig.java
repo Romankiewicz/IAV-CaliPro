@@ -1,6 +1,7 @@
 package de.iav.backend.security;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig {
 
     @Bean
@@ -28,7 +30,7 @@ public class SecurityConfig {
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(c -> {
                     c.requestMatchers(HttpMethod.GET, "/**").permitAll();
-                    c.requestMatchers(HttpMethod.POST, "/api/metrologist/**").permitAll();
+                    c.requestMatchers("/api/metrologist/**").permitAll();
                     c.requestMatchers(HttpMethod.GET, "/test").permitAll();
                     c.anyRequest().permitAll();
                 })
@@ -37,6 +39,8 @@ public class SecurityConfig {
                 .logout(Customizer.withDefaults())
                 .build();
     }
+
 }
+
 
 
