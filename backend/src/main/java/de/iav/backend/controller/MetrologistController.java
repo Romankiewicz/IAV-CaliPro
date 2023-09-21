@@ -47,7 +47,7 @@ public class MetrologistController {
         return metrologistService.getMetologistById(metrologistId);
     }
 
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public MetrologistResponse addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
         return metrologistService.addMetrologist(metrologistToAdd);
