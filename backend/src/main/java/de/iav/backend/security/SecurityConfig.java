@@ -29,9 +29,11 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(c -> {
-                    c.requestMatchers(HttpMethod.GET, "/**").permitAll();
-                    c.requestMatchers("/api/metrologist/**").permitAll();
-                    c.requestMatchers(HttpMethod.GET, "/test").permitAll();
+                    c.requestMatchers("/api/metrologist/register").permitAll();
+                    c.requestMatchers("/api/operators/register").permitAll();
+                    c.requestMatchers(HttpMethod.DELETE, "/api/metrologist/").authenticated();
+                    c.requestMatchers(HttpMethod.GET, "/api/metrologist/").hasRole(UserRole.Metrologist.name());
+                    c.requestMatchers(HttpMethod.GET, "/test/operators/").hasRole(UserRole.Operator.name());
                     c.anyRequest().permitAll();
                 })
                 .httpBasic(Customizer.withDefaults())

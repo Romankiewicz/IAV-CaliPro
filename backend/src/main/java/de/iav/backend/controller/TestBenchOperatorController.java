@@ -46,7 +46,7 @@ public class TestBenchOperatorController {
         return "anonymousUser";
     }
 
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public TestBenchOperatorResponse addTestBenchOperator(@RequestBody TestBenchOperatorDTO testBenchOperatorToAdd) {
         return testBenchOperatorService.addTestBenchOperator(testBenchOperatorToAdd);
