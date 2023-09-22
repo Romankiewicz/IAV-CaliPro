@@ -31,9 +31,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(c -> {
                     c.requestMatchers("/api/metrologist/register").permitAll();
                     c.requestMatchers("/api/operators/register").permitAll();
+                    c.requestMatchers(HttpMethod.PUT, "/api/**").permitAll();
+                    c.requestMatchers(HttpMethod.POST, "/api/metrologist/login").permitAll();
+                    c.requestMatchers(HttpMethod.POST, "/api/operators/login").permitAll();
                     c.requestMatchers(HttpMethod.DELETE, "/api/metrologist/").authenticated();
-                    c.requestMatchers(HttpMethod.GET, "/api/metrologist/").hasRole(UserRole.Metrologist.name());
-                    c.requestMatchers(HttpMethod.GET, "/test/operators/").hasRole(UserRole.Operator.name());
+                    c.requestMatchers(HttpMethod.GET, "/api/metrologist/").permitAll();//.hasRole(UserRole.Metrologist.name());
+                    c.requestMatchers(HttpMethod.GET, "/api/operators/").permitAll();//.hasRole(UserRole.Operator.name());
                     c.anyRequest().permitAll();
                 })
                 .httpBasic(Customizer.withDefaults())
