@@ -40,7 +40,7 @@ public class TestBenchOperatorService {
                 operatorToAdd.lastName(),
                 operatorToAdd.eMail(),
                 new ArrayList<>(),
-                UserRole.Operator
+                UserRole.OPERATOR
         );
 
         testBenchOperatorRepository.save(testBenchOperator);
@@ -66,7 +66,7 @@ public class TestBenchOperatorService {
                 updatedOperator.lastName(),
                 updatedOperator.eMail(),
                 testBenchOperatorRepository.findById(operatorId).get().testBench(),
-                UserRole.Operator
+                UserRole.OPERATOR
 
         );
 

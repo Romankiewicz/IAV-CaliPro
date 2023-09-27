@@ -33,7 +33,7 @@ public class MetrologistService {
                 metrologistToAdd.firstName(),
                 metrologistToAdd.lastName(),
                 metrologistToAdd.email(),
-                UserRole.Metrologist
+                UserRole.METROLOGIST
         );
         metrologistRepository.save(metrologist);
 

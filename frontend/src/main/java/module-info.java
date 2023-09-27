@@ -11,11 +11,11 @@ module de.iav.frontend {
     opens de.iav.frontend.model;
     exports de.iav.frontend.model;
 
-    opens de.iav.frontend to javafx.fxml;
-    exports de.iav.frontend;
-
-    opens de.iav.frontend.controller;
-    exports de.iav.frontend.controller;
+//    opens de.iav.frontend to javafx.fxml;
+//    exports de.iav.frontend;
+//
+//    opens de.iav.frontend.controller;
+//    exports de.iav.frontend.controller;
 
     opens de.iav.frontend.service;
     exports de.iav.frontend.service;
