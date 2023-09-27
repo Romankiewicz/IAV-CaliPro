@@ -11,7 +11,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/de/iav/frontend/fxml/CaliPro_StartView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1800, 1200);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 830);
         stage.setTitle("IAV CaliPro");
         stage.setScene(scene);
         stage.show();
