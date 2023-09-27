@@ -1,5 +1,7 @@
 package de.iav.frontend.model;
 
+import de.iav.frontend.security.UserRole;
+
 import java.util.List;
 
 public record TestBenchOperator(
