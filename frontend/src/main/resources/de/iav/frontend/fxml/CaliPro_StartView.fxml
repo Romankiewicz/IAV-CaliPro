@@ -15,7 +15,7 @@
             <Image url="@../png/Background.png" />
          </image>
       </ImageView>
-      <Button fx:id="PB_REGISTER" layoutX="650.0" layoutY="620.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Registrieren">
+      <Button fx:id="PB_REGISTRATION" layoutX="650.0" layoutY="620.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Registrieren">
          <font>
             <Font name="Baloo 2 Regular" size="22.0" />
          </font>
