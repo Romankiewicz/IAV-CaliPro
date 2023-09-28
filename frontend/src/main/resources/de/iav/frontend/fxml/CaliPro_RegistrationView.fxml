@@ -4,6 +4,7 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -33,11 +34,6 @@
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="TF_PASSWORD" layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Passwort">
-         <effect>
-            <DropShadow />
-         </effect>
-      </TextField>
       <TextField fx:id="TF_FIRSTNAME" layoutX="500.0" layoutY="300.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Vorname">
          <effect>
             <DropShadow />
@@ -63,5 +59,10 @@
             <DropShadow />
          </effect>
       </Button>
+      <PasswordField layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0" promptText="Passwort" style="-fx-background-color: BAB9B9;" text="Passwort">
+         <effect>
+            <DropShadow />
+         </effect>
+      </PasswordField>
    </children>
 </AnchorPane>
