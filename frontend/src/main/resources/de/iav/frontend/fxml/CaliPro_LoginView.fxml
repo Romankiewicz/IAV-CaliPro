@@ -16,7 +16,7 @@
             <Image url="@../png/Background.png" />
          </image>
       </ImageView>
-      <TextField fx:id="TF_USERNAME" layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0" promptText="Benutzername" style="-fx-font-weight: -fx-background-color: BAB9B9;">
+      <TextField fx:id="TF_USERNAME" layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0" promptText="Benutzername" style="-fx-background-color: FFFFFF;">
          <effect>
             <DropShadow />
          </effect>
@@ -24,7 +24,7 @@
             <Insets />
          </opaqueInsets>
       </TextField>
-      <PasswordField fx:id="TF_PASSWORD" layoutX="500.0" layoutY="300.0" prefHeight="30.0" prefWidth="200.0" promptText="Passwort" style="-fx-alignment: -fx-background-color: BAB9B9;">
+      <PasswordField fx:id="TF_PASSWORD" layoutX="500.0" layoutY="300.0" prefHeight="30.0" prefWidth="200.0" promptText="Passwort" style="-fx-background-color: FFFFFF;">
          <effect>
             <DropShadow />
          </effect>
