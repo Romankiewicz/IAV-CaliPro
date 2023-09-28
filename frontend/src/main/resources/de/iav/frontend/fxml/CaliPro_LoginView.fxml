@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -15,17 +16,20 @@
             <Image url="@../png/Background.png" />
          </image>
       </ImageView>
-      <TextField fx:id="TF_USERNAME" layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Benutzername">
+      <TextField fx:id="TF_USERNAME" layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0" promptText="Benutzername" style="-fx-font-weight: -fx-background-color: BAB9B9;">
          <effect>
             <DropShadow />
          </effect>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </TextField>
-      <PasswordField fx:id="TF_PASSWORD" layoutX="500.0" layoutY="300.0" prefHeight="30.0" prefWidth="200.0" promptText="Passwort" style="-fx-background-color: BAB9B9;" text="Passwort">
+      <PasswordField fx:id="TF_PASSWORD" layoutX="500.0" layoutY="300.0" prefHeight="30.0" prefWidth="200.0" promptText="Passwort" style="-fx-alignment: -fx-background-color: BAB9B9;">
          <effect>
             <DropShadow />
          </effect>
       </PasswordField>
-      <Button fx:id="PB_REGISTER" layoutX="960.0" layoutY="770.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Registrieren">
+      <Button fx:id="PB_LOGIN" layoutX="960.0" layoutY="770.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Login">
          <effect>
             <DropShadow />
          </effect>

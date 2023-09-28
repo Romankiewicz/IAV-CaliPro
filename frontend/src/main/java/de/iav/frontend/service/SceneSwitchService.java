@@ -45,9 +45,9 @@ public class SceneSwitchService {
 
     public void switchToLoginView(ActionEvent event) throws IOException {
 
-        FXMLLoader loaderRegistrationView = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/CaliPro_LoginView.fxml"));
+        FXMLLoader loaderLoginView = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/CaliPro_LoginView.fxml"));
 
-        Scene sceneRegView = new Scene(loaderRegistrationView.load());
+        Scene sceneRegView = new Scene(loaderLoginView.load());
 
         Stage stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
 

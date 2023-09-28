@@ -18,7 +18,7 @@
             <Image url="@../png/Background.png" />
          </image>
       </ImageView>
-      <ChoiceBox fx:id="CB_ROLE" layoutX="500.0" layoutY="180.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;" value="Als Prüfstandsfahrer registrieren">
+      <ChoiceBox fx:id="CB_ROLE" layoutX="500.0" layoutY="180.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: FFFFFF;" value="Als Prüfstandsfahrer registrieren">
          <items>
              <FXCollections fx:factory="observableArrayList">
                  <String fx:value="Als Prüfstandsfahrer registrieren" />
@@ -29,22 +29,22 @@
             <DropShadow />
          </effect>
       </ChoiceBox>
-      <TextField fx:id="TF_USERNAME" layoutX="500.0" layoutY="220.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Benutzername">
+      <TextField fx:id="TF_USERNAME" layoutX="500.0" layoutY="220.0" prefHeight="30.0" prefWidth="200.0" promptText="Benutzername" style="-fx-background-color: ffffff;">
          <effect>
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="TF_FIRSTNAME" layoutX="500.0" layoutY="300.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Vorname">
+      <TextField fx:id="TF_FIRSTNAME" layoutX="500.0" layoutY="300.0" prefHeight="30.0" prefWidth="200.0" promptText="Vorname" style="-fx-background-color: FFFFFF;">
          <effect>
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="TF_LASTNAME" layoutX="500.0" layoutY="340.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Nachname">
+      <TextField fx:id="TF_LASTNAME" layoutX="500.0" layoutY="340.0" prefHeight="30.0" prefWidth="200.0" promptText="Nachname" style="-fx-background-color: FFFFFF;">
          <effect>
             <DropShadow />
          </effect>
       </TextField>
-      <TextField fx:id="TF_EMAIL" layoutX="500.0" layoutY="380.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Emailadresse">
+      <TextField fx:id="TF_EMAIL" layoutX="500.0" layoutY="380.0" prefHeight="30.0" prefWidth="200.0" promptText="Emailadresse" style="-fx-background-color: FFFFFF;">
          <effect>
             <DropShadow />
          </effect>
@@ -59,7 +59,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <PasswordField layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0" promptText="Passwort" style="-fx-background-color: BAB9B9;" text="Passwort">
+      <PasswordField layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0" promptText="Passwort" style="-fx-background-color: FFFFFF;">
          <effect>
             <DropShadow />
          </effect>
