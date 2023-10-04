@@ -13,8 +13,6 @@ import java.io.IOException;
 
 public class RegistrationViewController {
 
-//    private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
-
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
 
@@ -82,7 +80,7 @@ public class RegistrationViewController {
 
     @FXML
     public void onClick_PB_RETURN(ActionEvent event) throws IOException {
-        sceneSwitchService.getInstance().switchToStartView(event);
+        SceneSwitchService.getInstance().switchToStartView(event);
     }
 
     @FXML
@@ -105,7 +103,7 @@ public class RegistrationViewController {
                     } else {
                         LF_ERROR.setText("Registrierung fehlgeschlagen!!!");
                     }
-                    sceneSwitchService.getInstance().switchToStartView(event);
+                    SceneSwitchService.getInstance().switchToStartView(event);
                 } else {
                     LF_ERROR.setText(AuthenticationService.getInstance().getErrorMassage());
                 }
