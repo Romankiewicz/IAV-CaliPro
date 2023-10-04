@@ -53,7 +53,7 @@ public class AuthenticationService {
 
 
     private boolean handleStatusCheckAndSetSessionId(int statusCode, CompletableFuture<HttpResponse<String>> response, String errorMessage) {
-        if (statusCode == 200) {
+        if (statusCode == 201) {
             setUsername(response.join().body());
             String responseSessionId = response.join().headers().firstValue("Set-Cookie").orElseThrow();
             setSessionId(responseSessionId.substring(11, responseSessionId.indexOf(";")));
@@ -78,7 +78,7 @@ public class AuthenticationService {
         var response = authenticationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
         int statusCode = response.join().statusCode();
 
-        return handleStatusCheckAndSetSessionId(statusCode, response, "Login failed. Username or password is wrong!");
+        return handleStatusCheckAndSetSessionId(statusCode, response, "Login fehlgeschlagen!");
     }
 
     public String getUsername() {

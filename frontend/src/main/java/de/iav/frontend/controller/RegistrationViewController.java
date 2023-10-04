@@ -105,7 +105,7 @@ public class RegistrationViewController {
                     } else {
                         LF_ERROR.setText("Registrierung fehlgeschlagen!!!");
                     }
-                    SceneSwitchService.getInstance().switchToStartView(event);
+                    sceneSwitchService.getInstance().switchToStartView(event);
                 } else {
                     LF_ERROR.setText(AuthenticationService.getInstance().getErrorMassage());
                 }
