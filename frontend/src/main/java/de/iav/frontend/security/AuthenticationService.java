@@ -7,6 +7,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Base64;
 import java.util.concurrent.CompletableFuture;
 
 public class AuthenticationService {
@@ -65,6 +66,31 @@ public class AuthenticationService {
             }
             return false;
         }
+    }
+
+    public boolean login(String username, String password) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/login"))
+                .POST(HttpRequest.BodyPublishers.ofString(""))
+                .header("Authorization", "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes()))
+                .build();
+
+        var response = authenticationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        int statusCode = response.join().statusCode();
+
+        return handleStatusCheckAndSetSessionId(statusCode, response, "Login failed. Username or password is wrong!");
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public String getErrorMassage() {
+        return errorMessage;
     }
 
     public void setUsername(String username) {

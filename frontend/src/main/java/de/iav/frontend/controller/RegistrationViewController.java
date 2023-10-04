@@ -1,0 +1,115 @@
+package de.iav.frontend.controller;
+
+import de.iav.frontend.model.MetrologistDTO;
+import de.iav.frontend.security.AuthenticationService;
+import de.iav.frontend.security.UserRole;
+import de.iav.frontend.service.RegistrationViewService;
+import de.iav.frontend.service.SceneSwitchService;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+
+import java.io.IOException;
+
+public class RegistrationViewController {
+
+    private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+
+    @FXML
+    private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
+
+    @FXML
+    private final RegistrationViewService registrationViewService = RegistrationViewService.getInstance();
+
+    @FXML
+    private Button PB_RETURN;
+    @FXML
+    private Button PB_REGISTER;
+    @FXML
+    private ChoiceBox CB_ROLE;
+    @FXML
+    private TextField TF_USERNAME;
+    @FXML
+    private TextField TF_FIRSTNAME;
+    @FXML
+    private TextField TF_LASTNAME;
+    @FXML
+    private TextField TF_EMAIL;
+    @FXML
+    private PasswordField PF_PASSWORD;
+    @FXML
+    private Label LF_ERROR;
+
+    private UserRole selectedRole;
+
+    public void initialize() {
+
+        selectedRole = UserRole.ADMIN;
+
+        CB_ROLE.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue.equals("Als Prüfstandsfahrer registrieren")) {
+                        this.selectedRole = UserRole.OPERATOR;
+                    } else if (newValue.equals("Als Messtechniker registrieren")) {
+                        this.selectedRole = UserRole.METROLOGIST;
+                    }
+                }
+        );
+    }
+
+    private boolean isEveryTextFieldValid() {
+        if (TF_USERNAME.getText() == null || TF_USERNAME.getText().isEmpty()) {
+            LF_ERROR.setText("Bitte Benutzernamen eingeben");
+            return false;
+        } else if (TF_FIRSTNAME.getText() == null || TF_FIRSTNAME.getText().isEmpty()) {
+            LF_ERROR.setText("Btte Vornamen eingeben");
+            return false;
+        } else if (TF_LASTNAME.getText() == null || TF_LASTNAME.getText().isEmpty()) {
+            LF_ERROR.setText("Bitte Namen eingeben");
+            return false;
+        } else if (TF_EMAIL.getText() == null || TF_EMAIL.getText().isEmpty()) {
+            LF_ERROR.setText("Bitte E-Mailadresse eingeben");
+            return false;
+        } else if (PF_PASSWORD.getText() == null || PF_PASSWORD.getText().isEmpty()) {
+            LF_ERROR.setText("Ohne Passwort geht hier garnichts...");
+            return false;
+        } else {
+            LF_ERROR.setText("");
+            return true;
+        }
+    }
+
+
+    @FXML
+    public void onClick_PB_RETURN(ActionEvent event) throws IOException {
+        sceneSwitchService.getInstance().switchToStartView(event);
+    }
+
+    @FXML
+    public void onClick_PB_REGISTER_SwitchToNextView(ActionEvent event) throws IOException {
+        if(isEveryTextFieldValid()) {
+            String userName = TF_USERNAME.getText();
+            String firstName = TF_FIRSTNAME.getText();
+            String lastName = TF_LASTNAME.getText();
+            String email = TF_EMAIL.getText();
+            String password = PF_PASSWORD.getText();
+
+            if (selectedRole.equals(UserRole.METROLOGIST)) {
+                if (AuthenticationService.getInstance().addMetrologist(userName, password)) {
+                    MetrologistDTO newMetrologist = new MetrologistDTO(userName, password, firstName, lastName, email);
+
+                    boolean result = AuthenticationService.getInstance().login(userName, password);
+
+                    if (result && !AuthenticationService.getInstance().getUsername().equals("anonymousUser")) {
+                        RegistrationViewService.getInstance().addMetrologist(newMetrologist, AuthenticationService.getInstance().getSessionId());
+                    } else {
+                        LF_ERROR.setText("Registrierung fehlgeschlagen!!!");
+                    }
+                    SceneSwitchService.getInstance().switchToStartView(event);
+                } else {
+                    LF_ERROR.setText(AuthenticationService.getInstance().getErrorMassage());
+                }
+            }
+        }
+    }
+}
