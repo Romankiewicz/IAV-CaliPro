@@ -6,6 +6,10 @@ import de.iav.backend.repository.MetrologyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -47,28 +51,6 @@ public class MetrologyService {
                                 metrologyToUpdate.type(),
                                 metrologyToUpdate.maintenance(),
                                 metrologyToUpdate.calibration()));
-    }
-
-    public Metrology setMetrologyMaintenanceDate(String metrologyId, int date, int month, int year) throws NoSuchMetrologyException {
-        Metrology metrology = metrologyRepository
-                .findById(metrologyId)
-                .orElseThrow(() -> new NoSuchMetrologyException(metrologyId));
-        metrology.maintenance().setDate(date);
-        metrology.maintenance().setMonth(month);
-        metrology.maintenance().setYear(year);
-        metrologyRepository.save(metrology);
-        return metrology;
-    }
-
-    public Metrology setMetrologyCalibrationDate(String metrologyId, int date, int month, int year) throws NoSuchMetrologyException {
-        Metrology metrology = metrologyRepository
-                .findById(metrologyId)
-                .orElseThrow(() -> new NoSuchMetrologyException(metrologyId));
-        metrology.calibration().setDate(date);
-        metrology.calibration().setMonth(month);
-        metrology.calibration().setYear(year);
-        metrologyRepository.save(metrology);
-        return metrology;
     }
 
 
