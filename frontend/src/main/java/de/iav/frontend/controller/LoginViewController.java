@@ -23,7 +23,7 @@ public class LoginViewController {
     @FXML
     private Button PB_RETURN;
     @FXML
-    private Button PB_RETURN;
+    private Button PB_LOGIN;
     @FXML
     private TextField TF_USERNAME;
     @FXML

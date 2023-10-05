@@ -21,7 +21,8 @@ public class SceneSwitchService {
 
     public void switchToStartView(ActionEvent event) throws IOException {
 
-        FXMLLoader loaderRegistrationView = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/CaliPro_StartView.fxml"));
+        FXMLLoader loaderRegistrationView = new FXMLLoader(getClass()
+                .getResource("/de/iav/frontend/fxml/CaliPro_StartView.fxml"));
 
         Scene sceneRegView = new Scene(loaderRegistrationView.load());
 
@@ -33,7 +34,8 @@ public class SceneSwitchService {
 
     public void switchToRegistrationView(ActionEvent event) throws IOException {
 
-        FXMLLoader loaderRegistrationView = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/CaliPro_RegistrationView.fxml"));
+        FXMLLoader loaderRegistrationView = new FXMLLoader(getClass()
+                .getResource("/de/iav/frontend/fxml/CaliPro_RegistrationView.fxml"));
 
         Scene sceneRegView = new Scene(loaderRegistrationView.load());
 
@@ -45,7 +47,8 @@ public class SceneSwitchService {
 
     public void switchToLoginView(ActionEvent event) throws IOException {
 
-        FXMLLoader loaderLoginView = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/CaliPro_LoginView.fxml"));
+        FXMLLoader loaderLoginView = new FXMLLoader(getClass()
+                .getResource("/de/iav/frontend/fxml/CaliPro_LoginView.fxml"));
 
         Scene sceneRegView = new Scene(loaderLoginView.load());
 

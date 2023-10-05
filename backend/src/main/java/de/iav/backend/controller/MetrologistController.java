@@ -34,6 +34,7 @@ public class MetrologistController {
 
     @PostMapping("/login")
     public Object login() {
+        System.out.println("user login:" + SecurityContextHolder.getContext().getAuthentication().getName());
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
     @PostMapping("/logout")
