@@ -14,7 +14,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/operators")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class TestBenchOperatorController {
 
@@ -46,19 +46,19 @@ public class TestBenchOperatorController {
         return "anonymousUser";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/operators/register")
     @ResponseStatus(HttpStatus.CREATED)
     public TestBenchOperatorResponse addTestBenchOperator(@RequestBody TestBenchOperatorDTO testBenchOperatorToAdd) {
         return testBenchOperatorService.addTestBenchOperator(testBenchOperatorToAdd);
     }
 
-    @PutMapping("/{operatorId}")
+    @PutMapping("/operators/{operatorId}")
     @ResponseStatus(HttpStatus.CREATED)
     public TestBenchOperatorResponse updateTestBenchOperator(@PathVariable String operatorId, @RequestBody TestBenchOperatorDTO testBenchOperatorToUpdate) {
         return testBenchOperatorService.updateTestBenchOperatorById(operatorId, testBenchOperatorToUpdate);
     }
 
-    @DeleteMapping("/{operatorId}")
+    @DeleteMapping("/operators/{operatorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTestBenchOperator(@PathVariable String operatorId) {
         testBenchOperatorService.deleteTestBenchOperator(operatorId);

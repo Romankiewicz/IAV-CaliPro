@@ -1,5 +1,6 @@
 package de.iav.backend.controller;
 
+import de.iav.backend.exceptions.NoSuchMetrologistException;
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
 import de.iav.backend.model.MetrologistResponse;
@@ -14,7 +15,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/metrologist")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class MetrologistController {
 
@@ -28,6 +29,7 @@ public class MetrologistController {
         }
         return "anonymousUser";
     }
+
     @PostMapping("/login")
     public Object login() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
@@ -47,19 +49,19 @@ public class MetrologistController {
         return metrologistService.getMetologistById(metrologistId);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/metrologist/register")
     @ResponseStatus(HttpStatus.CREATED)
     public MetrologistResponse addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
         return metrologistService.addMetrologist(metrologistToAdd);
     }
 
-//    @PutMapping("/{metrologistId}")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Metrologist updateMetrologist(@PathVariable String metrologistId, @RequestBody Metrologist metrologistToUpdate) throws NoSuchMetrologistException {
-//        return metrologistService.updateMetrologist(metrologistId, metrologistToUpdate);
-//    }
+    @PutMapping("/{metrologistId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public MetrologistResponse updateMetrologist(@PathVariable String metrologistId, @RequestBody MetrologistDTO updatedMetrologist) throws NoSuchMetrologistException {
+        return metrologistService.updateMetrologist(metrologistId, updatedMetrologist);
+    }
 
-    @DeleteMapping("/{metrologistId}")
+    @DeleteMapping("/metrologist/{metrologistId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMetrologist(@PathVariable String metrologistId) {
         metrologistService.deleteMetrologist(metrologistId);

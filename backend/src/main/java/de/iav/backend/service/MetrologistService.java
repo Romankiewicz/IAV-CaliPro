@@ -1,6 +1,7 @@
 package de.iav.backend.service;
 
 import de.iav.backend.exceptions.MetologistAlredyExistException;
+import de.iav.backend.exceptions.NoSuchMetrologistException;
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
 import de.iav.backend.model.MetrologistResponse;
@@ -38,6 +39,7 @@ public class MetrologistService {
         metrologistRepository.save(metrologist);
 
         return new MetrologistResponse(
+                metrologist.metrologistId(),
                 metrologist.username(),
                 metrologist.firstName(),
                 metrologist.lastName(),
@@ -51,17 +53,28 @@ public class MetrologistService {
     }
 
 
-//    public Metrologist updateMetrologist(String metrologistId, Metrologist metrologistToUpdate) throws NoSuchMetrologistException {
-//        getMetrologistById(metrologistId);
-//        return metrologistRepository.save(
-//                new Metrologist(
-//                        metrologistId,
-//                        metrologistToUpdate.firstName(),
-//                        metrologistToUpdate.lastName(),
-//                        metrologistToUpdate.eMail()
-//                )
-//        );
-//    }
+    public MetrologistResponse updateMetrologist(String metrologistId, MetrologistDTO updatedMetrologist) throws  NoSuchMetrologistException {
+      metrologistRepository.findById(metrologistId);
+
+      Metrologist metrologist = new Metrologist(
+              metrologistId,
+              updatedMetrologist.username(),
+              argon2Service.encode(updatedMetrologist.password()),
+              updatedMetrologist.firstName(),
+              updatedMetrologist.lastName(),
+              updatedMetrologist.email(),
+              UserRole.METROLOGIST
+      );
+
+      metrologistRepository.save(metrologist);
+      return new MetrologistResponse(
+              metrologist.metrologistId(),
+              metrologist.username(),
+              metrologist.firstName(),
+              metrologist.lastName(),
+              metrologist.eMail()
+      );
+    }
 
     public void deleteMetrologist(String metrologistId) {
         metrologistRepository.deleteById(metrologistId);

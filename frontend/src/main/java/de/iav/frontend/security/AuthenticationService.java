@@ -70,7 +70,7 @@ public class AuthenticationService {
 
     public boolean login(String username, String password) {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/login"))
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/login"))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
                 .header("Authorization", "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes()))
                 .build();

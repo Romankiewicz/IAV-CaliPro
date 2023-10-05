@@ -55,28 +55,6 @@ public class RegistrationViewController {
         );
     }
 
-    private boolean isEveryTextFieldValid() {
-        if (TF_USERNAME.getText() == null || TF_USERNAME.getText().isEmpty()) {
-            LF_ERROR.setText("Bitte Benutzernamen eingeben");
-            return false;
-        } else if (TF_FIRSTNAME.getText() == null || TF_FIRSTNAME.getText().isEmpty()) {
-            LF_ERROR.setText("Btte Vornamen eingeben");
-            return false;
-        } else if (TF_LASTNAME.getText() == null || TF_LASTNAME.getText().isEmpty()) {
-            LF_ERROR.setText("Bitte Namen eingeben");
-            return false;
-        } else if (TF_EMAIL.getText() == null || TF_EMAIL.getText().isEmpty()) {
-            LF_ERROR.setText("Bitte E-Mailadresse eingeben");
-            return false;
-        } else if (PF_PASSWORD.getText() == null || PF_PASSWORD.getText().isEmpty()) {
-            LF_ERROR.setText("Ohne Passwort geht hier garnichts...");
-            return false;
-        } else {
-            LF_ERROR.setText("");
-            return true;
-        }
-    }
-
 
     @FXML
     public void onClick_PB_RETURN(ActionEvent event) throws IOException {
@@ -108,6 +86,27 @@ public class RegistrationViewController {
                     LF_ERROR.setText(AuthenticationService.getInstance().getErrorMassage());
                 }
             }
+        }
+    }
+    private boolean isEveryTextFieldValid() {
+        if (TF_USERNAME.getText() == null || TF_USERNAME.getText().isEmpty()) {
+            LF_ERROR.setText("Bitte Benutzernamen eingeben");
+            return false;
+        } else if (TF_FIRSTNAME.getText() == null || TF_FIRSTNAME.getText().isEmpty()) {
+            LF_ERROR.setText("Btte Vornamen eingeben");
+            return false;
+        } else if (TF_LASTNAME.getText() == null || TF_LASTNAME.getText().isEmpty()) {
+            LF_ERROR.setText("Bitte Namen eingeben");
+            return false;
+        } else if (TF_EMAIL.getText() == null || TF_EMAIL.getText().isEmpty()) {
+            LF_ERROR.setText("Bitte E-Mailadresse eingeben");
+            return false;
+        } else if (PF_PASSWORD.getText() == null || PF_PASSWORD.getText().isEmpty()) {
+            LF_ERROR.setText("Ohne Passwort geht hier garnichts...");
+            return false;
+        } else {
+            LF_ERROR.setText("");
+            return true;
         }
     }
 }
