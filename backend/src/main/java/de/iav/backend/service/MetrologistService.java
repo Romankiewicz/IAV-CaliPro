@@ -1,6 +1,7 @@
 package de.iav.backend.service;
 
 import de.iav.backend.exceptions.MetologistAlredyExistException;
+import de.iav.backend.exceptions.MetrologistUsernameNotFoundException;
 import de.iav.backend.exceptions.NoSuchMetrologistException;
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
@@ -21,7 +22,7 @@ public class MetrologistService {
     private final Argon2Service argon2Service;
 
 
-    public MetrologistResponse addMetrologist(MetrologistDTO metrologistToAdd) {
+    public MetrologistResponse saveMetrologist(MetrologistDTO metrologistToAdd) {
 
         if (metrologistRepository.existsByUsername(metrologistToAdd.username())) {
             throw new MetologistAlredyExistException();
@@ -50,6 +51,19 @@ public class MetrologistService {
 
     public Optional<Metrologist> getMetologistById(String metrologistId) {
         return metrologistRepository.findMetrologistByMetrologistId(metrologistId);
+    }
+
+    public MetrologistResponse getMetrologistByUsername(String username) {
+        Metrologist metrologist = metrologistRepository
+                .findMetologistByUsername(username).orElseThrow(MetrologistUsernameNotFoundException::new);
+
+        return new MetrologistResponse(
+                metrologist.metrologistId(),
+                metrologist.username(),
+                metrologist.firstName(),
+                metrologist.lastName(),
+                metrologist.eMail()
+        );
     }
 
 

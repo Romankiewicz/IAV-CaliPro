@@ -16,12 +16,26 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/metrologist")
-@RequiredArgsConstructor
 public class MetrologistController {
 
     private final MetrologistService metrologistService;
 
+    public MetrologistController(MetrologistService metrologistService) {
+        this.metrologistService = metrologistService;
+    }
 
+    @GetMapping("/me")
+    public String helloMe(Principal principal) {
+        if (principal != null) {
+            return principal.getName();
+        }
+        return "anonymousUser";
+    }
+
+    @PostMapping("/login")
+    public Object login() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
     @PostMapping("/logout")
     public String logout(HttpSession httpSession) {
         httpSession.invalidate();
@@ -37,8 +51,8 @@ public class MetrologistController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public MetrologistResponse addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
-        return metrologistService.addMetrologist(metrologistToAdd);
+    public MetrologistResponse saveMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
+        return metrologistService.saveMetrologist(metrologistToAdd);
     }
 
     @PutMapping("/{metrologistId}")
