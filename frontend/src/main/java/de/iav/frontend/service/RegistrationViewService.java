@@ -17,7 +17,8 @@ public class RegistrationViewService {
     private static RegistrationViewService instance;
     private final HttpClient registrationClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+    private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+    private final String json = "application/json";
     public RegistrationViewService() {
 
     }
@@ -35,8 +36,8 @@ public class RegistrationViewService {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/register"))
-                    .header("Content-Type", "application/json")
-                    .header("Accept", "application/json")
+                    .header("Content-Type", json)
+                    .header("Accept", json)
                     .header("Cookie", "JSESSIONID=" + sessionId)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
@@ -56,8 +57,8 @@ public class RegistrationViewService {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/operators/register"))
-                    .header("Content-Type", "application/json")
-                    .header("Accept", "application/json")
+                    .header("Content-Type", json)
+                    .header("Accept", json)
                     .header("Cookie", "JSESSIONID=" +sessionId)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
@@ -72,7 +73,6 @@ public class RegistrationViewService {
     }
 
     private Metrologist mapToMetrologist(String responseBody) {
-        System.out.println(responseBody);
         try {
             return objectMapper.readValue(responseBody, Metrologist.class);
         } catch (JsonProcessingException e) {
@@ -81,7 +81,6 @@ public class RegistrationViewService {
     }
 
     private TestBenchOperator mapToOperator(String responseBody) {
-        System.out.println(responseBody);
         try {
             return objectMapper.readValue(responseBody, TestBenchOperator.class);
         } catch (JsonProcessingException e) {
