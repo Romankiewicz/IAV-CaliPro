@@ -42,7 +42,8 @@
       <Button fx:id="PB_LOGIN" layoutX="960.0" layoutY="770.0" mnemonicParsing="false"
               prefHeight="30.0" prefWidth="150.0"
               style="-fx-background-color: BAB9B9;"
-              text="Login">
+              text="Login"
+              onAction="#onClick_PB_LOGIN_SwitchToNextView">
          <effect>
             <DropShadow />
          </effect>

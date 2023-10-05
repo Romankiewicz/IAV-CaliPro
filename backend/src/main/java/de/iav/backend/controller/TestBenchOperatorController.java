@@ -14,7 +14,7 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/operators")
 @RequiredArgsConstructor
 public class TestBenchOperatorController {
 
@@ -26,17 +26,7 @@ public class TestBenchOperatorController {
         return testBenchOperatorService.getTestBenchOperatorById(operatorId);
     }
 
-    @GetMapping("/me")
-    public String helloMe(Principal principal) {
-        if (principal != null) {
-            return principal.getName();
-        }
-        return "anonymousUser";
-    }
-    @PostMapping("/login")
-    public Object login() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
+
 
 
     @PostMapping("/logout")
@@ -46,19 +36,19 @@ public class TestBenchOperatorController {
         return "anonymousUser";
     }
 
-    @PostMapping("/operators/register")
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public TestBenchOperatorResponse addTestBenchOperator(@RequestBody TestBenchOperatorDTO testBenchOperatorToAdd) {
         return testBenchOperatorService.addTestBenchOperator(testBenchOperatorToAdd);
     }
 
-    @PutMapping("/operators/{operatorId}")
+    @PutMapping("/{operatorId}")
     @ResponseStatus(HttpStatus.CREATED)
     public TestBenchOperatorResponse updateTestBenchOperator(@PathVariable String operatorId, @RequestBody TestBenchOperatorDTO testBenchOperatorToUpdate) {
         return testBenchOperatorService.updateTestBenchOperatorById(operatorId, testBenchOperatorToUpdate);
     }
 
-    @DeleteMapping("/operators/{operatorId}")
+    @DeleteMapping("/{operatorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTestBenchOperator(@PathVariable String operatorId) {
         testBenchOperatorService.deleteTestBenchOperator(operatorId);

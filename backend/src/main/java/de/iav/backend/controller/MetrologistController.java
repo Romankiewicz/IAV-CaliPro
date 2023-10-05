@@ -15,25 +15,11 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/metrologist")
 @RequiredArgsConstructor
 public class MetrologistController {
 
     private final MetrologistService metrologistService;
-
-
-    @GetMapping("/me")
-    public String helloMe(Principal principal) {
-        if (principal != null) {
-            return principal.getName();
-        }
-        return "anonymousUser";
-    }
-
-    @PostMapping("/login")
-    public Object login() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
 
 
     @PostMapping("/logout")
@@ -49,7 +35,7 @@ public class MetrologistController {
         return metrologistService.getMetologistById(metrologistId);
     }
 
-    @PostMapping("/metrologist/register")
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public MetrologistResponse addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
         return metrologistService.addMetrologist(metrologistToAdd);
@@ -61,7 +47,7 @@ public class MetrologistController {
         return metrologistService.updateMetrologist(metrologistId, updatedMetrologist);
     }
 
-    @DeleteMapping("/metrologist/{metrologistId}")
+    @DeleteMapping("/{metrologistId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteMetrologist(@PathVariable String metrologistId) {
         metrologistService.deleteMetrologist(metrologistId);
