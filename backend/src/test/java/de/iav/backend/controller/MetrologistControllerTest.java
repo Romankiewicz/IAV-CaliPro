@@ -48,6 +48,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test
     @DirtiesContext
+    void addMetrologist_whenNotLoggedIn_thenGetRejected() throws Exception {
+
+        Metrologist metrologist = new Metrologist(
+                "1",
+                "MasterChief",
+                "John",
+                "117",
+                "master.chief@activision.com",
+                UserRole.METROLOGIST);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(metrologist)))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @DirtiesContext
     @WithMockUser
     void findMetrologistById_whenMetrologistExists_thenReturnMetrologist() throws Exception {
         Metrologist metrologist = new Metrologist(
