@@ -11,7 +11,6 @@ public record Metrologist(
         String metrologistId,
         @Indexed(unique = true)
         String username,
-        String password,
         String firstName,
         String lastName,
         String eMail,

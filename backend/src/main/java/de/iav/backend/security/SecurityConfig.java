@@ -17,26 +17,22 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new Argon2PasswordEncoder(16, 32, 1, 1 << 12, 3);
+        return Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
     }
 
-
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(c -> {
-                    c.requestMatchers("/api/metrologist/register").permitAll();
-                    c.requestMatchers("/api/operators/register").permitAll();
-                    c.requestMatchers(HttpMethod.PUT, "/api/**").permitAll();
-                    c.requestMatchers(HttpMethod.POST, "/api/metrologist/login").permitAll();
-                    c.requestMatchers(HttpMethod.POST, "/api/operators/login").permitAll();
-                    c.requestMatchers(HttpMethod.DELETE, "/api/metrologist/").authenticated();
-                    c.requestMatchers(HttpMethod.GET, "/api/metrologist/").permitAll();//.hasRole(UserRole.Metrologist.name());
-                    c.requestMatchers(HttpMethod.GET, "/api/operators/").permitAll();//.hasRole(UserRole.Operator.name());
+                    c.requestMatchers(HttpMethod.POST, "/api/metrologist").authenticated();
+                    c.requestMatchers(HttpMethod.PUT, "/api/metrologist/**").authenticated();
+                    c.requestMatchers(HttpMethod.GET, "/api/metrologist/**").authenticated();
+                    c.requestMatchers(HttpMethod.DELETE, "/api/metrologist/**").hasRole(UserRole.METROLOGIST.name());
                     c.anyRequest().permitAll();
                 })
                 .httpBasic(Customizer.withDefaults())

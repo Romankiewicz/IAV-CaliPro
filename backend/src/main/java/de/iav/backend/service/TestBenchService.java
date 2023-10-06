@@ -4,10 +4,10 @@ import de.iav.backend.exceptions.NoSuchMetrologyException;
 import de.iav.backend.exceptions.NoSuchTestBenchException;
 import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.model.Metrology;
+import de.iav.backend.model.Operator;
 import de.iav.backend.model.TestBench;
-import de.iav.backend.model.TestBenchOperator;
 import de.iav.backend.repository.MetrologyRepository;
-import de.iav.backend.repository.TestBenchOperatorRepository;
+import de.iav.backend.repository.OperatorRepository;
 import de.iav.backend.repository.TestBenchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class TestBenchService {
 
     private final TestBenchRepository testBenchRepository;
     private final MetrologyRepository metrologyRepository;
-    private final TestBenchOperatorRepository testBenchOperatorRepository;
+    private final OperatorRepository operatorRepository;
 
 
     public List<TestBench> listAllTestBenches() {
@@ -33,7 +33,7 @@ public class TestBenchService {
         return testBenchRepository.findById(testBenchId);
     }
 
-    public TestBench addTestBench(TestBench testBenchToAdd){
+    public TestBench addTestBench(TestBench testBenchToAdd) {
         return testBenchRepository
                 .save(
                         new TestBench(
@@ -47,30 +47,6 @@ public class TestBenchService {
                 );
     }
 
-    public TestBench setTestBenchMaintenanceDate(String testBenchId, int date, int month, int year) throws NoSuchTestBenchException {
-        TestBench testBench = testBenchRepository
-                .findById(testBenchId)
-                .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
-
-        testBench.maintenance().setDate(date);
-        testBench.maintenance().setMonth(month);
-        testBench.maintenance().setYear(year);
-        testBenchRepository.save(testBench);
-        return testBench;
-    }
-
-    public TestBench setTestBenchCalibrationDate(String testBenchId, int date, int month, int year) throws NoSuchTestBenchException {
-        TestBench testBench = testBenchRepository
-                .findById(testBenchId)
-                .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
-        testBench.calibration().setDate(date);
-        testBench.calibration().setMonth(month);
-        testBench.calibration().setYear(year);
-        testBenchRepository.save(testBench);
-        return testBench;
-    }
-
-    //Metrology related Methods
     public void addMetrologyToTestBench(String testBenchId, String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
@@ -93,18 +69,17 @@ public class TestBenchService {
         testBenchRepository.save(testBench);
     }
 
-    //TestBenchOperator related Methods
 
     public void addTestBenchOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
-        TestBenchOperator testBenchOperator = testBenchOperatorRepository
+        Operator operator = operatorRepository
                 .findById(testBenchOperatorId)
                 .orElseThrow(() -> new NoSuchTestBenchOperatorException(testBenchOperatorId));
-        testBench.testBenchOperator().add(testBenchOperator);
-        testBenchOperator.testBench().add(testBench);
-        testBenchOperatorRepository.save(testBenchOperator);
+        testBench.operator().add(operator);
+        operator.testBench().add(testBench);
+        operatorRepository.save(operator);
         testBenchRepository.save(testBench);
     }
 
@@ -112,13 +87,13 @@ public class TestBenchService {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
-        TestBenchOperator testBenchOperator = testBenchOperatorRepository
+        Operator operator = operatorRepository
                 .findById(testBenchOperatorId)
                 .orElseThrow(() -> new NoSuchTestBenchOperatorException(testBenchOperatorId));
-        testBenchOperator.testBench().remove(testBench);
-        testBench.testBenchOperator().remove(testBenchOperator);
+        operator.testBench().remove(testBench);
+        testBench.operator().remove(operator);
         testBenchRepository.save(testBench);
-        testBenchOperatorRepository.save(testBenchOperator);
+        operatorRepository.save(operator);
     }
 
 }

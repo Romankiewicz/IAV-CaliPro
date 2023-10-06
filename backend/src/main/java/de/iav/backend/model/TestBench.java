@@ -15,7 +15,7 @@ public record TestBench(
         @DBRef(lazy = true)
         List<Metrology> metrology,
         @DBRef(lazy = true)
-        List<TestBenchOperator> testBenchOperator,
+        List<Operator> operator,
         Date maintenance,
         Date calibration
 ) {

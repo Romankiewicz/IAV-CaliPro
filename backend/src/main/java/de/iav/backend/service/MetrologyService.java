@@ -17,10 +17,10 @@ public class MetrologyService {
     public Metrology getMetrologyById(String metrologyId) throws NoSuchMetrologyException {
         return metrologyRepository
                 .findById(metrologyId)
-                .orElseThrow(()->new NoSuchMetrologyException(metrologyId));
+                .orElseThrow(() -> new NoSuchMetrologyException(metrologyId));
     }
 
-    public List<Metrology> listAllMerology(){
+    public List<Metrology> listAllMerology() {
         return metrologyRepository.findAll();
     }
 
@@ -49,30 +49,8 @@ public class MetrologyService {
                                 metrologyToUpdate.calibration()));
     }
 
-    public Metrology setMetrologyMaintenanceDate(String metrologyId, int date, int month, int year) throws NoSuchMetrologyException {
-        Metrology metrology = metrologyRepository
-                .findById(metrologyId)
-                .orElseThrow(() -> new NoSuchMetrologyException(metrologyId));
-        metrology.maintenance().setDate(date);
-        metrology.maintenance().setMonth(month);
-        metrology.maintenance().setYear(year);
-        metrologyRepository.save(metrology);
-        return metrology;
-    }
 
-    public Metrology setMetrologyCalibrationDate(String metrologyId, int date, int month, int year) throws NoSuchMetrologyException {
-        Metrology metrology = metrologyRepository
-                .findById(metrologyId)
-                .orElseThrow(() -> new NoSuchMetrologyException(metrologyId));
-        metrology.calibration().setDate(date);
-        metrology.calibration().setMonth(month);
-        metrology.calibration().setYear(year);
-        metrologyRepository.save(metrology);
-        return metrology;
-    }
-
-
-    public void deleteMetrology(String metrologyId){
+    public void deleteMetrology(String metrologyId) {
         metrologyRepository.deleteById(metrologyId);
     }
 }
