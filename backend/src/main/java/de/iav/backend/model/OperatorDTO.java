@@ -1,9 +1,8 @@
 package de.iav.backend.model;
 
-public record TestBenchOperatorDTO(
+public record OperatorDTO(
 
         String username,
-        String password,
         String firstName,
         String lastName,
         String eMail

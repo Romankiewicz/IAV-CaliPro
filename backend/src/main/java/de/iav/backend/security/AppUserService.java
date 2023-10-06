@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.List;
 public class AppUserService implements UserDetailsService {
 
     private final AppUserRepository appUserRepository;
-//    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,7 +31,7 @@ public class AppUserService implements UserDetailsService {
                 .build();
     }
 
-    public AppUserResponse registerNewMetrologist(NewAppUser newAppUser){
+    public AppUserResponse registerNewMetrologist(NewAppUser newAppUser) {
 
         Argon2PasswordEncoder passwordEncoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
 
@@ -42,13 +40,13 @@ public class AppUserService implements UserDetailsService {
                 newAppUser.username(),
                 passwordEncoder.encode(newAppUser.password()),
                 newAppUser.email(),
-                UserRole.Metrologist
+                UserRole.METROLOGIST
         );
         AppUser savedAppUser = appUserRepository.save(appUser);
         return new AppUserResponse(savedAppUser.id(), savedAppUser.username(), savedAppUser.email(), savedAppUser.role());
     }
 
-    public AppUserResponse registerNewOperator(NewAppUser newAppUser){
+    public AppUserResponse registerNewOperator(NewAppUser newAppUser) {
 
         Argon2PasswordEncoder passwordEncoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
 
@@ -57,7 +55,7 @@ public class AppUserService implements UserDetailsService {
                 newAppUser.username(),
                 passwordEncoder.encode(newAppUser.password()),
                 newAppUser.email(),
-                UserRole.Operator
+                UserRole.OPERATOR
         );
         AppUser savedAppUser = appUserRepository.save(appUser);
         return new AppUserResponse(savedAppUser.id(), savedAppUser.username(), savedAppUser.email(), savedAppUser.role());

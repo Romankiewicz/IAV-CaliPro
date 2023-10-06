@@ -9,12 +9,11 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 import java.util.List;
 
 @Document(collection = "Operator")
-public record TestBenchOperator(
+public record Operator(
         @MongoId
         String operatorId,
         @Indexed(unique = true)
         String username,
-        String password,
         String firstName,
         String lastName,
         String eMail,
