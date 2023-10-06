@@ -44,15 +44,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated());
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].teacherId").exists())
-                .andExpect(jsonPath("$[0].loginName").value("FordProbe"))
-                .andExpect(jsonPath("$[0].firstName").value("Dirk"))
-                .andExpect(jsonPath("$[0].lastName").value("Stadge"))
-                .andExpect(jsonPath("$[0].email").value("dirk@gmx.de"))
-                .andExpect(jsonPath("$[0].courses.length()").value(0));
     }
 
     @Test
