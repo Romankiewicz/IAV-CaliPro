@@ -21,7 +21,7 @@ public class AuthenticationService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
-    private AuthenticationService(){
+    private AuthenticationService() {
 
     }
 
@@ -70,7 +70,7 @@ public class AuthenticationService {
 
     public boolean login(String username, String password) {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/login"))
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/users/login"))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
                 .header("Authorization", "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes()))
                 .build();
@@ -100,6 +100,7 @@ public class AuthenticationService {
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
+
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }

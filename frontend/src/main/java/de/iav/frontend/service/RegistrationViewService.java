@@ -35,7 +35,7 @@ public class RegistrationViewService {
             String requestBody = objectMapper.writeValueAsString(metrologistToAdd);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/register"))
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist"))
                     .header("Content-Type", json)
                     .header("Accept", json)
                     .header("Cookie", "JSESSIONID=" + sessionId)
@@ -56,7 +56,7 @@ public class RegistrationViewService {
             String requestBody = objectMapper.writeValueAsString(operatorToAdd);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/operators/register"))
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/operators"))
                     .header("Content-Type", json)
                     .header("Accept", json)
                     .header("Cookie", "JSESSIONID=" +sessionId)

@@ -53,8 +53,10 @@ public class LoginViewController {
 
             if (result && !AuthenticationService.getInstance().equals("anonymousUser")) {
 
+                System.out.println("Username:" + "\n" + AuthenticationService.getInstance().getUsername());
+
                 HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/{username}" + username))
+                        .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/username" ))
                         .header("Accept", "application/json")
                         .header("Cookie", "JSESSIONID=" + AuthenticationService.getInstance().getSessionId())
                         .build();
