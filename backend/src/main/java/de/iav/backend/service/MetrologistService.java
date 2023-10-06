@@ -1,6 +1,7 @@
 package de.iav.backend.service;
 
 import de.iav.backend.exceptions.MetologistAlredyExistException;
+import de.iav.backend.exceptions.NoSuchMetrologistException;
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
 import de.iav.backend.model.MetrologistResponse;
@@ -17,7 +18,6 @@ public class MetrologistService {
 
     private final MetrologistRepository metrologistRepository;
     private final IdService idService;
-    private final Argon2Service argon2Service;
 
 
     public MetrologistResponse addMetrologist(MetrologistDTO metrologistToAdd) {
@@ -29,7 +29,6 @@ public class MetrologistService {
         Metrologist metrologist = new Metrologist(
                 idService.generateId(),
                 metrologistToAdd.username(),
-                argon2Service.encode(metrologistToAdd.password()),
                 metrologistToAdd.firstName(),
                 metrologistToAdd.lastName(),
                 metrologistToAdd.email(),
@@ -46,22 +45,26 @@ public class MetrologistService {
     }
 
 
-    public Optional<Metrologist> getMetologistById(String metrologistId) {
+    public Optional<Metrologist> findMetrologistById(String metrologistId) {
         return metrologistRepository.findMetrologistByMetrologistId(metrologistId);
     }
 
+    public Optional<Metrologist> findMetrologistByUsername(String username) {
+        return metrologistRepository.findMetologistByUsername(username);
+    }
 
-//    public Metrologist updateMetrologist(String metrologistId, Metrologist metrologistToUpdate) throws NoSuchMetrologistException {
-//        getMetrologistById(metrologistId);
-//        return metrologistRepository.save(
-//                new Metrologist(
-//                        metrologistId,
-//                        metrologistToUpdate.firstName(),
-//                        metrologistToUpdate.lastName(),
-//                        metrologistToUpdate.eMail()
-//                )
-//        );
-//    }
+
+    public Metrologist updateMetrologist(String metrologistId, Metrologist metrologistToUpdate) {
+        Metrologist metrologist = new Metrologist(
+                metrologistId,
+                metrologistToUpdate.username(),
+                metrologistToUpdate.firstName(),
+                metrologistToUpdate.lastName(),
+                metrologistToUpdate.eMail(),
+                metrologistToUpdate.role()
+        );
+        return metrologistRepository.save(metrologist);
+    }
 
     public void deleteMetrologist(String metrologistId) {
         metrologistRepository.deleteById(metrologistId);
