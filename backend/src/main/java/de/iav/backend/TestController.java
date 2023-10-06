@@ -10,4 +10,9 @@ public class TestController {
     public String itsWorking() {
         return "Fuck it´s running now go back to work";
     }
+
+    @GetMapping("/test1")
+    public String isItStillWorking() {
+        return "is it still working?";
+    }
 }

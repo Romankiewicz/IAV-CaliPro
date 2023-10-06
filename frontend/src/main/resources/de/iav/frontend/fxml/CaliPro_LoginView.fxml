@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="830.0" prefWidth="1200.0"
+            xmlns="http://javafx.com/javafx/20.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.iav.frontend.controller.LoginViewController">
+   <children>
+      <ImageView fitHeight="830.0" fitWidth="1200.0">
+         <image>
+            <Image url="@../png/Background.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="TF_USERNAME" layoutX="500.0" layoutY="260.0"
+                 prefHeight="30.0" prefWidth="200.0"
+                 promptText="Benutzername"
+                 style="-fx-background-color: FFFFFF;">
+         <effect>
+            <DropShadow />
+         </effect>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </TextField>
+      <PasswordField fx:id="PF_PASSWORD" layoutX="500.0" layoutY="300.0"
+                     prefHeight="30.0" prefWidth="200.0"
+                     promptText="Passwort"
+                     style="-fx-background-color: FFFFFF;">
+         <effect>
+            <DropShadow />
+         </effect>
+      </PasswordField>
+      <Button fx:id="PB_LOGIN" layoutX="960.0" layoutY="770.0" mnemonicParsing="false"
+              prefHeight="30.0" prefWidth="150.0"
+              style="-fx-background-color: BAB9B9;"
+              text="Login"
+              onAction="#onClick_PB_LOGIN_SwitchToNextView">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button fx:id="PB_RETURN" layoutX="100.0" layoutY="770.0" mnemonicParsing="false"
+              prefHeight="30.0" prefWidth="150.0"
+              style="-fx-background-color: BAB9B9;"
+              text="Zurück"
+              onAction="#onClick_PB_RETURN">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>

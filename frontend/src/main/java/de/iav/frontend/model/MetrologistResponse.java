@@ -1,8 +1,6 @@
-package de.iav.backend.model;
+package de.iav.frontend.model;
 
-public record OperatorDTO(
-
-        String metrologistId,
+public record MetrologistResponse(
         String username,
         String firstName,
         String lastName,

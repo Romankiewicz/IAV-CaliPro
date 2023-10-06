@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -40,17 +41,6 @@ public class MetrologyController {
         return metrologyService.updateMetology(metrologyId, metrologyToUpdate);
     }
 
-    @PutMapping("/maintenance/{metrologyId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Metrology setMetrologyMaintenanceDate(@PathVariable String metrologyId, @RequestBody int date, int month, int year) throws NoSuchMetrologyException {
-        return metrologyService.setMetrologyMaintenanceDate(metrologyId, date, month, year);
-    }
-
-    @PutMapping("/calibration/{metrologyId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Metrology setMetrologyCalibrationDate(@PathVariable String metrologyId, @RequestBody int date, int month, int year) throws NoSuchMetrologyException {
-        return metrologyService.setMetrologyCalibrationDate(metrologyId, date, month, year);
-    }
 
     @DeleteMapping("/{metrologyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
