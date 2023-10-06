@@ -44,4 +44,22 @@ public class OperatorControllerTest {
                 .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated());
     }
+
+    @Test
+    @DirtiesContext
+    void addOperator_whenNotLoggedIn_thenReturnAddedOperator() throws Exception {
+
+        Operator operator = new Operator(
+                "1",
+                "Jackass",
+                "Johnny",
+                "Knoxville",
+                "johnny.knoxville@jackass.com",
+                new ArrayList<>(),
+                UserRole.OPERATOR);
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(operator)))
+                .andExpect(status().isUnauthorized());
+    }
 }
