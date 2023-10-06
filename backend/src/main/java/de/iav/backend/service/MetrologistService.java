@@ -51,14 +51,14 @@ public class MetrologistService {
     }
 
 
-    public Metrologist updateMetrologist(String metrologistId, Metrologist metrologistToUpdate) {
+    public Metrologist updateMetrologist(String metrologistId, MetrologistDTO metrologistToUpdate) {
         Metrologist metrologist = new Metrologist(
                 metrologistId,
                 metrologistToUpdate.username(),
                 metrologistToUpdate.firstName(),
                 metrologistToUpdate.lastName(),
                 metrologistToUpdate.email(),
-                metrologistToUpdate.role()
+                UserRole.METROLOGIST
         );
         return metrologistRepository.save(metrologist);
     }

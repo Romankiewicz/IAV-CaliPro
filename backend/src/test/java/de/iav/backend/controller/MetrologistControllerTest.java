@@ -23,12 +23,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  class MetrologistControllerTest {
 
     @Autowired
-    private MetrologistRepository metrologistRepository;
-
-    @Autowired
     private MockMvc mockMvc;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
 
     @Test
@@ -73,7 +70,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "DK.notDriftKing@Nintendo.jp",
                 UserRole.METROLOGIST
         );
-//        metrologistRepository.save(metrologist);
 
         MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
                 .contentType(MediaType.APPLICATION_JSON)
