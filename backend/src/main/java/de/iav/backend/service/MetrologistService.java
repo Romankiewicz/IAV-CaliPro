@@ -1,10 +1,8 @@
 package de.iav.backend.service;
 
 import de.iav.backend.exceptions.MetologistAlredyExistException;
-import de.iav.backend.exceptions.NoSuchMetrologistException;
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
-import de.iav.backend.model.MetrologistResponse;
 import de.iav.backend.repository.MetrologistRepository;
 import de.iav.backend.security.UserRole;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +18,7 @@ public class MetrologistService {
     private final IdService idService;
 
 
-    public MetrologistResponse addMetrologist(MetrologistDTO metrologistToAdd) {
+    public Metrologist addMetrologist(MetrologistDTO metrologistToAdd) {
 
         if (metrologistRepository.existsByUsername(metrologistToAdd.username())) {
             throw new MetologistAlredyExistException();
@@ -36,12 +34,7 @@ public class MetrologistService {
         );
         metrologistRepository.save(metrologist);
 
-        return new MetrologistResponse(
-                metrologist.username(),
-                metrologist.firstName(),
-                metrologist.lastName(),
-                metrologist.eMail()
-        );
+        return metrologist;
     }
 
 

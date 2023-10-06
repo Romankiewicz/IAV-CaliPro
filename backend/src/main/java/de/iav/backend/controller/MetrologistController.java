@@ -2,7 +2,6 @@ package de.iav.backend.controller;
 
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
-import de.iav.backend.model.MetrologistResponse;
 import de.iav.backend.service.MetrologistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,7 +31,7 @@ public class MetrologistController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MetrologistResponse addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
+    public Metrologist addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
         return metrologistService.addMetrologist(metrologistToAdd);
     }
 

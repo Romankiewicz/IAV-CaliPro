@@ -18,7 +18,7 @@ import java.util.List;
 public class AppUserService implements UserDetailsService {
 
     private final AppUserRepository appUserRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
