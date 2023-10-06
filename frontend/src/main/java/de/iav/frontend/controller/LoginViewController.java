@@ -50,9 +50,8 @@ public class LoginViewController {
             String password = PF_PASSWORD.getText();
             System.out.println(username + "\n" + password);
             boolean result = AuthenticationService.getInstance().login(username, password);
-            System.out.println(result);
 
-            if (result && !AuthenticationService.getInstance().equals(false)) {
+            if (result && !AuthenticationService.getInstance().equals("anonymousUser")) {
 
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/{username}" + username))
