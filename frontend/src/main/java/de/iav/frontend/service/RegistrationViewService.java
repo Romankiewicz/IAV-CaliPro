@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.iav.frontend.model.Metrologist;
 import de.iav.frontend.model.MetrologistDTO;
-import de.iav.frontend.model.TestBenchOperator;
-import de.iav.frontend.model.TestBenchOperatorDTO;
+import de.iav.frontend.model.Operator;
+import de.iav.frontend.model.OperatorDTO;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -51,7 +51,7 @@ public class RegistrationViewService {
         }
     }
 
-    public TestBenchOperator addTestbenchOperator(TestBenchOperatorDTO operatorToAdd, String sessionId) {
+    public Operator addTestbenchOperator(OperatorDTO operatorToAdd, String sessionId) {
         try {
             String requestBody = objectMapper.writeValueAsString(operatorToAdd);
 
@@ -80,9 +80,9 @@ public class RegistrationViewService {
         }
     }
 
-    private TestBenchOperator mapToOperator(String responseBody) {
+    private Operator mapToOperator(String responseBody) {
         try {
-            return objectMapper.readValue(responseBody, TestBenchOperator.class);
+            return objectMapper.readValue(responseBody, Operator.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

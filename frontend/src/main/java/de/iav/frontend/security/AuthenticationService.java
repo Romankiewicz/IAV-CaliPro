@@ -38,7 +38,7 @@ public class AuthenticationService {
             String requestBody = objectMapper.writeValueAsString(userRequest);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/register"))
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/users/register/metrologist"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();

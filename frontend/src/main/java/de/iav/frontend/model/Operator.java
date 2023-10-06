@@ -4,7 +4,7 @@ import de.iav.frontend.security.UserRole;
 
 import java.util.List;
 
-public record TestBenchOperator(
+public record Operator(
         String operatorId,
         String username,
         String password,

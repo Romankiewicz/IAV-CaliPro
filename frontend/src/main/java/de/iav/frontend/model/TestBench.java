@@ -7,7 +7,7 @@ public record TestBench(
         String benchId,
         String name,
         List<Metrology> metrology,
-        List<TestBenchOperator> testBenchOperator,
+        List<Operator> operator,
         Date maintenance,
         Date calibration
 ) {

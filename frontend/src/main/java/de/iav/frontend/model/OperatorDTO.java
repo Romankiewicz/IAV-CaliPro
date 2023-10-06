@@ -1,6 +1,6 @@
 package de.iav.frontend.model;
 
-public record TestBenchOperatorDTO(
+public record OperatorDTO(
         String username,
         String password,
         String firstName,

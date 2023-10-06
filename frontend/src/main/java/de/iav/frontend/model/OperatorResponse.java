@@ -2,7 +2,7 @@ package de.iav.frontend.model;
 
 import java.util.List;
 
-public record TestBenchOperatorResponse(
+public record OperatorResponse(
         String operatorId,
         String username,
         String firstName,
