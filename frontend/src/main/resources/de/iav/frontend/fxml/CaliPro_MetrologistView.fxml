@@ -15,5 +15,10 @@
                 <Image url="@../png/Background.png" />
             </image>
         </ImageView>
+      <ImageView layoutX="1060.0" scaleX="0.25" scaleY="0.25">
+         <image>
+            <Image fx:id="PB_HOME" url="@../png/HomeButton.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>
