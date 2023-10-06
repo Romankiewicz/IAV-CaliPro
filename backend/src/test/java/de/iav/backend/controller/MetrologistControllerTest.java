@@ -3,7 +3,6 @@ package de.iav.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.iav.backend.model.Metrologist;
-import de.iav.backend.repository.MetrologistRepository;
 import de.iav.backend.security.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
