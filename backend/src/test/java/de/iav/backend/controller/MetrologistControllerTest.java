@@ -38,8 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "John",
                 "117",
                 "master.chief@activision.com",
-                UserRole.METROLOGIST
-        );
+                UserRole.METROLOGIST);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -66,8 +65,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "Donkey",
                 "Kong",
                 "DK.notDriftKing@Nintendo.jp",
-                UserRole.METROLOGIST
-        );
+                UserRole.METROLOGIST);
 
         MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -100,8 +98,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "Donkey",
                 "Kong",
                 "DK.notDriftKing@Nintendo.jp",
-                UserRole.METROLOGIST
-        );
+                UserRole.METROLOGIST);
 
         MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -125,4 +122,55 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     }
 
 
+    @Test
+    @DirtiesContext
+    @WithMockUser
+    void updateMetrologist_whenLoggedIn_thenReturnUpdatedMetrologist() throws Exception {
+        Metrologist metrologist = new Metrologist(
+                "1",
+                "QuakeModder",
+                "Gordon",
+                "Freeman",
+                "g.freeman@blackmesa.com",
+                UserRole.METROLOGIST);
+
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(metrologist)))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        Metrologist expectedMetrologis = objectMapper
+                .readValue(response
+                        .getResponse()
+                        .getContentAsString(), Metrologist.class);
+
+//        mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(metrologist)))
+//                .andExpect(status().isCreated());
+
+        Metrologist metrologistUpdate = new Metrologist(
+                "???",
+                "QuakeModder",
+                "gordon",
+                "freeman",
+                "g.freeman@blackmesa.com",
+                UserRole.METROLOGIST);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/metrologist/"
+                + expectedMetrologis.metrologistId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(metrologistUpdate)))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist/id/"
+                + expectedMetrologis.metrologistId()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.username").value("QuakeModder"))
+                .andExpect(jsonPath("$.firstName").value("gordon"))
+                .andExpect(jsonPath("$.lastName").value("freeman"))
+                .andExpect(jsonPath("$.email").value("g.freeman@blackmesa.com"))
+                .andExpect(jsonPath("$.role").value("METROLOGIST"));
+    }
 }
