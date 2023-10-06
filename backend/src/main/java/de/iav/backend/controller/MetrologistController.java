@@ -1,5 +1,6 @@
 package de.iav.backend.controller;
 
+import de.iav.backend.exceptions.NoSuchMetrologistException;
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
 import de.iav.backend.service.MetrologistService;
@@ -19,19 +20,19 @@ public class MetrologistController {
 
     @GetMapping("/id/{metrologistId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Metrologist findMetrologistById(@PathVariable String metrologistId) {
+    public Metrologist findMetrologistById(@PathVariable String metrologistId) throws NoSuchMetrologistException {
         return metrologistService.findMetrologistById(metrologistId);
     }
 
     @GetMapping("/{username}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Optional<Metrologist> findMetrologistByUsername(@PathVariable String username) {
+    public Metrologist findMetrologistByUsername(@PathVariable String username) {
         return metrologistService.findMetrologistByUsername(username);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Metrologist  addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
+    public Metrologist addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
         return metrologistService.addMetrologist(metrologistToAdd);
     }
 

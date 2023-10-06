@@ -30,6 +30,37 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+
+    @Test
+    @DirtiesContext
+    @WithMockUser
+    void addMetrologist_whenLoggedIn_thenReturnAddedMetrologist() throws Exception {
+
+        Metrologist metrologist = new Metrologist(
+                "1",
+                "MasterChief",
+                "John",
+                "117",
+                "master.chief@activision.com",
+                UserRole.METROLOGIST
+        );
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(metrologist)))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].teacherId").exists())
+                .andExpect(jsonPath("$[0].loginName").value("FordProbe"))
+                .andExpect(jsonPath("$[0].firstName").value("Dirk"))
+                .andExpect(jsonPath("$[0].lastName").value("Stadge"))
+                .andExpect(jsonPath("$[0].email").value("dirk@gmx.de"))
+                .andExpect(jsonPath("$[0].courses.length()").value(0));
+    }
+
+
     @Test
     @DirtiesContext
     @WithMockUser
@@ -42,7 +73,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 "DK.notDriftKing@Nintendo.jp",
                 UserRole.METROLOGIST
         );
-        metrologistRepository.save(metrologist);
+//        metrologistRepository.save(metrologist);
 
         MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -55,13 +86,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                         .getResponse()
                         .getContentAsString(), Metrologist.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist/"
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist/id/"
                 + expectedMetrologist.metrologistId()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.username").value("DonkeyKong"))
                 .andExpect(jsonPath("$.firstName").value("Donkey"))
                 .andExpect(jsonPath("$.lastName").value("Kong"))
-                .andExpect(jsonPath("$.eMail").value("DK.notDriftKing@Nintendo.jp"))
+                .andExpect(jsonPath("$.email").value("DK.notDriftKing@Nintendo.jp"))
                 .andExpect(jsonPath("$.role").value("METROLOGIST"));
     }
 

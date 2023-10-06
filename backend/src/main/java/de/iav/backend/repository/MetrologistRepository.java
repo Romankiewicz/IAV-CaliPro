@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface MetrologistRepository extends MongoRepository<Metrologist, String> {
-    Metrologist findMetrologistByMetrologistId(String metrologistId);
+    Optional<Metrologist> findMetrologistByMetrologistId(String metrologistId);
 
     Optional<Metrologist> findMetologistByUsername(String username);
 

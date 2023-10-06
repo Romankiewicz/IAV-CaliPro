@@ -16,7 +16,7 @@ public record Operator(
         String username,
         String firstName,
         String lastName,
-        String eMail,
+        String email,
         @DBRef(lazy = true)
         List<TestBench> testBench,
         UserRole role

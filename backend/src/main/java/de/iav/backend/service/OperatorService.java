@@ -38,7 +38,7 @@ public class OperatorService {
                 operatorToAdd.username(),
                 operatorToAdd.firstName(),
                 operatorToAdd.lastName(),
-                operatorToAdd.eMail(),
+                operatorToAdd.email(),
                 new ArrayList<>(),
                 UserRole.OPERATOR
         );
@@ -61,7 +61,7 @@ public class OperatorService {
                 updatedOperator.username(),
                 updatedOperator.firstName(),
                 updatedOperator.lastName(),
-                updatedOperator.eMail(),
+                updatedOperator.email(),
                 operatorToUpdate.get().testBench(),
                 UserRole.OPERATOR
 

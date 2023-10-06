@@ -1,14 +1,14 @@
 package de.iav.backend.service;
 
 import de.iav.backend.exceptions.MetrologistAlreadyExistException;
+import de.iav.backend.exceptions.NoSuchMetrologistException;
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
 import de.iav.backend.repository.MetrologistRepository;
 import de.iav.backend.security.UserRole;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,12 +38,16 @@ public class MetrologistService {
     }
 
 
-    public Metrologist findMetrologistById(String metrologistId) {
-        return metrologistRepository.findMetrologistByMetrologistId(metrologistId);
+    public Metrologist findMetrologistById(String metrologistId) throws NoSuchMetrologistException {
+        return metrologistRepository
+                .findMetrologistByMetrologistId(metrologistId)
+                .orElseThrow(() -> new NoSuchMetrologistException(metrologistId));
     }
 
-    public Optional<Metrologist> findMetrologistByUsername(String username) {
-        return metrologistRepository.findMetologistByUsername(username);
+    public Metrologist findMetrologistByUsername(String username) {
+        return metrologistRepository
+                .findMetologistByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
 
@@ -53,7 +57,7 @@ public class MetrologistService {
                 metrologistToUpdate.username(),
                 metrologistToUpdate.firstName(),
                 metrologistToUpdate.lastName(),
-                metrologistToUpdate.eMail(),
+                metrologistToUpdate.email(),
                 metrologistToUpdate.role()
         );
         return metrologistRepository.save(metrologist);

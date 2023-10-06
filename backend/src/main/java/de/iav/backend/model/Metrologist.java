@@ -13,7 +13,7 @@ public record Metrologist(
         String username,
         String firstName,
         String lastName,
-        String eMail,
+        String email,
         UserRole role
 ) {
 }
