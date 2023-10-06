@@ -1,5 +1,6 @@
 package de.iav.backend.service;
 
+import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.exceptions.TestBenchOperatorAlreadyExistException;
 import de.iav.backend.model.Operator;
 import de.iav.backend.model.OperatorDTO;
@@ -47,8 +48,13 @@ public class OperatorService {
         return operator;
     }
 
-    public Operator updateOperatorById(String operatorId, OperatorDTO updatedOperator) {
-        operatorRepository.findById(operatorId);
+    public Operator updateOperatorById(String operatorId, OperatorDTO updatedOperator) throws NoSuchTestBenchOperatorException {
+
+        Optional<Operator> operatorToUpdate = operatorRepository.findOperatorByOperatorId(operatorId);
+
+        if (operatorToUpdate.isEmpty()) {
+            throw new NoSuchTestBenchOperatorException(operatorId);
+        }
 
         Operator operator = new Operator(
                 operatorId,
@@ -56,7 +62,7 @@ public class OperatorService {
                 updatedOperator.firstName(),
                 updatedOperator.lastName(),
                 updatedOperator.eMail(),
-                operatorRepository.findById(operatorId).get().testBench(),
+                operatorToUpdate.get().testBench(),
                 UserRole.OPERATOR
 
         );

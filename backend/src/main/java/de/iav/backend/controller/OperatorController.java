@@ -1,5 +1,6 @@
 package de.iav.backend.controller;
 
+import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.model.Operator;
 import de.iav.backend.model.OperatorDTO;
 import de.iav.backend.service.OperatorService;
@@ -37,7 +38,7 @@ public class OperatorController {
 
     @PutMapping("/{operatorId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Operator updateOperator(@PathVariable String operatorId, @RequestBody OperatorDTO testBenchOperatorToUpdate) {
+    public Operator updateOperator(@PathVariable String operatorId, @RequestBody OperatorDTO testBenchOperatorToUpdate) throws NoSuchTestBenchOperatorException {
         return operatorService.updateOperatorById(operatorId, testBenchOperatorToUpdate);
     }
 
