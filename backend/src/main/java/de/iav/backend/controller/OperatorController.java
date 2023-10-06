@@ -30,7 +30,7 @@ public class OperatorController {
     }
 
 
-    @PostMapping("/register")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Operator addOperator(@RequestBody OperatorDTO testBenchOperatorToAdd) {
         return operatorService.addOperator(testBenchOperatorToAdd);

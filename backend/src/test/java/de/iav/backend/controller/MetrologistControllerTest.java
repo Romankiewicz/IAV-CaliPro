@@ -15,11 +15,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
- class MetrologistControllerTest {
+class MetrologistControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,8 +42,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 UserRole.METROLOGIST);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(metrologist)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated());
     }
 
@@ -77,8 +78,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 UserRole.METROLOGIST);
 
         MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(metrologist)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
                 .andReturn();
 
@@ -88,7 +89,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                         .getContentAsString(), Metrologist.class);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist/id/"
-                + expectedMetrologist.metrologistId()))
+                        + expectedMetrologist.metrologistId()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.username").value("DonkeyKong"))
                 .andExpect(jsonPath("$.firstName").value("Donkey"))
@@ -144,8 +145,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 UserRole.METROLOGIST);
 
         MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(metrologist)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
                 .andReturn();
 
@@ -163,13 +164,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 UserRole.METROLOGIST);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/api/metrologist/"
-                + expectedMetrologis.metrologistId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(metrologistUpdate)))
+                                + expectedMetrologis.metrologistId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(metrologistUpdate)))
                 .andExpect(status().isCreated());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist/id/"
-                + expectedMetrologis.metrologistId()))
+                        + expectedMetrologis.metrologistId()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.username").value("QuakeModder"))
                 .andExpect(jsonPath("$.firstName").value("gordon"))
@@ -202,7 +203,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                         .getContentAsString(), Metrologist.class);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/metrologist/"
-                + metrologistToDelete.metrologistId()))
+                        + metrologistToDelete.metrologistId()))
                 .andExpect(status().isNoContent());
     }
 }
