@@ -38,7 +38,7 @@ public class MetrologistService {
     }
 
 
-    public Optional<Metrologist> findMetrologistById(String metrologistId) {
+    public Metrologist findMetrologistById(String metrologistId) {
         return metrologistRepository.findMetrologistByMetrologistId(metrologistId);
     }
 

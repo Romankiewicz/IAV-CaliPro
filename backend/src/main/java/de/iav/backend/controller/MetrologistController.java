@@ -19,7 +19,7 @@ public class MetrologistController {
 
     @GetMapping("/id/{metrologistId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Optional<Metrologist> findMetrologistById(@PathVariable String metrologistId) {
+    public Metrologist findMetrologistById(@PathVariable String metrologistId) {
         return metrologistService.findMetrologistById(metrologistId);
     }
 
@@ -31,7 +31,7 @@ public class MetrologistController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Metrologist addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
+    public Metrologist  addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
         return metrologistService.addMetrologist(metrologistToAdd);
     }
 
