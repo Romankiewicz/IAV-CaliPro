@@ -69,6 +69,7 @@ class MetrologistControllerTest {
     @DirtiesContext
     @WithMockUser
     void findMetrologistById_whenMetrologistExists_thenReturnMetrologist() throws Exception {
+
         Metrologist metrologist = new Metrologist(
                 "1",
                 "DonkeyKong",
@@ -197,6 +198,7 @@ class MetrologistControllerTest {
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
                 .andReturn();
+
         Metrologist metrologistToDelete = objectMapper
                 .readValue(response
                         .getResponse()
