@@ -53,17 +53,18 @@ public class MetrologistService {
         return metrologistRepository.findMetrologistByMetrologistId(metrologistId);
     }
 
-    public MetrologistResponse getMetrologistByUsername(String username) {
+    public Metrologist getMetrologistByUsername(String username) {
         Metrologist metrologist = metrologistRepository
                 .findMetologistByUsername(username).orElseThrow(MetrologistUsernameNotFoundException::new);
 
-        return new MetrologistResponse(
-                metrologist.metrologistId(),
-                metrologist.username(),
-                metrologist.firstName(),
-                metrologist.lastName(),
-                metrologist.eMail()
-        );
+        return metrologist;
+//        return new MetrologistResponse(
+//                metrologist.metrologistId(),
+//                metrologist.username(),
+//                metrologist.firstName(),
+//                metrologist.lastName(),
+//                metrologist.eMail()
+//        );
     }
 
 

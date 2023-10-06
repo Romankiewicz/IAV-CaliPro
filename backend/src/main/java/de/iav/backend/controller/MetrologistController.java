@@ -33,8 +33,7 @@ public class MetrologistController {
     }
 
     @PostMapping("/login")
-    public Object login() {
-        System.out.println("user login:" + SecurityContextHolder.getContext().getAuthentication().getName());
+    public String login() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
     @PostMapping("/logout")
@@ -44,10 +43,16 @@ public class MetrologistController {
         return "anonymousUser";
     }
 
-    @GetMapping("/{metrologistId}")
+    @GetMapping("/id/{metrologistId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Optional<Metrologist> findMetrologistById(@PathVariable String metrologistId) {
         return metrologistService.getMetologistById(metrologistId);
+    }
+
+    @GetMapping("/{username}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Metrologist findMetrologistByUsername(@PathVariable String username) {
+        return metrologistService.getMetrologistByUsername(username);
     }
 
     @PostMapping("/register")

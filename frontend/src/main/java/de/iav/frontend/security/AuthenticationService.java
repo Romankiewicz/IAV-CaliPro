@@ -53,7 +53,7 @@ public class AuthenticationService {
 
 
     private boolean handleStatusCheckAndSetSessionId(int statusCode, CompletableFuture<HttpResponse<String>> response, String errorMessage) {
-        if (statusCode == 201) {
+        if (statusCode == 200) {
             setUsername(response.join().body());
             String responseSessionId = response.join().headers().firstValue("Set-Cookie").orElseThrow();
             setSessionId(responseSessionId.substring(11, responseSessionId.indexOf(";")));
@@ -70,7 +70,7 @@ public class AuthenticationService {
 
     public boolean login(String username, String password) {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/login"))
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/login"))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
                 .header("Authorization", "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes()))
                 .build();
@@ -104,5 +104,7 @@ public class AuthenticationService {
         this.errorMessage = errorMessage;
     }
 
-
+    public HttpClient getAuthenticationClient() {
+        return this.authenticationClient;
+    }
 }

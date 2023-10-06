@@ -4,25 +4,26 @@ import de.iav.backend.exceptions.MetrologistUsernameNotFoundException;
 import de.iav.backend.repository.MetrologistRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class MetologistUserDetailService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class MetrologistDetailService implements UserDetailsService {
 
     private final MetrologistRepository metrologistRepository;
 
 
-    public MetologistUserDetailService(MetrologistRepository metrologistRepository) {
+    public MetrologistDetailService(MetrologistRepository metrologistRepository) {
         this.metrologistRepository = metrologistRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return metrologistRepository.findMetologistByUsername(username)
-                .map(foundUser -> new User(foundUser.username(), foundUser.password(), List.of()))
+                 .map(foundUser -> new User(foundUser.username(), foundUser.password(), List.of()))
                 .orElseThrow(MetrologistUsernameNotFoundException::new);
 
     }

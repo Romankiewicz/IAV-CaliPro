@@ -57,4 +57,17 @@ public class SceneSwitchService {
         stage.setScene(sceneRegView);
         stage.show();
     }
+
+    public void switchToMetrologistView(ActionEvent event) throws IOException {
+
+        FXMLLoader loaderLoginView = new FXMLLoader(getClass()
+                .getResource("/de/iav/frontend/fxml/CaliPro_MetrologistView.fxml"));
+
+        Scene sceneRegView = new Scene(loaderLoginView.load());
+
+        Stage stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+
+        stage.setScene(sceneRegView);
+        stage.show();
+    }
 }
