@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MetrologistControllerTest {
+ class MetrologistControllerTest {
 
     @Autowired
     private MetrologistRepository metrologistRepository;
@@ -46,7 +46,7 @@ public class MetrologistControllerTest {
 
         MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(metrologist)))
+                .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
                 .andReturn();
 

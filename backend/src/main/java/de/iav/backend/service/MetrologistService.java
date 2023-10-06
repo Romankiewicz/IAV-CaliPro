@@ -1,6 +1,6 @@
 package de.iav.backend.service;
 
-import de.iav.backend.exceptions.MetologistAlredyExistException;
+import de.iav.backend.exceptions.MetrologistAlreadyExistException;
 import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.MetrologistDTO;
 import de.iav.backend.repository.MetrologistRepository;
@@ -21,7 +21,7 @@ public class MetrologistService {
     public Metrologist addMetrologist(MetrologistDTO metrologistToAdd) {
 
         if (metrologistRepository.existsByUsername(metrologistToAdd.username())) {
-            throw new MetologistAlredyExistException();
+            throw new MetrologistAlreadyExistException();
         }
 
         Metrologist metrologist = new Metrologist(
