@@ -4,7 +4,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <ImageView fitHeight="830.0" fitWidth="1200.0">
@@ -12,5 +11,10 @@
                 <Image url="@../png/Background.png" />
             </image>
         </ImageView>
+      <ImageView layoutX="1060.0" scaleX="0.25" scaleY="0.25">
+         <image>
+            <Image fx:id="PB_HOME" url="@../png/HomeButton.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>
