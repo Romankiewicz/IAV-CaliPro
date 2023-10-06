@@ -37,18 +37,6 @@ public class TestBenchController {
         return testBenchService.addTestBench(testBenchToAdd);
     }
 
-    @PutMapping("/{testBenchId}/maintenance")
-    @ResponseStatus(HttpStatus.CREATED)
-    public TestBench setTestBenchMaintenanceDate(@PathVariable String testBenchId, @RequestBody int date, int month, int year) throws NoSuchTestBenchException {
-        return testBenchService.setTestBenchMaintenanceDate(testBenchId, date, month, year);
-    }
-
-    @PutMapping("/{testBenchId}/calibration")
-    @ResponseStatus(HttpStatus.CREATED)
-    public TestBench setTestBenchCalibrationDate(@PathVariable String testBenchId, @RequestBody int date, int month, int year) throws NoSuchTestBenchException {
-        return testBenchService.setTestBenchCalibrationDate(testBenchId, date, month, year);
-    }
-
     @PutMapping("/metrology/{testBenchId}")
     @ResponseStatus(HttpStatus.CREATED)
     public void addMetrologyToTestBench(@PathVariable String testBenchId, @RequestBody String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {

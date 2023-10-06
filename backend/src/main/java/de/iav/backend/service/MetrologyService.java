@@ -6,10 +6,6 @@ import de.iav.backend.repository.MetrologyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.Temporal;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -21,10 +17,10 @@ public class MetrologyService {
     public Metrology getMetrologyById(String metrologyId) throws NoSuchMetrologyException {
         return metrologyRepository
                 .findById(metrologyId)
-                .orElseThrow(()->new NoSuchMetrologyException(metrologyId));
+                .orElseThrow(() -> new NoSuchMetrologyException(metrologyId));
     }
 
-    public List<Metrology> listAllMerology(){
+    public List<Metrology> listAllMerology() {
         return metrologyRepository.findAll();
     }
 
@@ -54,7 +50,7 @@ public class MetrologyService {
     }
 
 
-    public void deleteMetrology(String metrologyId){
+    public void deleteMetrology(String metrologyId) {
         metrologyRepository.deleteById(metrologyId);
     }
 }
