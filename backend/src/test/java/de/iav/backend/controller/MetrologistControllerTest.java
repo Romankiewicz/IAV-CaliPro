@@ -56,7 +56,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .andExpect(jsonPath("$[0].courses.length()").value(0));
     }
 
-
     @Test
     @DirtiesContext
     @WithMockUser
@@ -90,5 +89,40 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .andExpect(jsonPath("$.email").value("DK.notDriftKing@Nintendo.jp"))
                 .andExpect(jsonPath("$.role").value("METROLOGIST"));
     }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser
+    void findMetrologistByUsername_whenMetrologistExists_thenReturnMetrologist() throws Exception {
+        Metrologist metrologist = new Metrologist(
+                "1",
+                "DonkeyKong",
+                "Donkey",
+                "Kong",
+                "DK.notDriftKing@Nintendo.jp",
+                UserRole.METROLOGIST
+        );
+
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(metrologist)))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        Metrologist expectedMetrologist = objectMapper
+                .readValue(response
+                        .getResponse()
+                        .getContentAsString(), Metrologist.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist/"
+                        + expectedMetrologist.username()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.username").value("DonkeyKong"))
+                .andExpect(jsonPath("$.firstName").value("Donkey"))
+                .andExpect(jsonPath("$.lastName").value("Kong"))
+                .andExpect(jsonPath("$.email").value("DK.notDriftKing@Nintendo.jp"))
+                .andExpect(jsonPath("$.role").value("METROLOGIST"));
+    }
+
 
 }
