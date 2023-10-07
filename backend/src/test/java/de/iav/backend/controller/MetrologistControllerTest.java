@@ -208,4 +208,33 @@ class MetrologistControllerTest {
                         + metrologistToDelete.metrologistId()))
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser
+    void deleteMetrologist_whenNotLoggedInAsMetrologist_thenReturnStatusForbidden() throws Exception {
+
+        Metrologist metrologist = new Metrologist(
+                "1",
+                "FarCry",
+                "Jack",
+                "Carver",
+                "jack.carver@crytec.com",
+                UserRole.METROLOGIST);
+
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(metrologist)))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        Metrologist metrologistToDelete = objectMapper
+                .readValue(response
+                        .getResponse()
+                        .getContentAsString(), Metrologist.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/metrologist/"
+                        + metrologistToDelete.metrologistId()))
+                .andExpect(status().isForbidden());
+    }
 }

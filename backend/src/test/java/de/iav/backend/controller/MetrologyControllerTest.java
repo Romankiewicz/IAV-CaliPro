@@ -239,7 +239,7 @@ class MetrologyControllerTest {
     @Test
     @DirtiesContext
     @WithMockUser
-    void deleteMetrology_whenNotLoggedIn_thenReturnStatusForbidden() throws Exception {
+    void deleteMetrology_whenNotLoggedInAsMetrologist_thenReturnStatusForbidden() throws Exception {
 
         Metrology metrology = new Metrology(
                 "1",
