@@ -32,7 +32,6 @@ class OperatorControllerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-
     @Test
     @DirtiesContext
     @WithMockUser

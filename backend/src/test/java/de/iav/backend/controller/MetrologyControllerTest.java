@@ -28,8 +28,6 @@ class MetrologyControllerTest {
 
     private final String BASE_URL = "/api/metrology";
 
-
-
     @Test
     @DirtiesContext
     @WithMockUser

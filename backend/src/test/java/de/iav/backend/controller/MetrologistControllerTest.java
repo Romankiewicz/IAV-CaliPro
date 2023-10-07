@@ -26,11 +26,10 @@ class MetrologistControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     @Autowired
     private MetrologistRepository metrologistRepository;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     @DirtiesContext
