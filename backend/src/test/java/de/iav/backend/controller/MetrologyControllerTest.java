@@ -255,4 +255,23 @@ class MetrologyControllerTest {
                         + metrology.metrologyId()))
                 .andExpect(status().isForbidden());
     }
+
+    @Test
+    @DirtiesContext
+    void deleteMetrology_whenNotLoggedInAsMetrologist_thenReturnStatusUnauthorized() throws Exception {
+
+        Metrology metrology = new Metrology(
+                "1",
+                "1",
+                "Horiba",
+                "MEXA",
+                LocalDate.of(2022,2,20),
+                LocalDate.of(2022,2,20));
+
+        metrologyRepository.save(metrology);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/"
+                        + metrology.metrologyId()))
+                .andExpect(status().isUnauthorized());
+    }
 }
