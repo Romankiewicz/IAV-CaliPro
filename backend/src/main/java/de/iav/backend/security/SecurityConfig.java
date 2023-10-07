@@ -32,7 +32,7 @@ public class SecurityConfig {
                     c.requestMatchers(HttpMethod.POST, "/api/metrologist").authenticated();
                     c.requestMatchers(HttpMethod.PUT, "/api/metrologist/**").authenticated();
                     c.requestMatchers(HttpMethod.GET, "/api/metrologist/**").authenticated();
-                    c.requestMatchers(HttpMethod.DELETE, "/api/metrologist/**").authenticated();
+                    c.requestMatchers(HttpMethod.DELETE, "/api/metrologist/**").hasRole(UserRole.METROLOGIST.name());
 
                     c.requestMatchers(HttpMethod.POST, "/api/operators").authenticated();
                     c.requestMatchers(HttpMethod.PUT, "/api/operators/**").authenticated();
