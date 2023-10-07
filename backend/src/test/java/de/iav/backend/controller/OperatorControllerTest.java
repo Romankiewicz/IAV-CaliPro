@@ -1,7 +1,6 @@
 package de.iav.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.iav.backend.model.Metrologist;
 import de.iav.backend.model.Operator;
 import de.iav.backend.security.UserRole;
 import org.junit.jupiter.api.Test;
@@ -43,8 +42,8 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(operator)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated());
     }
 
@@ -71,7 +70,7 @@ class OperatorControllerTest {
     @WithMockUser
     void findOperatorById_whenOperatorExists_thenReturnOperator() throws Exception {
 
-        Operator operator =new Operator(
+        Operator operator = new Operator(
                 "1",
                 "Jackass",
                 "Johnny",
@@ -81,8 +80,8 @@ class OperatorControllerTest {
                 UserRole.OPERATOR);
 
         MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(operator)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())
                 .andReturn();
 
@@ -107,7 +106,7 @@ class OperatorControllerTest {
     @WithMockUser
     void findOperatorByUsername_whenOperatorExists_thenReturnOperator() throws Exception {
 
-        Operator operator =new Operator(
+        Operator operator = new Operator(
                 "1",
                 "Jackass",
                 "Johnny",
@@ -143,7 +142,7 @@ class OperatorControllerTest {
     @WithMockUser
     void updateOperator_whenLoggedIn_thenReturnUpdatedOperator() throws Exception {
 
-        Operator operator =new Operator(
+        Operator operator = new Operator(
                 "1",
                 "Kampfkollos",
                 "Eric",
@@ -187,5 +186,35 @@ class OperatorControllerTest {
                 .andExpect(jsonPath("$.email").value("the.coon@southpark.com"))
                 .andExpect(jsonPath("$.testBench.length()").value(0))
                 .andExpect(jsonPath("$.role").value("OPERATOR"));
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser
+    void deleteOperator_whenOperatorExists_thenReturnNothing() throws Exception {
+
+        Operator operator = new Operator(
+                "1",
+                "Kampfkollos",
+                "Eric",
+                "Cartman",
+                "eric.catrman@southpark.com",
+                new ArrayList<>(),
+                UserRole.OPERATOR);
+
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(operator)))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        Operator operatorToDelete = objectMapper
+                .readValue(response
+                        .getResponse()
+                        .getContentAsString(), Operator.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/operators/"
+                        + operatorToDelete.operatorId()))
+                .andExpect(status().isNoContent());
     }
 }
