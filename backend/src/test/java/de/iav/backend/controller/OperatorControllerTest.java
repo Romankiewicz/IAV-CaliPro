@@ -217,4 +217,34 @@ class OperatorControllerTest {
                         + operatorToDelete.operatorId()))
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser
+    void deleteOperator_whenNotLoggedInAsOperator_thenStatusForbidden() throws Exception {
+
+        Operator operator = new Operator(
+                "1",
+                "Kampfkollos",
+                "Eric",
+                "Cartman",
+                "eric.catrman@southpark.com",
+                new ArrayList<>(),
+                UserRole.OPERATOR);
+
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(operator)))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        Operator operatorToDelete = objectMapper
+                .readValue(response
+                        .getResponse()
+                        .getContentAsString(), Operator.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/operators/"
+                        + operatorToDelete.operatorId()))
+                .andExpect(status().isForbidden());
+    }
 }
