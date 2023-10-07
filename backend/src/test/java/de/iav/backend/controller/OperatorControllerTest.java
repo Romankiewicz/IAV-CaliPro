@@ -2,6 +2,7 @@ package de.iav.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.iav.backend.model.Operator;
+import de.iav.backend.repository.OperatorRepository;
 import de.iav.backend.security.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,11 @@ class OperatorControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private OperatorRepository operatorRepository;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
+
 
     @Test
     @DirtiesContext
@@ -246,5 +251,25 @@ class OperatorControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/operators/"
                         + operatorToDelete.operatorId()))
                 .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @DirtiesContext
+    void deleteOperator_whenNotLoggedIn_thenStatusUnauthorized() throws Exception {
+
+        Operator operator = new Operator(
+                "1",
+                "Kampfkollos",
+                "Eric",
+                "Cartman",
+                "eric.catrman@southpark.com",
+                new ArrayList<>(),
+                UserRole.OPERATOR);
+
+        operatorRepository.save(operator);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/operators/"
+                        + operator.operatorId()))
+                .andExpect(status().isUnauthorized());
     }
 }
