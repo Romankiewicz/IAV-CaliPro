@@ -68,6 +68,31 @@ class MetrologyControllerTest {
     }
 
     @Test
+    @DirtiesContext
+    @WithMockUser
+    void listAllMetrology_whenMetrologyExist_thenReturnMetrologyList() throws Exception {
+
+        Metrology metrology = new Metrology(
+                "1",
+                "1",
+                "Horiba",
+                "MEXA",
+                LocalDate.of(2022,2,20),
+                LocalDate.of(2022,2,20));
+
+        metrologyRepository.save(metrology);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$[0].metrologyId").value("1"))
+                .andExpect(jsonPath("$[0].iavInventory").value("1"))
+                .andExpect(jsonPath("$[0].manufacturer").value("Horiba"))
+                .andExpect(jsonPath("$[0].type").value("MEXA"))
+                .andExpect(jsonPath("$[0].maintenance").value("2022-02-20"))
+                .andExpect(jsonPath("$[0].calibration").value("2022-02-20"));
+    }
+
+    @Test
     void addMetrology() {
     }
 
