@@ -68,7 +68,7 @@ class MetrologistControllerTest {
     @Test
     @DirtiesContext
     @WithMockUser
-    void findMetrologistById_whenMetrologistExists_thenReturnMetrologist() throws Exception {
+    void findMetrologistById_whenMetrologistExists_thenGetStatusIsCreated() throws Exception {
 
         Metrologist metrologist = new Metrologist(
                 "1",
@@ -182,7 +182,7 @@ class MetrologistControllerTest {
 
     @Test
     @DirtiesContext
-    @WithMockUser(roles = "METROLOGIST" )
+    @WithMockUser(roles = "METROLOGIST")
     void deleteMetrologist_whenMetrologistExists_thenReturnNothing() throws Exception {
 
         Metrologist metrologist = new Metrologist(

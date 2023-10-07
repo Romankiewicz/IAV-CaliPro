@@ -49,7 +49,7 @@ class OperatorControllerTest {
 
     @Test
     @DirtiesContext
-    void addOperator_whenNotLoggedIn_thenReturnAddedOperator() throws Exception {
+    void addOperator_whenNotLoggedIn_thenGetStatusIsCreated() throws Exception {
 
         Operator operator = new Operator(
                 "1",

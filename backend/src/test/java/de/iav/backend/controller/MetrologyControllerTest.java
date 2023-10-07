@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
@@ -93,7 +94,47 @@ class MetrologyControllerTest {
     }
 
     @Test
-    void addMetrology() {
+    @DirtiesContext
+    void addMetrology_whenNotLoggedIn_thenGetRejected() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                        """
+                            {
+                            "metrologId": "1",
+                            "iavInventory":  "1",
+                            "manufacturer": "Horiba",
+                            "type": "MEXA",
+                            "mainntenance": "2022-02-20",
+                            "calibration": "2022-02-20"
+                            }
+                        """
+                ))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(roles = "METROLOGIST")
+    void addMetrology_whenLoggedIn_thenGetStatusIsCreated() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(
+                                """
+                                    {
+                                    "metrologId": "1",
+                                    "iavInventory":  "1",
+                                    "manufacturer": "Horiba",
+                                    "type": "MEXA",
+                                    "mainntenance": "2022-02-20",
+                                    "calibration": "2022-02-20"
+                                    }
+                                """
+                        ))
+                .andExpect(status().isCreated());
+
     }
 
     @Test
