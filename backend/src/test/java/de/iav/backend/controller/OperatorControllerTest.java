@@ -190,8 +190,8 @@ class OperatorControllerTest {
 
     @Test
     @DirtiesContext
-    @WithMockUser
-    void deleteOperator_whenOperatorExists_thenReturnNothing() throws Exception {
+    @WithMockUser(roles = "OPERATOR")
+    void deleteOperator_whenLoggedIn_thenStatusNoContent() throws Exception {
 
         Operator operator = new Operator(
                 "1",

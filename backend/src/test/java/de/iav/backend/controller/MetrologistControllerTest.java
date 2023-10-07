@@ -183,7 +183,7 @@ class MetrologistControllerTest {
     @Test
     @DirtiesContext
     @WithMockUser(roles = "METROLOGIST")
-    void deleteMetrologist_whenMetrologistExists_thenReturnNothing() throws Exception {
+    void deleteMetrologist_whenLoggedIn_thenReturnStatusNoContent() throws Exception {
 
         Metrologist metrologist = new Metrologist(
                 "1",
