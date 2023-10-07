@@ -1,6 +1,5 @@
 package de.iav.backend.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.iav.backend.model.Metrology;
 import de.iav.backend.repository.MetrologyRepository;
 import org.junit.jupiter.api.Test;
@@ -26,8 +25,6 @@ class MetrologyControllerTest {
 
     @Autowired
     private MetrologyRepository metrologyRepository;
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     private final String BASE_URL = "/api/metrology";
 
@@ -106,7 +103,7 @@ class MetrologyControllerTest {
                             "iavInventory":  "1",
                             "manufacturer": "Horiba",
                             "type": "MEXA",
-                            "mainntenance": "2022-02-20",
+                            "maintenance": "2022-02-20",
                             "calibration": "2022-02-20"
                             }
                         """
@@ -128,17 +125,59 @@ class MetrologyControllerTest {
                                     "iavInventory":  "1",
                                     "manufacturer": "Horiba",
                                     "type": "MEXA",
-                                    "mainntenance": "2022-02-20",
+                                    "maintenance": "2022-02-20",
                                     "calibration": "2022-02-20"
                                     }
                                 """
                         ))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated())
+                .andReturn();
 
     }
 
     @Test
-    void updateMetrology() {
+    @DirtiesContext
+    @WithMockUser(roles = "METROLOGIST")
+    void updateMetrology_whenLoggedIn_thenReturnUpdatedMetrology() throws Exception {
+
+        Metrology metrology = new Metrology(
+                "1",
+                "1",
+                "Horiba",
+                "MEXA",
+                LocalDate.of(2022,2,20),
+                LocalDate.of(2022,2,20));
+
+        metrologyRepository.save(metrology);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/"
+                        + metrology.metrologyId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(
+                                """
+                                    {
+                                    "metrologId": "1",
+                                    "iavInventory":  "1",
+                                    "manufacturer": "Horiba",
+                                    "type": "MEXA",
+                                    "maintenance": "2023-02-20",
+                                    "calibration": "2023-02-20"
+                                    }
+                                """
+                                ))
+                        .andExpect(status().isCreated());
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/"
+                        + metrology.metrologyId()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.metrologyId").value("1"))
+                .andExpect(jsonPath("$.iavInventory").value("1"))
+                .andExpect(jsonPath("$.manufacturer").value("Horiba"))
+                .andExpect(jsonPath("$.type").value("MEXA"))
+                .andExpect(jsonPath("$.maintenance").value("2023-02-20"))
+                .andExpect(jsonPath("$.calibration").value("2023-02-20"));
+
     }
 
     @Test
