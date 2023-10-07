@@ -137,6 +137,41 @@ class MetrologyControllerTest {
 
     @Test
     @DirtiesContext
+    @WithMockUser
+    void updateMetrology_whenNotLoggedIn_thenGetRejected() throws Exception {
+
+        Metrology metrology = new Metrology(
+                "1",
+                "1",
+                "Horiba",
+                "MEXA",
+                LocalDate.of(2022,2,20),
+                LocalDate.of(2022,2,20));
+
+        metrologyRepository.save(metrology);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/"
+                                + metrology.metrologyId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(
+                                """
+                                    {
+                                    "metrologId": "1",
+                                    "iavInventory":  "1",
+                                    "manufacturer": "Horiba",
+                                    "type": "MEXA",
+                                    "maintenance": "2023-02-20",
+                                    "calibration": "2023-02-20"
+                                    }
+                                """
+                        ))
+                        .andExpect(status()
+                        .isForbidden());
+    }
+
+    @Test
+    @DirtiesContext
     @WithMockUser(roles = "METROLOGIST")
     void updateMetrology_whenLoggedIn_thenReturnUpdatedMetrology() throws Exception {
 
@@ -166,7 +201,8 @@ class MetrologyControllerTest {
                                     }
                                 """
                                 ))
-                        .andExpect(status().isCreated());
+                        .andExpect(status()
+                        .isCreated());
 
         mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/"
                         + metrology.metrologyId()))
