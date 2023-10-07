@@ -48,12 +48,9 @@ public class LoginViewController {
         if (isEveryTextFieldValid()) {
             String username = TF_USERNAME.getText();
             String password = PF_PASSWORD.getText();
-            System.out.println(username + "\n" + password);
             boolean result = AuthenticationService.getInstance().login(username, password);
 
             if (result && !AuthenticationService.getInstance().equals("anonymousUser")) {
-
-                System.out.println("Username:" + "\n" + AuthenticationService.getInstance().getUsername());
 
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/username" ))
@@ -67,8 +64,6 @@ public class LoginViewController {
                         .sendAsync(request, HttpResponse.BodyHandlers.ofString());
                 int statusCode = response.join().statusCode();
                 String body = response.join().body();
-
-                System.out.println(response + "\n" + statusCode);
 
                 if (statusCode == 202 && body.length() > 0) {
                     SceneSwitchService.getInstance().switchToMetrologistView(event);
