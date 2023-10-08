@@ -121,6 +121,28 @@ public class TestBenchControllerTest {
     }
 
     @Test
+    @DirtiesContext
+    @WithMockUser(roles = "METROLOGIST")
+    void addTestBench_whenLoggedIn_thenGetStatusIsCreated() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(
+                                """
+                                    {
+                                        "benchId": "1",
+                                        "name": "Pruefstand_1",
+                                        "maintenance": "2022-02-20",
+                                        "calibration": "2022-02-20"
+                                    }
+                                """
+                        ))
+                .andExpect(status()
+                .isCreated())
+                .andReturn();
+    }
+
+    @Test
     void addMetrologyToTestBench() {
     }
 
