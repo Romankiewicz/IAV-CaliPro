@@ -190,7 +190,65 @@ public class TestBenchControllerTest {
     }
 
     @Test
-    void removeMetrologyFromTestBench() {
+    @DirtiesContext
+    @WithMockUser(roles = "METROLOGIST")
+    void removeMetrologyFromTestBench_whenLoggedIn_thenReturnStatusIsNoConttent() throws Exception {
+
+        TestBench testBench = new TestBench(
+                "1",
+                "Pruefstand_1",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                LocalDate.of(2022,2,20),
+                LocalDate.of(2022,2,20)
+        );
+
+        testBenchRepository.save(testBench);
+
+        Metrology metrology = new Metrology(
+                "1",
+                "1",
+                "Horiba",
+                "MEXA",
+                LocalDate.of(2022,2,20),
+                LocalDate.of(2022,2,20));
+
+        metrologyRepository.save(metrology);
+
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/metrology/" + testBench.benchId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(metrology.metrologyId()))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL
+                        + "/"
+                        +testBench.benchId()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.benchId").value(testBench.benchId()))
+                .andExpect(jsonPath("$.name").value("Pruefstand_1"))
+                .andExpect(jsonPath("$.metrology.length()").value(1))
+                .andExpect(jsonPath("$.operator.length()").value(0))
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+
+
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/metrology/" + testBench.benchId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(metrology.metrologyId()))
+                .andExpect(status().isNoContent())
+                .andReturn();
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL
+                        + "/"
+                        +testBench.benchId()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.benchId").value(testBench.benchId()))
+                .andExpect(jsonPath("$.name").value("Pruefstand_1"))
+                .andExpect(jsonPath("$.metrology.length()").value(0))
+                .andExpect(jsonPath("$.operator.length()").value(0))
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
     }
 
     @Test
