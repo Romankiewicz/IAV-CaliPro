@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
@@ -101,7 +102,22 @@ public class TestBenchControllerTest {
     }
 
     @Test
-    void addTestBench() {
+    @DirtiesContext
+    void addTestBench_whenNotLoggedIn_thenGetStatusUnauthorized() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                        """
+                            {
+                                "benchId": "1",
+                                "name": "Pruefstand_1",
+                                "maintenance": "2022-02-20",
+                                "calibration": "2022-02-20"
+                            }
+                        """
+                ))
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
