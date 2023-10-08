@@ -1,8 +1,10 @@
 package de.iav.backend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.iav.backend.model.Metrology;
 import de.iav.backend.model.TestBench;
 import de.iav.backend.repository.MetrologistRepository;
+import de.iav.backend.repository.MetrologyRepository;
 import de.iav.backend.repository.TestBenchRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
@@ -30,7 +33,7 @@ public class TestBenchControllerTest {
     private TestBenchRepository testBenchRepository;
 
     @Autowired
-    private MetrologistRepository metrologistRepository;
+    private MetrologyRepository metrologyRepository;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -143,7 +146,47 @@ public class TestBenchControllerTest {
     }
 
     @Test
-    void addMetrologyToTestBench() {
+    @DirtiesContext
+    @WithMockUser(roles = "METROLOGIST")
+    void addMetrologyToTestBench_whenTestBenchAndMetrologyExistsAndLoggedIn_thenReturnTestBenchWithAssingnedMetrology() throws Exception {
+
+        TestBench testBench = new TestBench(
+                "1",
+                "Pruefstand_1",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                LocalDate.of(2022,2,20),
+                LocalDate.of(2022,2,20)
+        );
+
+        testBenchRepository.save(testBench);
+
+        Metrology metrology = new Metrology(
+                "1",
+                "1",
+                "Horiba",
+                "MEXA",
+                LocalDate.of(2022,2,20),
+                LocalDate.of(2022,2,20));
+
+        metrologyRepository.save(metrology);
+
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/metrology/" + testBench.benchId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(metrology.metrologyId()))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL
+                        + "/"
+                        +testBench.benchId()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.benchId").value(testBench.benchId()))
+                .andExpect(jsonPath("$.name").value("Pruefstand_1"))
+                .andExpect(jsonPath("$.metrology.length()").value(1))
+                .andExpect(jsonPath("$.operator.length()").value(0))
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
     }
 
     @Test
