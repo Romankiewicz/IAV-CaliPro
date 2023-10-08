@@ -4,6 +4,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public record TestBench(
         List<Metrology> metrology,
         @DBRef(lazy = true)
         List<Operator> operator,
-        Date maintenance,
-        Date calibration
+        LocalDate maintenance,
+        LocalDate calibration
 ) {
 }
