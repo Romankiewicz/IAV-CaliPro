@@ -70,7 +70,7 @@ public class TestBenchService {
     }
 
 
-    public void addTestBenchOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+    public void addOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
@@ -83,7 +83,7 @@ public class TestBenchService {
         testBenchRepository.save(testBench);
     }
 
-    public void removeTestBenchOperatorFromTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+    public void removeOperatorFromTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         TestBench testBench = testBenchRepository
                 .findById(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));

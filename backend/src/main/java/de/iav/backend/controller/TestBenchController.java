@@ -51,14 +51,14 @@ public class TestBenchController {
 
     @PutMapping("/operator/{testBenchId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addTestBenchOperatorToTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
-        testBenchService.addTestBenchOperatorToTestBench(testBenchId, operatorId);
+    public void addOperatorToTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+        testBenchService.addOperatorToTestBench(testBenchId, operatorId);
     }
 
     @DeleteMapping("/operator/{testBenchId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeTestBechOperatorFromTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
-        testBenchService.removeTestBenchOperatorFromTestBench(testBenchId, operatorId);
+    public void removeOperatorFromTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+        testBenchService.removeOperatorFromTestBench(testBenchId, operatorId);
     }
 
 }
