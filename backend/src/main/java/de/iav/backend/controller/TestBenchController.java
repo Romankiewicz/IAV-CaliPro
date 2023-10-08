@@ -37,27 +37,27 @@ public class TestBenchController {
         return testBenchService.addTestBench(testBenchToAdd);
     }
 
-    @PutMapping("/metrology/{testBenchId}")
+    @PutMapping("/{testBenchId}/metrology/{metrologyId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addMetrologyToTestBench(@PathVariable String testBenchId, @RequestBody String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
+    public void addMetrologyToTestBench(@PathVariable String testBenchId, @PathVariable String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
         testBenchService.addMetrologyToTestBench(testBenchId, metrologyId);
     }
 
-    @DeleteMapping("/metrology/{testBenchId}")
+    @DeleteMapping("/{testBenchId}/metrology/{metrologyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeMetrologyFromTestBench(@PathVariable String testBenchId, @RequestBody String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
+    public void removeMetrologyFromTestBench(@PathVariable String testBenchId, @PathVariable String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
         testBenchService.removeMetrologyFromTestBench(testBenchId, metrologyId);
     }
 
-    @PutMapping("/operator/{testBenchId}")
+    @PutMapping("/{testBenchId}/operator/{operatorId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addOperatorToTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+    public void addOperatorToTestBench(@PathVariable String testBenchId, @PathVariable String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         testBenchService.addOperatorToTestBench(testBenchId, operatorId);
     }
 
-    @DeleteMapping("/operator/{testBenchId}")
+    @DeleteMapping("/{testBenchId}/operator/{operatorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeOperatorFromTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+    public void removeOperatorFromTestBench(@PathVariable String testBenchId, @PathVariable String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         testBenchService.removeOperatorFromTestBench(testBenchId, operatorId);
     }
 

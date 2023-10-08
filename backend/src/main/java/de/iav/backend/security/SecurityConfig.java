@@ -45,7 +45,7 @@ public class SecurityConfig {
                     c.requestMatchers(HttpMethod.DELETE, "/api/metrology/**").hasRole(UserRole.METROLOGIST.name());
 
                     c.requestMatchers(HttpMethod.POST, "/api/testbenches").hasRole(UserRole.METROLOGIST.name());
-                    c.requestMatchers(HttpMethod.PUT, "/api/testbenches/**").hasRole(UserRole.METROLOGIST.name());
+                    c.requestMatchers(HttpMethod.PUT, "/api/testbenches/**").authenticated();
                     c.requestMatchers(HttpMethod.GET, "/api/testbenches/**").authenticated();
                     c.requestMatchers(HttpMethod.DELETE, "/api/testbenches/**").hasRole(UserRole.METROLOGIST.name());
 
