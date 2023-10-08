@@ -72,7 +72,32 @@ public class TestBenchControllerTest {
     }
 
     @Test
-    void getTestBenchById() {
+    @DirtiesContext
+    @WithMockUser
+    void getTestBenchById_whenTestBenchExists_thenReturnTestBench() throws Exception {
+
+        TestBench testBench = new TestBench(
+                "1",
+                "Pruefstand_1",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                LocalDate.of(2022,2,20),
+                LocalDate.of(2022,2,20)
+        );
+
+        testBenchRepository.save(testBench);
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL
+                        + "/"
+                        +testBench.benchId()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.benchId").value(testBench.benchId()))
+                .andExpect(jsonPath("$.name").value("Pruefstand_1"))
+                .andExpect(jsonPath("$.metrology.length()").value(0))
+                .andExpect(jsonPath("$.operator.length()").value(0))
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+
     }
 
     @Test
