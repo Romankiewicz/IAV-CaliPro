@@ -1,6 +1,5 @@
 package de.iav.backend.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.iav.backend.model.Metrology;
 import de.iav.backend.model.Operator;
 import de.iav.backend.model.TestBench;
@@ -39,10 +38,7 @@ public class TestBenchControllerTest {
     @Autowired
     private OperatorRepository operatorRepository;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     private final String BASE_URL = "/api/testbenches";
-    private final String OPERATOR_URL = "/api/operators";
 
 
     @Test
@@ -303,6 +299,7 @@ public class TestBenchControllerTest {
                 .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
                 .andExpect(jsonPath("$.calibration").value("2022-02-20"));
 
+        String OPERATOR_URL = "/api/operators";
         mockMvc.perform(MockMvcRequestBuilders.get(OPERATOR_URL + "/id/" +operator.operatorId()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.operatorId").value(operator.operatorId()))
