@@ -18,7 +18,7 @@ public class RegistrationViewService {
     private final HttpClient registrationClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
-    private final String json = "application/json";
+    private static final String json = "application/json";
     public RegistrationViewService() {
 
     }

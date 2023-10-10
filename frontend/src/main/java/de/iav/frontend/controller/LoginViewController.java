@@ -30,8 +30,6 @@ public class LoginViewController {
     private TextField TF_USERNAME;
     @FXML
     private PasswordField PF_PASSWORD;
-    private UserRole selectedRole;
-
     private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
     public void initialize() {

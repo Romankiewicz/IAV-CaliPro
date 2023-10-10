@@ -25,15 +25,4 @@ public record Operator(
         List<TestBench> testBench,
         UserRole role
 ) {
-//
-//        public Operator withTestBench(List<TestBench> testBench) {
-//                return new Operator(
-//                        this.operatorId,
-//                        this.username,
-//                        this.firstName,
-//                        this.lastName,
-//                        this.email,
-//                        testBench,
-//                        this.role);
-//        }
 }
