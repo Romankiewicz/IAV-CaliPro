@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface TestBenchRepository extends MongoRepository<TestBench, String> {
 
-    Optional<TestBench> findTestBenchById(String testBenchId);
+    Optional<TestBench> findTestBenchByBenchId(String benchId);
 
-    boolean existsByTestBenchBy(String testBenchId);
+    boolean existsByBenchId(String benchId);
 }
