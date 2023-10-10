@@ -1,6 +1,6 @@
 package de.iav.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.iav.backend.security.UserRole;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.List;
 
-@Document(collection = "Operators")
+@Document(collection = "operator")
 public record Operator(
         @MongoId
         String operatorId,
@@ -20,8 +20,20 @@ public record Operator(
         String lastName,
         String email,
         @DBRef(lazy = true)
-        @JsonIgnoreProperties("Operators")
+        @JsonIgnoreProperties("perators")
+        @JsonBackReference
         List<TestBench> testBench,
         UserRole role
 ) {
+//
+//        public Operator withTestBench(List<TestBench> testBench) {
+//                return new Operator(
+//                        this.operatorId,
+//                        this.username,
+//                        this.firstName,
+//                        this.lastName,
+//                        this.email,
+//                        testBench,
+//                        this.role);
+//        }
 }

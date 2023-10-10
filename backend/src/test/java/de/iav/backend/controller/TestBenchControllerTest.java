@@ -234,8 +234,8 @@ public class TestBenchControllerTest {
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.benchId").value(testBench.benchId()))
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
-                .andExpect(jsonPath("$.metrology.length()").value(1))
-                .andExpect(jsonPath("$.operator.length()").value(0))
+                .andExpect(jsonPath("$.metrology.length()").value(0))
+                .andExpect(jsonPath("$.operator.length()").value(1))
                 .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
                 .andExpect(jsonPath("$.calibration").value("2022-02-20"));
 
@@ -298,20 +298,19 @@ public class TestBenchControllerTest {
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.benchId").value(testBench.benchId()))
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
-                .andExpect(jsonPath("$.metrology.length()").value(1))
-                .andExpect(jsonPath("$.operator.length()").value(0))
+                .andExpect(jsonPath("$.metrology.length()").value(0))
+                .andExpect(jsonPath("$.operator.length()").value(1))
                 .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
                 .andExpect(jsonPath("$.calibration").value("2022-02-20"));
 
-//        mockMvc.perform(MockMvcRequestBuilders.get(OPERATOR_URL + "/id/" +operator.operatorId()))
-//                .andExpect(status().isAccepted())
-//                .andExpect(jsonPath("$.operatorId").value(operator.operatorId()))
-//                .andExpect(jsonPath("$.username").value("StandYourGround"))
-//                .andExpect(jsonPath("$.firstName").value("Stan"))
-//                .andExpect(jsonPath("$.lastName").value("Marsh"))
-//                .andExpect(jsonPath("$.email").value("stan.marsh@southpark.com"))
-//                .andExpect(jsonPath("$.testBench.length()").value(1))
-//                .andExpect(jsonPath("$.role").value("OPERATOR"));
+        mockMvc.perform(MockMvcRequestBuilders.get(OPERATOR_URL + "/id/" +operator.operatorId()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.operatorId").value(operator.operatorId()))
+                .andExpect(jsonPath("$.username").value("StandYourGround"))
+                .andExpect(jsonPath("$.firstName").value("Stan"))
+                .andExpect(jsonPath("$.lastName").value("Marsh"))
+                .andExpect(jsonPath("$.email").value("stan.marsh@southpark.com"))
+                .andExpect(jsonPath("$.role").value("OPERATOR"));
     }
 
     @Test
