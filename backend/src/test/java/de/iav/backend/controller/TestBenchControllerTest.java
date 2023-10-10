@@ -234,8 +234,8 @@ public class TestBenchControllerTest {
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.benchId").value(testBench.benchId()))
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
-                .andExpect(jsonPath("$.metrology.length()").value(0))
-                .andExpect(jsonPath("$.operator.length()").value(1))
+                .andExpect(jsonPath("$.metrology.length()").value(1))
+                .andExpect(jsonPath("$.operator.length()").value(0))
                 .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
                 .andExpect(jsonPath("$.calibration").value("2022-02-20"));
 

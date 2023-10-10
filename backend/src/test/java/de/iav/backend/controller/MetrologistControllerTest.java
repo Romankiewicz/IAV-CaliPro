@@ -31,6 +31,8 @@ class MetrologistControllerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private final String BASE_URL = "/api/metrologist";
+
     @Test
     @DirtiesContext
     @WithMockUser
@@ -44,7 +46,7 @@ class MetrologistControllerTest {
                 "master.chief@activision.com",
                 UserRole.METROLOGIST);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated());
@@ -62,7 +64,7 @@ class MetrologistControllerTest {
                 "master.chief@activision.com",
                 UserRole.METROLOGIST);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isUnauthorized());
@@ -81,7 +83,7 @@ class MetrologistControllerTest {
                 "DK.notDriftKing@Nintendo.jp",
                 UserRole.METROLOGIST);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
@@ -92,7 +94,7 @@ class MetrologistControllerTest {
                         .getResponse()
                         .getContentAsString(), Metrologist.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist/id/"
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/id/"
                         + expectedMetrologist.metrologistId()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.username").value("DonkeyKong"))
@@ -114,7 +116,7 @@ class MetrologistControllerTest {
                 "DK.notDriftKing@Nintendo.jp",
                 UserRole.METROLOGIST);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
@@ -125,7 +127,7 @@ class MetrologistControllerTest {
                         .getResponse()
                         .getContentAsString(), Metrologist.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist/"
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/"
                         + expectedMetrologist.username()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.username").value("DonkeyKong"))
@@ -148,7 +150,7 @@ class MetrologistControllerTest {
                 "g.freeman@blackmesa.com",
                 UserRole.METROLOGIST);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
@@ -167,13 +169,13 @@ class MetrologistControllerTest {
                 "g.freeman@blackmesa.com",
                 UserRole.METROLOGIST);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/metrologist/"
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/"
                                 + expectedMetrologis.metrologistId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologistUpdate)))
                 .andExpect(status().isCreated());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/metrologist/id/"
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/id/"
                         + expectedMetrologis.metrologistId()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.username").value("QuakeModder"))
@@ -196,7 +198,7 @@ class MetrologistControllerTest {
                 "jack.carver@crytec.com",
                 UserRole.METROLOGIST);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
@@ -207,7 +209,7 @@ class MetrologistControllerTest {
                         .getResponse()
                         .getContentAsString(), Metrologist.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/metrologist/"
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/"
                         + metrologistToDelete.metrologistId()))
                 .andExpect(status().isNoContent());
     }
@@ -225,7 +227,7 @@ class MetrologistControllerTest {
                 "jack.carver@crytec.com",
                 UserRole.METROLOGIST);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/metrologist")
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
@@ -236,7 +238,7 @@ class MetrologistControllerTest {
                         .getResponse()
                         .getContentAsString(), Metrologist.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/metrologist/"
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/"
                         + metrologistToDelete.metrologistId()))
                 .andExpect(status().isForbidden());
     }
@@ -255,7 +257,7 @@ class MetrologistControllerTest {
 
         metrologistRepository.save(metrologist);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/metrologist/"
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/"
                         + metrologist.metrologistId()))
                 .andExpect(status().isUnauthorized());
     }

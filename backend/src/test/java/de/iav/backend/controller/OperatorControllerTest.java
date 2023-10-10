@@ -32,6 +32,8 @@ class OperatorControllerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    private final String Base_URL = "/api/operators";
+
     @Test
     @DirtiesContext
     @WithMockUser
@@ -45,7 +47,7 @@ class OperatorControllerTest {
                 "johnny.knoxville@jackass.com",
                 new ArrayList<>(),
                 UserRole.OPERATOR);
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
+        mockMvc.perform(MockMvcRequestBuilders.post(Base_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated());
