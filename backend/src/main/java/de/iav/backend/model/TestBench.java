@@ -24,14 +24,4 @@ public record TestBench(
         LocalDate maintenance,
         LocalDate calibration
 ) {
-//
-//        public TestBench withOperator(List<Operator> operators) {
-//                return new TestBench(
-//                        this.benchId,
-//                        this.name,
-//                        this.metrology,
-//                        operators,
-//                        this.maintenance,
-//                        this.calibration);
-//        }
 }

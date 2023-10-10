@@ -72,7 +72,6 @@ public class TestBenchService {
         testBenchRepository.save(testBench);
     }
 
-
     public void addOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
 
         TestBench testBench = testBenchRepository
@@ -89,7 +88,6 @@ public class TestBenchService {
         testBenchRepository.save(testBench);
     }
 
-
     public void removeOperatorFromTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         TestBench testBench = testBenchRepository
                 .findTestBenchByBenchId(testBenchId)
@@ -101,6 +99,25 @@ public class TestBenchService {
         testBench.operator().remove(operator);
         testBenchRepository.save(testBench);
         operatorRepository.save(operator);
+    }
+
+    public TestBench updateTestBenchById(String benchId, TestBenchDTO testBenchUpdate) throws NoSuchTestBenchException {
+
+        TestBench testBenchToUpdate = testBenchRepository
+                .findTestBenchByBenchId(benchId)
+                .orElseThrow(() -> new NoSuchTestBenchException(benchId));
+
+        TestBench updatedTestBench = new TestBench(
+                benchId,
+                testBenchUpdate.name(),
+                testBenchToUpdate.metrology(),
+                testBenchToUpdate.operator(),
+                testBenchUpdate.maintenance(),
+                testBenchUpdate.calibration());
+
+        testBenchRepository.save(updatedTestBench);
+
+        return updatedTestBench;
     }
 
 }
