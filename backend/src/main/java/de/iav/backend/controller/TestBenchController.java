@@ -22,19 +22,19 @@ public class TestBenchController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<TestBench> getAllTestBenches(){
+    public List<TestBench> getAllTestBenches() {
         return testBenchService.listAllTestBenches();
     }
 
     @GetMapping("/{testBenchId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Optional<TestBench> getTestBenchById(@PathVariable String testBenchId){
+    public Optional<TestBench> getTestBenchById(@PathVariable String testBenchId) {
         return testBenchService.findTestBenchById(testBenchId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TestBench addTestBench(@RequestBody TestBenchDTO testBenchToAdd){
+    public TestBench addTestBench(@RequestBody TestBenchDTO testBenchToAdd) {
         return testBenchService.addTestBench(testBenchToAdd);
     }
 
@@ -60,6 +60,12 @@ public class TestBenchController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeOperatorFromTestBench(@PathVariable String testBenchId, @PathVariable String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         testBenchService.removeOperatorFromTestBench(testBenchId, operatorId);
+    }
+
+    @PutMapping("/{testBenchId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TestBench updateTestBenchByBenchId(@PathVariable String testBenchId, @RequestBody TestBenchDTO testBenchUpdate) throws NoSuchTestBenchException {
+        return testBenchService.updateTestBenchById(testBenchId, testBenchUpdate);
     }
 
 }
