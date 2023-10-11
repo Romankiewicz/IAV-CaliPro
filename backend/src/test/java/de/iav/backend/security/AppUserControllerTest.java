@@ -33,7 +33,7 @@ class AppUserControllerTest {
 
     @Test
     @DirtiesContext
-    @WithMockUser("user")
+    @WithMockUser
     void getMe_whenLoggedIn_thenReturnUser() throws Exception {
 
        mockMvc.perform(get(BASE_URL + "/me"))
@@ -52,7 +52,7 @@ class AppUserControllerTest {
 
     @Test
     @DirtiesContext
-    @WithMockUser("user")
+    @WithMockUser
     void login_whenLogin_thenReturnUsername() throws Exception {
 
         mockMvc.perform(post(BASE_URL + "/login"))
@@ -142,7 +142,7 @@ class AppUserControllerTest {
 
     @Test
     @DirtiesContext
-    @WithMockUser("user")
+    @WithMockUser
     void logout_whenLogout_thenReturnAnonymousUser() throws Exception {
         mockMvc.perform(post(BASE_URL + "/logout"))
                 .andExpect(status().isOk())
