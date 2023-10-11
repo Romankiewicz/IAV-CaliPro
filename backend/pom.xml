@@ -70,6 +70,7 @@
             <scope>test</scope>
         </dependency>
 
+
         <dependency>
             <groupId>org.apache.maven.surefire</groupId>
             <artifactId>maven-surefire-common</artifactId>
