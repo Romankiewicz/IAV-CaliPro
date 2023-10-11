@@ -19,7 +19,7 @@ public record Operator(
         String firstName,
         String lastName,
         String email,
-remove//        @DBRef(lazy = true)
+//        @DBRef(lazy = true)
 //        @JsonIgnoreProperties("operators")
 //        @JsonBackReference
         List<TestBench> testBench,
