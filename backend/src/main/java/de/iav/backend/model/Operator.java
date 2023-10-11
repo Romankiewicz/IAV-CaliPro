@@ -19,9 +19,8 @@ public record Operator(
         String firstName,
         String lastName,
         String email,
-//        @DBRef(lazy = true)
-//        @JsonIgnoreProperties("operators")
-//        @JsonBackReference
+        @DBRef(lazy = true)
+        @JsonIgnoreProperties("operators")
         List<TestBench> testBench,
         UserRole role
 ) {

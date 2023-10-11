@@ -19,7 +19,6 @@ public record TestBench(
         List<Metrology> metrology,
         @DBRef(lazy = true)
         @JsonIgnoreProperties("testBench")
-        @JsonManagedReference
         List<Operator> operator,
         LocalDate maintenance,
         LocalDate calibration
