@@ -62,7 +62,7 @@ class AppUserControllerTest {
 
     @Test
     @DirtiesContext
-    void registerNewMerologist_whenMetrologistDontExist_thenExpectStatusIsOk() throws Exception {
+    void registerNewMetrologist_whenMetrologistDontExist_thenExpectStatusIsOk() throws Exception {
 
         AppUser metrologist = new AppUser(
                 "1",
@@ -81,7 +81,7 @@ class AppUserControllerTest {
 
     @Test
     @DirtiesContext
-    void registerNewMerologist_whenMetrologistExist_thenExpectMetrologistAlreadyExistException() {
+    void registerNewMetrologist_whenMetrologistExist_thenExpectMetrologistAlreadyExistException() {
         AppUser metrologist = new AppUser(
                 "1",
                 "SolidSnake",
