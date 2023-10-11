@@ -1,7 +1,6 @@
 package de.iav.backend.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.iav.backend.exceptions.MetrologistAlreadyExistException;
 import jakarta.servlet.ServletException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +81,7 @@ class AppUserControllerTest {
 
     @Test
     @DirtiesContext
-    void registerNewMerologist_whenMetrologistExist_thenExpectMetrologistAlreadyExistException() throws Exception {
+    void registerNewMerologist_whenMetrologistExist_thenExpectMetrologistAlreadyExistException() {
         AppUser metrologist = new AppUser(
                 "1",
                 "SolidSnake",
@@ -92,12 +91,11 @@ class AppUserControllerTest {
 
         appUserRepository.save(metrologist);
 
-        ServletException exception = assertThrows(ServletException.class, () -> {
-            mockMvc.perform(post(BASE_URL + "/register/metrologist")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(metrologist)))
-                    .andExpect(status().isBadRequest());
-        });
+        ServletException exception = assertThrows(ServletException.class, () ->
+                mockMvc.perform(post(BASE_URL + "/register/metrologist")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(metrologist)))
+                .andExpect(status().isBadRequest()));
 
         assertThat(exception.getMessage()).isEqualTo("Request processing failed: de.iav.backend.exceptions.MetrologistAlreadyExistException: User already taken!");
     }
@@ -123,7 +121,7 @@ class AppUserControllerTest {
 
     @Test
     @DirtiesContext
-    void registerNewOperator_whenOperatorExist_thenExpectOperatorAlreadyExistException() throws Exception {
+    void registerNewOperator_whenOperatorExist_thenExpectOperatorAlreadyExistException() {
         AppUser operator = new AppUser(
                 "1",
                 "SolidSnake",
@@ -133,17 +131,21 @@ class AppUserControllerTest {
 
         appUserRepository.save(operator);
 
-        ServletException exception = assertThrows(ServletException.class, () -> {
-            mockMvc.perform(post(BASE_URL + "/register/metrologist")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(operator)))
-                    .andExpect(status().isBadRequest());
-        });
+        ServletException exception = assertThrows(ServletException.class, () ->
+                mockMvc.perform(post(BASE_URL + "/register/metrologist")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(operator)))
+                .andExpect(status().isBadRequest()));
 
         assertThat(exception.getMessage()).isEqualTo("Request processing failed: de.iav.backend.exceptions.MetrologistAlreadyExistException: User already taken!");
     }
 
     @Test
-    void logout() {
+    @DirtiesContext
+    @WithMockUser("user")
+    void logout_whenLogout_thenReturnAnonymousUser() throws Exception {
+        mockMvc.perform(post(BASE_URL + "/logout"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("anonymousUser"));
     }
 }
