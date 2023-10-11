@@ -1,7 +1,6 @@
 package de.iav.frontend.controller;
 
 import de.iav.frontend.security.AuthenticationService;
-import de.iav.frontend.security.UserRole;
 import de.iav.frontend.service.LoginViewService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
@@ -30,9 +29,7 @@ public class LoginViewController {
     private TextField TF_USERNAME;
     @FXML
     private PasswordField PF_PASSWORD;
-    private UserRole selectedRole;
-
-    private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+    private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
     public void initialize() {
 

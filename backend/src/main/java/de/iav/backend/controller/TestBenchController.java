@@ -4,13 +4,13 @@ import de.iav.backend.exceptions.NoSuchMetrologyException;
 import de.iav.backend.exceptions.NoSuchTestBenchException;
 import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.model.TestBench;
+import de.iav.backend.model.TestBenchDTO;
 import de.iav.backend.service.TestBenchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/testbenches")
@@ -21,19 +21,19 @@ public class TestBenchController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<TestBench> getAllTestBenches(){
+    public List<TestBench> getAllTestBenches() {
         return testBenchService.listAllTestBenches();
     }
 
     @GetMapping("/{testBenchId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Optional<TestBench> getTestBenchById(@PathVariable String testBenchId){
+    public TestBench getTestBenchById(@PathVariable String testBenchId) throws NoSuchTestBenchException {
         return testBenchService.findTestBenchById(testBenchId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TestBench addTestBench(@RequestBody TestBench testBenchToAdd){
+    public TestBench addTestBench(@RequestBody TestBenchDTO testBenchToAdd) {
         return testBenchService.addTestBench(testBenchToAdd);
     }
 
@@ -59,6 +59,12 @@ public class TestBenchController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removeOperatorFromTestBench(@PathVariable String testBenchId, @PathVariable String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         testBenchService.removeOperatorFromTestBench(testBenchId, operatorId);
+    }
+
+    @PutMapping("/{testBenchId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TestBench updateTestBenchByBenchId(@PathVariable String testBenchId, @RequestBody TestBenchDTO testBenchUpdate) throws NoSuchTestBenchException {
+        return testBenchService.updateTestBenchById(testBenchId, testBenchUpdate);
     }
 
 }

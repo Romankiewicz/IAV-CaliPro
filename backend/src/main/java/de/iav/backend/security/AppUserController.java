@@ -24,19 +24,20 @@ public class AppUserController {
     }
 
     @PostMapping("/login")
-    public String login(){
+    public String login() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     @PostMapping("/register/metrologist")
-    public AppUserResponse registerNewMetrologist(@RequestBody NewAppUser newAppUser){
+    public AppUserResponse registerNewMetrologist(@RequestBody NewAppUser newAppUser) {
         return appUserService.registerNewMetrologist(newAppUser);
     }
 
     @PostMapping("/register/operator")
-    public AppUserResponse registerNewOperator(@RequestBody NewAppUser newAppUser){
+    public AppUserResponse registerNewOperator(@RequestBody NewAppUser newAppUser) {
         return appUserService.registerNewOperator(newAppUser);
     }
+
     @PostMapping("/logout")
     public String logout(HttpSession httpSession) {
         httpSession.invalidate();

@@ -18,7 +18,7 @@ public class RegistrationViewService {
     private final HttpClient registrationClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
-    private final String json = "application/json";
+    private static final String JSON = "application/json";
     public RegistrationViewService() {
 
     }
@@ -36,8 +36,8 @@ public class RegistrationViewService {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist"))
-                    .header("Content-Type", json)
-                    .header("Accept", json)
+                    .header("Content-Type", JSON)
+                    .header("Accept", JSON)
                     .header("Cookie", "JSESSIONID=" + sessionId)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
@@ -57,8 +57,8 @@ public class RegistrationViewService {
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/operators"))
-                    .header("Content-Type", json)
-                    .header("Accept", json)
+                    .header("Content-Type", JSON)
+                    .header("Accept", JSON)
                     .header("Cookie", "JSESSIONID=" +sessionId)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
