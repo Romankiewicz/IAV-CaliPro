@@ -28,7 +28,7 @@ public class TestBenchController {
 
     @GetMapping("/{testBenchId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Optional<TestBench> getTestBenchById(@PathVariable String testBenchId) {
+    public TestBench getTestBenchById(@PathVariable String testBenchId) throws NoSuchTestBenchException {
         return testBenchService.findTestBenchById(testBenchId);
     }
 

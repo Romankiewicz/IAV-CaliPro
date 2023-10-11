@@ -19,13 +19,13 @@ public class OperatorController {
 
     @GetMapping("/id/{operatorId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Optional<Operator> findOperatorById(@PathVariable String operatorId) {
+    public Operator findOperatorById(@PathVariable String operatorId) throws NoSuchTestBenchOperatorException {
         return operatorService.findOperatorById(operatorId);
     }
 
     @GetMapping("/{username}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Optional<Operator> findOperatorByUsername(@PathVariable String username) {
+    public Operator findOperatorByUsername(@PathVariable String username) {
         return operatorService.findOperatorByUsername(username);
     }
 

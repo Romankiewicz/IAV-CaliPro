@@ -28,8 +28,19 @@ public class TestBenchService {
         return testBenchRepository.findAll();
     }
 
-    public Optional<TestBench> findTestBenchById(String testBenchId) {
-        return testBenchRepository.findTestBenchByBenchId(testBenchId);
+    public TestBench findTestBenchById(String testBenchId) throws NoSuchTestBenchException {
+
+        Optional<TestBench> testBenchOptional = testBenchRepository.findTestBenchByBenchId(testBenchId);
+
+        TestBench testBench;
+
+        if (testBenchOptional.isPresent()) {
+            testBench = testBenchOptional.get();
+        } else {
+            throw new NoSuchTestBenchException(testBenchId);
+        }
+
+        return testBench;
     }
 
     public TestBench addTestBench(TestBenchDTO testBenchToAdd) {
