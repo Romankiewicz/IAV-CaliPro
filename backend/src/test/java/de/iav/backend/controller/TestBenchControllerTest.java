@@ -39,6 +39,7 @@ public class TestBenchControllerTest {
     private OperatorRepository operatorRepository;
 
     private final String BASE_URL = "/api/testbenches";
+    private final String OPERATOR_URL = "/api/operators";
 
 
     @Test
@@ -299,7 +300,6 @@ public class TestBenchControllerTest {
                 .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
                 .andExpect(jsonPath("$.calibration").value("2022-02-20"));
 
-        String OPERATOR_URL = "/api/operators";
         mockMvc.perform(MockMvcRequestBuilders.get(OPERATOR_URL + "/id/" +operator.operatorId()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.operatorId").value(operator.operatorId()))
@@ -311,6 +311,67 @@ public class TestBenchControllerTest {
     }
 
     @Test
-    void removeTestBechOperatorFromTestBench() {
+    @DirtiesContext
+    @WithMockUser(roles = "METROLOGIST")
+    void removeTestBechOperatorFromTestBench_whenLoggedIn_thenExpectStatusIsNoContent() throws Exception {
+
+        TestBench testBench = new TestBench(
+                "1",
+                "Pruefstand_1",
+                new ArrayList<>(),
+                new ArrayList<>(),
+                LocalDate.of(2022,2,20),
+                LocalDate.of(2022,2,20));
+
+        testBenchRepository.save(testBench);
+
+        Operator operator = new Operator(
+                "1",
+                "StandYourGround",
+                "Stan",
+                "Marsh",
+                "stan.marsh@southpark.com",
+                new ArrayList<>(),
+                UserRole.OPERATOR);
+
+        operatorRepository.save(operator);
+
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + testBench.benchId()
+                                + "/operator/" + operator.operatorId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(operator.operatorId()))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL
+                        + "/"
+                        +testBench.benchId()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.benchId").value(testBench.benchId()))
+                .andExpect(jsonPath("$.name").value("Pruefstand_1"))
+                .andExpect(jsonPath("$.metrology.length()").value(0))
+                .andExpect(jsonPath("$.operator.length()").value(1))
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get(OPERATOR_URL + "/id/" + operator.operatorId()))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$.operatorId").value(operator.operatorId()))
+                .andExpect(jsonPath("$.username").value("StandYourGround"))
+                .andExpect(jsonPath("$.firstName").value("Stan"))
+                .andExpect(jsonPath("$.lastName").value("Marsh"))
+                .andExpect(jsonPath("$.email").value("stan.marsh@southpark.com"))
+                .andExpect(jsonPath("$.role").value("OPERATOR"));
+
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL
+                + "/" + testBench.benchId()
+                + "/operator/" + operator.operatorId()))
+                .andExpect(status().isNoContent())
+                .andReturn();
+    }
+
+
+    @Test
+    void updateTestBenchByBenchId() {
     }
 }
