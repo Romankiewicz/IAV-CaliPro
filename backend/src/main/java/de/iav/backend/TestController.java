@@ -8,7 +8,7 @@ public class TestController {
 
     @GetMapping("/test")
     public String itsWorking() {
-        return "Fuck it´s running no go back to work";
+        return "Fuck it´s running now go back to work";
     }
 
     @GetMapping("/test1")
