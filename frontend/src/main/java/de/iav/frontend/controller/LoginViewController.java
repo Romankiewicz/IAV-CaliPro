@@ -1,12 +1,12 @@
 package de.iav.frontend.controller;
 
 import de.iav.frontend.security.AuthenticationService;
-import de.iav.frontend.security.UserRole;
 import de.iav.frontend.service.LoginViewService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -23,14 +23,15 @@ public class LoginViewController {
     private final LoginViewService loginViewService = LoginViewService.getInstance();
 
     @FXML
-    private Button PB_RETURN;
+    private Button PB_HOME;
     @FXML
     private Button PB_LOGIN;
+    @FXML
+    private Label LF_ERROR;
     @FXML
     private TextField TF_USERNAME;
     @FXML
     private PasswordField PF_PASSWORD;
-    private UserRole selectedRole;
 
     private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
@@ -39,7 +40,7 @@ public class LoginViewController {
     }
 
     @FXML
-    public void onClick_PB_RETURN(ActionEvent event) throws IOException {
+    public void onClick_PB_HOME(ActionEvent event) throws IOException {
         SceneSwitchService.getInstance().switchToStartView(event);
     }
 
@@ -48,12 +49,9 @@ public class LoginViewController {
         if (isEveryTextFieldValid()) {
             String username = TF_USERNAME.getText();
             String password = PF_PASSWORD.getText();
-            System.out.println(username + "\n" + password);
             boolean result = AuthenticationService.getInstance().login(username, password);
 
             if (result && !AuthenticationService.getInstance().equals("anonymousUser")) {
-
-                System.out.println("Username:" + "\n" + AuthenticationService.getInstance().getUsername());
 
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/username" ))
@@ -68,12 +66,10 @@ public class LoginViewController {
                 int statusCode = response.join().statusCode();
                 String body = response.join().body();
 
-                System.out.println(response + "\n" + statusCode);
-
-                if (statusCode == 202 && body.length() > 0) {
+                if (statusCode == 202 && !body.isEmpty()) {
                     SceneSwitchService.getInstance().switchToMetrologistView(event);
                 } else {
-                    System.out.println("LOGIN FAILED!!!" +"\n" + statusCode + "\n" + body);
+                    LF_ERROR.setText("LOGIN FAILED!!!" +"\n" + statusCode + "\n" + body);
                 }
             }
         }
@@ -81,10 +77,10 @@ public class LoginViewController {
 
     private boolean isEveryTextFieldValid() {
         if (TF_USERNAME.getText() == null || TF_USERNAME.getText().isEmpty()) {
-            System.out.println("Bitte Benutzernamen eingeben");
+            LF_ERROR.setText("Bitte Benutzernamen eingeben");
             return false;
         } else if (PF_PASSWORD.getText() == null || PF_PASSWORD.getText().isEmpty()) {
-            System.out.println("Ohne Passwort geht hier garnichts...");
+            LF_ERROR.setText("Ohne Passwort geht hier garnichts...");
             return false;
         } else {
             return true;

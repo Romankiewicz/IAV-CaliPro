@@ -20,7 +20,7 @@ public class RegistrationViewController {
     private final RegistrationViewService registrationViewService = RegistrationViewService.getInstance();
 
     @FXML
-    private Button PB_RETURN;
+    private Button PB_HOME;
     @FXML
     private Button PB_REGISTER;
     @FXML
@@ -57,7 +57,7 @@ public class RegistrationViewController {
 
 
     @FXML
-    public void onClick_PB_RETURN(ActionEvent event) throws IOException {
+    public void onClick_PB_HOME(ActionEvent event) throws IOException {
         SceneSwitchService.getInstance().switchToStartView(event);
     }
 

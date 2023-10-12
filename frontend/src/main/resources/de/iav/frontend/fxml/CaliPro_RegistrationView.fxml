@@ -58,16 +58,25 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="PB_RETURN" layoutX="90.0" layoutY="760.0" mnemonicParsing="false" onAction="#onClick_PB_RETURN" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Zurück">
-         <effect>
-            <DropShadow />
-         </effect>
-      </Button>
+<!--      <Button fx:id="PB_RETURN" layoutX="90.0" layoutY="760.0" mnemonicParsing="false" onAction="#onClick_PB_RETURN" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Zurück">-->
+<!--         <effect>-->
+<!--            <DropShadow />-->
+<!--         </effect>-->
+<!--      </Button>-->
       <PasswordField fx:id="PF_PASSWORD" layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0" promptText="Passwort" style="-fx-background-color: FFFFFF;">
          <effect>
             <DropShadow />
          </effect>
       </PasswordField>
       <Label fx:id="LF_ERROR" layoutX="500.0" layoutY="420.0" prefHeight="30.0" prefWidth="200.0" textFill="#ff4800" />
+      <ImageView layoutX="1060.0" scaleX="0.25" scaleY="0.25">
+         <image>
+            <Image url="@../png/HomeButton.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0" mnemonicParsing="false"
+              prefHeight="40.0" prefWidth="40.0" style="
+              -fx-background-color: #ffffff00;" textFill="#ffffff00"
+              onAction="#onClick_PB_HOME"/>
    </children>
 </AnchorPane>
