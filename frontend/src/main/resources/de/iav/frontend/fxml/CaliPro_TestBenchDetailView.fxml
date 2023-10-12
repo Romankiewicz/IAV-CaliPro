@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="de.iav.frontend.fxml.CaliProTestBenchDetailViewController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <ImageView fitHeight="830.0" fitWidth="1200.0">
+        <Image url="@../png/Background.png"/>
+    </ImageView>
+    <ImageView layoutX="1060.0" scaleX="0.25" scaleY="0.25">
+        <Image url="@../png/HomeButton.png"/>
+    </ImageView>
+    <ImageView fitHeight="110.0" fitWidth="110.0"
+               layoutX="1025.0" layoutY="25.0" scaleX="0.25" scaleY="0.25">
+        <Image url="@../png/CloseButton.png"/>
+    </ImageView>
+    <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0"
+            mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="
+          -fx-background-color: #ffffff00;" textFill="#ffffff00"
+            onAction="#onClick_PB_HOME"/>
+    <Button fx:id="PB_CLOSE" layoutX="1058.0" layoutY="57.0"
+            mnemonicParsing="false" onAction="#onClick_PB_CLOSE"
+            prefHeight="40.0" prefWidth="40.0" style="
+           -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
+</AnchorPane>
