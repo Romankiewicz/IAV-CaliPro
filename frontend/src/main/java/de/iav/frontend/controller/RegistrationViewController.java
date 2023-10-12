@@ -58,7 +58,7 @@ public class RegistrationViewController {
 
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
-        SceneSwitchService.getInstance().switchToStartView(event);
+        sceneSwitchService.switchToStartView(event);
     }
 
     @FXML
@@ -77,11 +77,11 @@ public class RegistrationViewController {
                     boolean result = AuthenticationService.getInstance().login(userName, password);
 
                     if (result && !AuthenticationService.getInstance().getUsername().equals("anonymousUser")) {
-                        RegistrationViewService.getInstance().addMetrologist(newMetrologist, AuthenticationService.getInstance().getSessionId());
+                        registrationViewService.addMetrologist(newMetrologist, AuthenticationService.getInstance().getSessionId());
                     } else {
                         LF_ERROR.setText("Registrierung fehlgeschlagen!!!");
                     }
-                    SceneSwitchService.getInstance().switchToStartView(event);
+                    sceneSwitchService.switchToStartView(event);
                 } else {
                     LF_ERROR.setText(AuthenticationService.getInstance().getErrorMassage());
                 }
