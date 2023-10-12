@@ -9,45 +9,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="830.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="de.iav.frontend.controller.MetrologistViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.MetrologistViewController">
     <ImageView fitHeight="830.0" fitWidth="1200.0">
-        <Image url="@../png/Background.png"/>
+        <Image url="@../png/Background.png" />
     </ImageView>
     <ImageView layoutX="1060.0" scaleX="0.25" scaleY="0.25">
-        <Image url="@../png/HomeButton.png"/>
+        <Image url="@../png/HomeButton.png" />
     </ImageView>
-    <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0" mnemonicParsing="false"
-            onAction="#onClick_PB_HOME" prefHeight="40.0" prefWidth="40.0"
-            style="               -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
-    <ListView fx:id="LV_METROLOGY" layoutX="140.0" layoutY="590.0"
-              prefHeight="200.0" prefWidth="600.0"
-              style="-fx-background-color: #FE2EF750; -fx-background-radius: 20;"/>
-    <Button fx:id="PB_DETAIL" layoutX="780.0" layoutY="735.0" mnemonicParsing="false"
-            onAction="#onClick_PB_DETAIL" prefHeight="50.0" prefWidth="270.0"
-            style="-fx-background-color: BAB9B9;" text="Detailansicht" textAlignment="CENTER">
+    <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME" prefHeight="40.0" prefWidth="40.0" style="               -fx-background-color: #ffffff00;" textFill="#ffffff00" />
+    <ListView fx:id="LV_METROLOGY" layoutX="140.0" layoutY="590.0" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #FE2EF750; -fx-background-radius: 20;" />
+    <Button fx:id="PB_METROLOGY_DETAIL" layoutX="780.0" layoutY="735.0" mnemonicParsing="false" onAction="#onClick_PB_DETAIL" prefHeight="50.0" prefWidth="270.0" style="-fx-background-color: BAB9B9;" text="Detailansicht Messgerät" textAlignment="CENTER">
         <font>
-          <Font name="Baloo 2 Regular" size="22.0"/>
+          <Font name="Baloo 2 Regular" size="22.0" />
         </font>
         <effect>
-          <DropShadow height="30.0" radius="22.0" width="60.0"/>
+          <DropShadow height="30.0" radius="22.0" width="60.0" />
         </effect>
     </Button>
-    <Button fx:id="PB_ADD_METROLOGY" layoutX="780.0" layoutY="665.0" mnemonicParsing="false"
-            onAction="#onClick_PB_LOGIN" prefHeight="50.0" prefWidth="270.0" style="-fx-background-color: BAB9B9;"
-            text="Messtechnik hinzufügen" textAlignment="CENTER">
+    <Button fx:id="PB_ADD_METROLOGY" layoutX="780.0" layoutY="665.0" mnemonicParsing="false" onAction="#onClick_PB_LOGIN" prefHeight="50.0" prefWidth="270.0" style="-fx-background-color: BAB9B9;" text="Messtechnik hinzufügen" textAlignment="CENTER">
         <font>
-          <Font name="Baloo 2 Regular" size="22.0"/>
+          <Font name="Baloo 2 Regular" size="22.0" />
         </font>
         <effect>
-          <DropShadow height="30.0" radius="22.0" width="60.0"/>
+          <DropShadow height="30.0" radius="22.0" width="60.0" />
         </effect>
     </Button>
     <Label fx:id="LF_MESSAGE" layoutX="355.0" layoutY="190.0" prefHeight="50.0" prefWidth="355.0">
         <font>
-          <Font name="Baloo 2 Regular" size="22.0"/>
+          <Font name="Baloo 2 Regular" size="22.0" />
         </font>
     </Label>
+   <ListView fx:id="LV_BENCH" layoutX="140.0" layoutY="130.0" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #FE2EF750; -fx-background-radius: 20;" />
+   <Button fx:id="PB_BENCH_DETAIL" layoutX="780.0" layoutY="275.0" mnemonicParsing="false" onAction="#onClick_PB_DETAIL" prefHeight="50.0" prefWidth="270.0" style="-fx-background-color: BAB9B9;" text="Detailansicht Prüfstand" textAlignment="CENTER">
+      <font>
+         <Font name="Baloo 2 Regular" size="22.0" />
+      </font>
+      <effect>
+         <DropShadow height="30.0" radius="22.0" width="60.0" />
+      </effect>
+   </Button>
 </AnchorPane>
