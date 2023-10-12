@@ -21,9 +21,15 @@
             <Image url="@../png/HomeButton.png" />
          </image>
       </ImageView>
-      <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME" prefHeight="40.0" prefWidth="40.0" style="               -fx-background-color: #ffffff00;" textFill="#ffffff00" />
-      <ListView fx:id="LV_METROLOGY" layoutX="140.0" layoutY="590.0" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #FE2EF750; -fx-background-radius: 20;" />
-      <Button fx:id="PB_DETAIL" layoutX="780.0" layoutY="735.0" mnemonicParsing="false" onAction="#onClick_PB_LOGIN" prefHeight="50.0" prefWidth="270.0" style="-fx-background-color: BAB9B9;" text="Detailansicht" textAlignment="CENTER">
+      <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0" mnemonicParsing="false"
+              onAction="#onClick_PB_HOME" prefHeight="40.0" prefWidth="40.0"
+              style="               -fx-background-color: #ffffff00;" textFill="#ffffff00" />
+      <ListView fx:id="LV_METROLOGY" layoutX="140.0" layoutY="590.0"
+                prefHeight="200.0" prefWidth="600.0"
+                style="-fx-background-color: #FE2EF750; -fx-background-radius: 20;" />
+      <Button fx:id="PB_DETAIL" layoutX="780.0" layoutY="735.0" mnemonicParsing="false"
+              onAction="#onClick_PB_DETAIL" prefHeight="50.0" prefWidth="270.0"
+              style="-fx-background-color: BAB9B9;" text="Detailansicht" textAlignment="CENTER">
          <font>
             <Font name="Baloo 2 Regular" size="22.0" />
          </font>

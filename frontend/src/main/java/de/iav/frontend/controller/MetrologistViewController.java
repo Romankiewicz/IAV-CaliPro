@@ -13,9 +13,6 @@ public class MetrologistViewController {
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
 
     @FXML
-    private Button PB_HOME;
-
-    @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
         SceneSwitchService.getInstance().switchToStartView(event);
     }
