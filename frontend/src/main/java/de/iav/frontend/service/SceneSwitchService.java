@@ -70,4 +70,43 @@ public class SceneSwitchService {
         stage.setScene(sceneRegView);
         stage.show();
     }
+
+    public void switchToTestBenchDetailView(ActionEvent event) throws IOException {
+
+        FXMLLoader loaderTestBenchDetailView = new FXMLLoader(getClass()
+                .getResource("/de/iav/frontend/fxml/CaliPro_TestBenchDetailView.fxml"));
+
+        Scene sceneRegView = new Scene(loaderTestBenchDetailView.load());
+
+        Stage stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+
+        stage.setScene(sceneRegView);
+        stage.show();
+    }
+
+    public void switchToMetrologyDetailView(ActionEvent event) throws IOException {
+
+        FXMLLoader loaderMetrologyDetailView = new FXMLLoader(getClass()
+                .getResource("/de/iav/frontend/fxml/CaliPro_MetrologyDetailView.fxml"));
+
+        Scene sceneRegView = new Scene(loaderMetrologyDetailView.load());
+
+        Stage stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+
+        stage.setScene(sceneRegView);
+        stage.show();
+    }
+
+    public void switchToAddMetrologyView(ActionEvent event) throws IOException {
+
+        FXMLLoader loaderAddMetrologyView = new FXMLLoader(getClass()
+                .getResource("/de/iav/frontend/fxml/CaliPro_AddMetrologyView.fxml"));
+
+        Scene sceneRegView = new Scene(loaderAddMetrologyView.load());
+
+        Stage stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+
+        stage.setScene(sceneRegView);
+        stage.show();
+    }
 }

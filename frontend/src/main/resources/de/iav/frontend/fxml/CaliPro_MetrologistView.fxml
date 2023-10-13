@@ -42,7 +42,7 @@
     </Button>
     <Button fx:id="PB_DELETE_METROLOGY" layoutX="780.0" layoutY="595.0" mnemonicParsing="false" prefHeight="50.0"
             prefWidth="270.0" style="-fx-background-color: BAB9B9;" text="Messtechnik löschen"
-            textAlignment="CENTER" onAction="#onClick_PB_DELETE">
+            textAlignment="CENTER" onAction="#onClick_PB_DELETE_METROLOGY">
         <font>
             <Font name="Baloo 2 Regular" size="22.0"/>
         </font>
@@ -66,7 +66,7 @@
             <DropShadow height="30.0" radius="22.0" width="60.0"/>
         </effect>
     </Button>
-    <TableView fx:id="TV_METROLOGY" layoutX="140.0" layoutY="380.0" prefHeight="200.0" prefWidth="600.0"
+    <TableView fx:id="TV_METROLOGY" layoutX="140.0" layoutY="590.0" prefHeight="200.0" prefWidth="600.0"
                style="-fx-background-radius: 20; -fx-background-color: #FE2EF750;">
         <columns>
             <TableColumn fx:id="TC_M_ID" prefWidth="75.0"

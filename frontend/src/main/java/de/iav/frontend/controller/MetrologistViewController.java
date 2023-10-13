@@ -103,9 +103,13 @@ public class MetrologistViewController {
     }
 
     @FXML
-    public void onClick_PB_DELETE() {
+    public void onClick_PB_DELETE_METROLOGY() {
         metrologistViewService.deleteMetrology(TV_METROLOGY.getSelectionModel().getSelectedItem().metrologyId());
         getMetrologies();
+    }
 
+    @FXML
+    public void onClick_PB_BENCH_DETAIL(ActionEvent event) throws IOException {
+        sceneSwitchService.switchToTestBenchDetailView(event);
     }
 }
