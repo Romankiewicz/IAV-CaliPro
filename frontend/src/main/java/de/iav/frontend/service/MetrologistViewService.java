@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.iav.frontend.model.Metrology;
+import de.iav.frontend.model.TestBench;
 import de.iav.frontend.security.AuthenticationService;
 
 import java.net.URI;
@@ -46,9 +47,32 @@ public class MetrologistViewService {
                 .join();
     }
 
+    public List<TestBench> getAllTestBenches() {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND +"testbenches"))
+                .header("Accept", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .build();
+
+        return metrologistClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenApply(this::mapToTestBenchList)
+                .join();
+    }
+
 
 
     private List<Metrology> mapToMetrologyList(String responseBody) {
+        try {
+            return objectMapper.readValue(responseBody, new TypeReference<>() {
+            });
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<TestBench> mapToTestBenchList(String responseBody) {
         try {
             return objectMapper.readValue(responseBody, new TypeReference<>() {
             });

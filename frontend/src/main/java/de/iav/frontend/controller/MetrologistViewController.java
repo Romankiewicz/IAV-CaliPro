@@ -19,9 +19,6 @@ import java.util.List;
 public class MetrologistViewController {
 
     @FXML
-    private ListView<TestBench> LV_BENCH;
-
-    @FXML
     private TableView<Metrology> TV_METROLOGY;
     @FXML
     private TableColumn<Metrology, String> TC_M_ID;
@@ -35,6 +32,17 @@ public class MetrologistViewController {
     private TableColumn<Metrology, Date> TC_M_MAINTENANCE;
     @FXML
     private TableColumn<Metrology, Date> TC_M_CALIBRATION;
+
+    @FXML
+    private TableView<TestBench> TV_BENCH;
+    @FXML
+    private TableColumn<TestBench, String> TC_B_ID;
+    @FXML
+    private TableColumn<TestBench, String> TC_B_NAME;
+    @FXML
+    private TableColumn<TestBench, Date> TC_B_MAINTENANCE;
+    @FXML
+    private TableColumn<TestBench, Date> TC_B_CALIBRATION;
 
     @FXML
     private Label LF_MESSAGE;
@@ -61,9 +69,19 @@ public class MetrologistViewController {
         TC_M_TYPE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
         TC_M_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
         TC_M_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
-        TC_M_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_M_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
         TC_M_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
         TV_METROLOGY.getItems().addAll(metrologyData);
+
+        List<TestBench> testBenchData = metrologistViewService.getAllTestBenches();
+
+        TC_B_ID.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().benchId()));
+        TC_B_NAME.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().name()));
+        TC_B_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_B_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+        TC_B_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_B_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
+        TV_BENCH.getItems().addAll(testBenchData);
     }
 
     @FXML
