@@ -112,4 +112,9 @@ public class MetrologistViewController {
     public void onClick_PB_BENCH_DETAIL(ActionEvent event) throws IOException {
         sceneSwitchService.switchToTestBenchDetailView(event);
     }
+
+    @FXML
+    public void onClick_PB_METROLOGY_DETAIL(ActionEvent event) throws IOException {
+        sceneSwitchService.switchToMetrologyDetailView(event);
+    }
 }

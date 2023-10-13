@@ -22,7 +22,7 @@
     <!--    <ListView fx:id="LV_METROLOGY" layoutX="140.0" layoutY="590.0" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #FE2EF750; -fx-background-radius: 20;" />-->
     <Button fx:id="PB_METROLOGY_DETAIL" layoutX="780.0" layoutY="735.0" mnemonicParsing="false" prefHeight="50.0"
             prefWidth="270.0" style="-fx-background-color: BAB9B9;" text="Detailansicht Messgerät"
-            textAlignment="CENTER">
+            textAlignment="CENTER" onAction="#onClick_PB_METROLOGY_DETAIL">
         <font>
             <Font name="Baloo 2 Regular" size="22.0"/>
         </font>
@@ -58,7 +58,7 @@
     <!--   <ListView fx:id="LV_BENCH" layoutX="140.0" layoutY="130.0" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #FE2EF750; -fx-background-radius: 20;" />-->
     <Button fx:id="PB_BENCH_DETAIL" layoutX="780.0" layoutY="275.0" mnemonicParsing="false" prefHeight="50.0"
             prefWidth="270.0" style="-fx-background-color: BAB9B9;" text="Detailansicht Prüfstand"
-            textAlignment="CENTER">
+            textAlignment="CENTER" onAction="#onClick_PB_BENCH_DETAIL">
         <font>
             <Font name="Baloo 2 Regular" size="22.0"/>
         </font>
