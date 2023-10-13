@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class StartViewController {
 
-    private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+//    private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
@@ -24,12 +24,12 @@ public class StartViewController {
 
     @FXML
     public void onClick_PB_REGISTRATION(ActionEvent event) throws IOException {
-        SceneSwitchService.getInstance().switchToRegistrationView(event);
+        sceneSwitchService.switchToRegistrationView(event);
 
     }
 
     @FXML
     public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
-        SceneSwitchService.getInstance().switchToLoginView(event);
+        sceneSwitchService.switchToLoginView(event);
     }
 }

@@ -38,7 +38,7 @@ public class AuthenticationService {
             String requestBody = objectMapper.writeValueAsString(userRequest);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/users/register/metrologist"))
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "users/register/metrologist"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
@@ -70,7 +70,7 @@ public class AuthenticationService {
 
     public boolean login(String username, String password) {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/users/login"))
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "users/login"))
                 .POST(HttpRequest.BodyPublishers.ofString(""))
                 .header("Authorization", "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes()))
                 .build();

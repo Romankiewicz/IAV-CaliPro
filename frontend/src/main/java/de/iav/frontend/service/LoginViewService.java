@@ -33,17 +33,15 @@ public class LoginViewService {
         String username = AuthenticationService.getInstance().getUsername();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/{username}" + username))
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "users/login"))
                 .header("Accept", "application/json")
                 .header("Cookie", "JSESSIONID=" + AuthenticationService.getInstance().getSessionId())
                 .build();
 
-        Metrologist result = loginClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+        return loginClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
-                .thenApply(responseBody -> mapToMetrologist(responseBody))
+                .thenApply(this::mapToMetrologist)
                 .join();
-
-        return result;
     }
 
 

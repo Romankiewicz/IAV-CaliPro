@@ -18,7 +18,7 @@ public class RegistrationViewService {
     private final HttpClient registrationClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
-    private final String json = "application/json";
+    private static final String JSON = "application/json";
     public RegistrationViewService() {
 
     }
@@ -35,16 +35,16 @@ public class RegistrationViewService {
             String requestBody = objectMapper.writeValueAsString(metrologistToAdd);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist"))
-                    .header("Content-Type", json)
-                    .header("Accept", json)
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrologist"))
+                    .header("Content-Type", JSON)
+                    .header("Accept", JSON)
                     .header("Cookie", "JSESSIONID=" + sessionId)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
             return registrationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(HttpResponse::body)
-                    .thenApply(responseBody -> mapToMetrologist(responseBody))
+                    .thenApply(this::mapToMetrologist)
                     .join();
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -56,16 +56,16 @@ public class RegistrationViewService {
             String requestBody = objectMapper.writeValueAsString(operatorToAdd);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/operators"))
-                    .header("Content-Type", json)
-                    .header("Accept", json)
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators"))
+                    .header("Content-Type", JSON)
+                    .header("Accept", JSON)
                     .header("Cookie", "JSESSIONID=" +sessionId)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
             return registrationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(HttpResponse::body)
-                    .thenApply(responseBody -> mapToOperator(responseBody))
+                    .thenApply(this::mapToOperator)
                     .join();
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

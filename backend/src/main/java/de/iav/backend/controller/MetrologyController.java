@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,7 +24,7 @@ public class MetrologyController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<Metrology> listAllMetrology(){
+    public List<Metrology> listAllMetrologies(){
         return metrologyService.listAllMerology();
     }
 

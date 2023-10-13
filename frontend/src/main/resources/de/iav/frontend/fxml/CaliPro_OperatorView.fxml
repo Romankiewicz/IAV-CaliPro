@@ -19,5 +19,5 @@
     <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0" mnemonicParsing="false"
             prefHeight="40.0" prefWidth="40.0" style="
           -fx-background-color: #ffffff00;" textFill="#ffffff00"
-            onAction="#onClick_PB_HOME"/>
+            />
 </AnchorPane>

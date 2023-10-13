@@ -21,6 +21,8 @@ public class LoginViewController {
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     @FXML
     private final LoginViewService loginViewService = LoginViewService.getInstance();
+    @FXML
+    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     @FXML
     private Button PB_HOME;
@@ -32,8 +34,13 @@ public class LoginViewController {
     private TextField TF_USERNAME;
     @FXML
     private PasswordField PF_PASSWORD;
-
+    @FXML
     private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+
+    @FXML
+    protected void onClick_PB_LOGIN(ActionEvent event) throws IOException {
+        login(event);
+    }
 
     public void initialize() {
 
@@ -45,18 +52,19 @@ public class LoginViewController {
     }
 
     @FXML
-    public void onClick_PB_LOGIN_SwitchToNextView(ActionEvent event) throws IOException {
+    public void login(ActionEvent event) throws IOException {
         if (isEveryTextFieldValid()) {
             String username = TF_USERNAME.getText();
             String password = PF_PASSWORD.getText();
-            boolean result = AuthenticationService.getInstance().login(username, password);
+            boolean result = authenticationService.login(username, password);
 
-            if (result && !AuthenticationService.getInstance().equals("anonymousUser")) {
+            if (result && !AuthenticationService.getInstance().getUsername().equals("anonymousUser")) {
+
 
                 HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/api/metrologist/username" ))
+                        .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrologist/" + username))
                         .header("Accept", "application/json")
-                        .header("Cookie", "JSESSIONID=" + AuthenticationService.getInstance().getSessionId())
+                        .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
                         .build();
 
                 var response = AuthenticationService
@@ -67,9 +75,9 @@ public class LoginViewController {
                 String body = response.join().body();
 
                 if (statusCode == 202 && !body.isEmpty()) {
-                    SceneSwitchService.getInstance().switchToMetrologistView(event);
+                    sceneSwitchService.switchToMetrologistView(event);
                 } else {
-                    LF_ERROR.setText("LOGIN FAILED!!!" +"\n" + statusCode + "\n" + body);
+                    LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
                 }
             }
         }

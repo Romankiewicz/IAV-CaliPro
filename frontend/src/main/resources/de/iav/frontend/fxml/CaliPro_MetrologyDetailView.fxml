@@ -18,11 +18,11 @@
         <Image url="@../png/CloseButton.png" />
     </ImageView>
     <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0"
-            mnemonicParsing="false" onAction="#onClick_PB_HOME"
+            mnemonicParsing="false"
             prefHeight="40.0" prefWidth="40.0" style="
             -fx-background-color: #ffffff00;" textFill="#ffffff00" />
     <Button fx:id="PB_CLOSE" layoutX="1058.0" layoutY="57.0"
-            mnemonicParsing="false" onAction="#onClick_PB_CLOSE"
+            mnemonicParsing="false"
             prefHeight="40.0" prefWidth="40.0" style="
            -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
 </AnchorPane>
