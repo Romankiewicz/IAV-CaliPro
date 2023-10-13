@@ -51,8 +51,6 @@ public class MetrologistViewController {
     @FXML
     private Button PB_ADD_METROLOGY;
     @FXML
-    private Button PB_DELETE_METROLOGY;
-    @FXML
     private Button PB_METROLOGY_DETAIL;
     @FXML
     private Button PB_BENCH_DETAIL;
@@ -61,9 +59,16 @@ public class MetrologistViewController {
     private final MetrologistViewService metrologistViewService = MetrologistViewService.getInstance();
 
     public void initialize() {
+        getMetrologies();
+        getTestBenches();
+    }
+
+    @FXML
+    private void getMetrologies() {
 
         List<Metrology> metrologyData = metrologistViewService.getAllMetrologies();
         StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
+        TV_METROLOGY.getItems().clear();
 
         TC_M_ID.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().metrologyId()));
         TC_M_INVENTORY.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().iavInventory()));
@@ -74,8 +79,14 @@ public class MetrologistViewController {
         TC_M_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
         TC_M_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
         TV_METROLOGY.getItems().addAll(metrologyData);
+    }
+
+    @FXML
+    private void getTestBenches(){
 
         List<TestBench> testBenchData = metrologistViewService.getAllTestBenches();
+        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
+
 
         TC_B_ID.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().benchId()));
         TC_B_NAME.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().name()));
@@ -89,5 +100,12 @@ public class MetrologistViewController {
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
         sceneSwitchService.switchToStartView(event);
+    }
+
+    @FXML
+    public void onClick_PB_DELETE() {
+        metrologistViewService.deleteMetrology(TV_METROLOGY.getSelectionModel().getSelectedItem().metrologyId());
+        getMetrologies();
+
     }
 }

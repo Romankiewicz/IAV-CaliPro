@@ -42,7 +42,7 @@
     </Button>
     <Button fx:id="PB_DELETE_METROLOGY" layoutX="780.0" layoutY="595.0" mnemonicParsing="false" prefHeight="50.0"
             prefWidth="270.0" style="-fx-background-color: BAB9B9;" text="Messtechnik löschen"
-            textAlignment="CENTER">
+            textAlignment="CENTER" onAction="#onClick_PB_DELETE">
         <font>
             <Font name="Baloo 2 Regular" size="22.0"/>
         </font>
