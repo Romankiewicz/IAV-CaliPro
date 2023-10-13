@@ -4,20 +4,20 @@ import de.iav.frontend.model.Metrology;
 import de.iav.frontend.model.TestBench;
 import de.iav.frontend.service.MetrologistViewService;
 import de.iav.frontend.service.SceneSwitchService;
-import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.StringConverter;
+import javafx.util.converter.DateStringConverter;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public class MetrologistViewController {
 
-    @FXML
-    private ListView<Metrology> LV_METROLOGY;
     @FXML
     private ListView<TestBench> LV_BENCH;
 
@@ -32,9 +32,9 @@ public class MetrologistViewController {
     @FXML
     private TableColumn<Metrology, String> TC_M_TYPE;
     @FXML
-    private TableColumn<Metrology, LocalDate> TC_M_MAINTENANCE;
+    private TableColumn<Metrology, Date> TC_M_MAINTENANCE;
     @FXML
-    private TableColumn<Metrology, LocalDate> TC_M_CALIBRATION;
+    private TableColumn<Metrology, Date> TC_M_CALIBRATION;
 
     @FXML
     private Label LF_MESSAGE;
@@ -53,14 +53,16 @@ public class MetrologistViewController {
     public void initialize() {
 
         List<Metrology> metrologyData = metrologistViewService.getAllMetrologies();
-        LV_METROLOGY.getItems().addAll(metrologyData);
+        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
 
-        TC_M_ID.setCellValueFactory(new PropertyValueFactory<>("metrologyId"));
-        TC_M_INVENTORY.setCellValueFactory(new PropertyValueFactory<>("iavInventory"));
-        TC_M_MANUFACTURER.setCellValueFactory(new PropertyValueFactory<>("manufacturer"));
-        TC_M_TYPE.setCellValueFactory(new PropertyValueFactory<>("type"));
-        TC_M_MAINTENANCE.setCellValueFactory(new PropertyValueFactory<>("maintenance"));
-        TC_M_CALIBRATION.setCellValueFactory(new PropertyValueFactory<>("calibration"));
+        TC_M_ID.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().metrologyId()));
+        TC_M_INVENTORY.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().iavInventory()));
+        TC_M_MANUFACTURER.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().manufacturer()));
+        TC_M_TYPE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
+        TC_M_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_M_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+        TC_M_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_M_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
         TV_METROLOGY.getItems().addAll(metrologyData);
     }
 
