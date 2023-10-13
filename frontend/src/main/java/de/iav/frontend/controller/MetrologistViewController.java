@@ -51,6 +51,8 @@ public class MetrologistViewController {
     @FXML
     private Button PB_ADD_METROLOGY;
     @FXML
+    private Button PB_DELETE_METROLOGY;
+    @FXML
     private Button PB_METROLOGY_DETAIL;
     @FXML
     private Button PB_BENCH_DETAIL;
