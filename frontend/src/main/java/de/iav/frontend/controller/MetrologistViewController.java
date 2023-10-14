@@ -7,7 +7,10 @@ import de.iav.frontend.service.SceneSwitchService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
@@ -48,12 +51,16 @@ public class MetrologistViewController {
     private Label LF_MESSAGE;
 
     @FXML
+    private ListView<Metrology> LV_POPUP;
+
+    @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     private final MetrologistViewService metrologistViewService = MetrologistViewService.getInstance();
 
     public void initialize() {
         getMetrologies();
         getTestBenches();
+        getPopUpMetrologyMaintenance();
     }
 
     @FXML
@@ -75,7 +82,7 @@ public class MetrologistViewController {
     }
 
     @FXML
-    private void getTestBenches(){
+    private void getTestBenches() {
 
         List<TestBench> testBenchData = metrologistViewService.getAllTestBenches();
         StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
@@ -88,6 +95,16 @@ public class MetrologistViewController {
         TC_B_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
         TC_B_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
         TV_BENCH.getItems().addAll(testBenchData);
+    }
+
+    @FXML
+    public void getPopUpMetrologyMaintenance() {
+
+        List<Metrology> metrologyByMaintenanceDue = metrologistViewService.getMetrologyByMaintenanceDue();
+        if (metrologyByMaintenanceDue != null) {
+            LV_POPUP.getItems().addAll(metrologyByMaintenanceDue);
+        }
+
     }
 
     @FXML

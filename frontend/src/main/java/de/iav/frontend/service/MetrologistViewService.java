@@ -46,7 +46,7 @@ public class MetrologistViewService {
             long diff = metrology.maintenance().getTime() - currentDate.getTime();
             int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
 
-            if (diffDays == maxDiff) {
+            if (diffDays <= maxDiff) {
                 result.add(metrology);
             }
         }
@@ -65,7 +65,7 @@ public class MetrologistViewService {
             long diff = metrology.calibration().getTime() - currentDate.getTime();
             int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
 
-            if (diffDays == maxDiff) {
+            if (diffDays <= maxDiff) {
                 result.add(metrology);
             }
         }
@@ -84,7 +84,7 @@ public class MetrologistViewService {
             long diff = testBench.maintenance().getTime() - currentDate.getTime();
             int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
 
-            if (diffDays == maxDiff) {
+            if (diffDays <= maxDiff) {
                 result.add(testBench);
             }
         }
@@ -103,7 +103,7 @@ public class MetrologistViewService {
             long diff = testBench.calibration().getTime() - currentDate.getTime();
             int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
 
-            if (diffDays == maxDiff) {
+            if (diffDays <= maxDiff) {
                 result.add(testBench);
             }
         }
