@@ -20,7 +20,6 @@
     <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME"
             prefHeight="40.0" prefWidth="40.0" style="               -fx-background-color: #ffffff00;"
             textFill="#ffffff00"/>
-    <!--    <ListView fx:id="LV_METROLOGY" layoutX="140.0" layoutY="590.0" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #FE2EF750; -fx-background-radius: 20;" />-->
     <Button fx:id="PB_METROLOGY_DETAIL" layoutX="780.0" layoutY="735.0" mnemonicParsing="false"
             onAction="#onClick_PB_METROLOGY_DETAIL" prefHeight="50.0" prefWidth="270.0"
             style="-fx-background-color: BAB9B9;" text="Detailansicht Messgerät" textAlignment="CENTER">
@@ -56,7 +55,6 @@
             <Font name="Baloo 2 Regular" size="22.0"/>
         </font>
     </Label>
-    <!--   <ListView fx:id="LV_BENCH" layoutX="140.0" layoutY="130.0" prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #FE2EF750; -fx-background-radius: 20;" />-->
     <Button fx:id="PB_BENCH_DETAIL" layoutX="780.0" layoutY="275.0" mnemonicParsing="false"
             onAction="#onClick_PB_BENCH_DETAIL" prefHeight="50.0" prefWidth="270.0"
             style="-fx-background-color: BAB9B9;" text="Detailansicht Prüfstand" textAlignment="CENTER">
@@ -70,13 +68,6 @@
     <TableView fx:id="TV_METROLOGY" layoutX="140.0" layoutY="590.0" prefHeight="200.0" prefWidth="600.0"
                style="-fx-background-radius: 20; -fx-background-color: #FE2EF710;">
         <columns>
-<!--            <TableColumn fx:id="TC_M_ID" prefWidth="75.0"-->
-<!--                         style="-fx-background-radius: 20;                     -fx-background-color: #FE2EF750;"-->
-<!--                         text="ID">-->
-<!--                <cellValueFactory>-->
-<!--                    <PropertyValueFactory property="metrologyId"/>-->
-<!--                </cellValueFactory>-->
-<!--            </TableColumn>-->
 
             <TableColumn fx:id="TC_M_INVENTORY" prefWidth="75.0"
                          style="-fx-background-radius: 20;                       -fx-background-color: #FE2EF750;"
@@ -85,14 +76,6 @@
                     <PropertyValueFactory property="inventoryId"/>
                 </cellValueFactory>
             </TableColumn>
-
-<!--            <TableColumn fx:id="TC_M_MANUFACTURER" prefWidth="75.0"-->
-<!--                         style="-fx-background-radius: 20;                       -fx-background-color: #FE2EF750;"-->
-<!--                         text="Hersteller">-->
-<!--                <cellValueFactory>-->
-<!--                    <PropertyValueFactory property="manufacturer"/>-->
-<!--                </cellValueFactory>-->
-<!--            </TableColumn>-->
 
             <TableColumn fx:id="TC_M_TYPE" prefWidth="75.0"
                          style="-fx-background-radius: 20;                       -fx-background-color: #FE2EF750;"
@@ -163,45 +146,41 @@
         </columnResizePolicy>
     </TableView>
     <VBox fx:id="VBOX_BENCH" layoutX="780.0" layoutY="55.0" prefHeight="200.0" prefWidth="270.0">
-        <children>
-            <TableView fx:id="TV_BENCH_POPUP" prefHeight="200.0" prefWidth="270.0"
-                       style="-fx-background-color: #FF000050; -fx-background-radius: 20;">
-                <columns>
-                    <TableColumn fx:id="TC_B_NAME_POPUP" prefWidth="75.0"
-                                 style="-fx-background-color: #FF000080; -fx-background-radius: 10;" text="PST Name"/>
-                    <TableColumn fx:id="TC_B_MAINTENANCE_POPUP" prefWidth="75.0"
-                                 style="-fx-background-color: #FF000080; -fx-background-radius: 10;" text="Wartung "/>
-                    <TableColumn fx:id="TC_B_CALIBRATION_POPUP" prefWidth="75.0"
-                                 style="-fx-background-color: #FF000080; -fx-background-radius: 10;"
-                                 text="Kalibrierung"/>
-                </columns>
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                </columnResizePolicy>
-            </TableView>
-        </children>
+        <TableView fx:id="TV_BENCH_POPUP" prefHeight="200.0" prefWidth="270.0"
+                   style="-fx-background-color: #FF000050; -fx-background-radius: 20;">
+            <columns>
+                <TableColumn fx:id="TC_B_NAME_POPUP" prefWidth="75.0"
+                             style="-fx-background-color: #FF000080; -fx-background-radius: 10;" text="PST Name"/>
+                <TableColumn fx:id="TC_B_MAINTENANCE_POPUP" prefWidth="75.0"
+                             style="-fx-background-color: #FF000080; -fx-background-radius: 10;" text="Wartung "/>
+                <TableColumn fx:id="TC_B_CALIBRATION_POPUP" prefWidth="75.0"
+                             style="-fx-background-color: #FF000080; -fx-background-radius: 10;"
+                             text="Kalibrierung"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
     </VBox>
     <VBox fx:id="VBOX_MERTOLOGY" layoutX="780.0" layoutY="365.0" prefHeight="200.0" prefWidth="270.0">
-        <children>
-            <TableView fx:id="TV_METROLOGY_POPUP" prefHeight="200.0" prefWidth="270.0"
-                       style="-fx-background-color: #FF000050; -fx-background-radius: 20;">
-                <columns>
-                    <TableColumn fx:id="TC_M_INVENTORY_POPUP" prefWidth="75.0"
-                                 style="-fx-background-color: #FF000080; -fx-background-radius: 10;"
-                                 text="IAV Inventar Nr."/>
-                    <TableColumn fx:id="TC_M_TYPE_POPUP" prefWidth="75.0"
-                                 style="-fx-background-color: #FF000080; -fx-background-radius: 10;" text="Messgerät"/>
-                    <TableColumn fx:id="TC_M_MAINTENANCE_POPUP" prefWidth="75.0"
-                                 style="-fx-background-color: #FF000080; -fx-background-radius: 10;" text="Wartung "/>
-                    <TableColumn fx:id="TC_M_CALIBRATION_POPUP" prefWidth="75.0"
-                                 style="-fx-background-color: #FF000080; -fx-background-radius: 10;"
-                                 text="Kalibrierung"/>
-                </columns>
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                </columnResizePolicy>
-            </TableView>
-        </children>
+        <TableView fx:id="TV_METROLOGY_POPUP" prefHeight="200.0" prefWidth="270.0"
+                   style="-fx-background-color: #FF000050; -fx-background-radius: 20;">
+            <columns>
+                <TableColumn fx:id="TC_M_INVENTORY_POPUP" prefWidth="75.0"
+                             style="-fx-background-color: #FF000080; -fx-background-radius: 10;"
+                             text="IAV Inventar Nr."/>
+                <TableColumn fx:id="TC_M_TYPE_POPUP" prefWidth="75.0"
+                             style="-fx-background-color: #FF000080; -fx-background-radius: 10;" text="Messgerät"/>
+                <TableColumn fx:id="TC_M_MAINTENANCE_POPUP" prefWidth="75.0"
+                             style="-fx-background-color: #FF000080; -fx-background-radius: 10;" text="Wartung "/>
+                <TableColumn fx:id="TC_M_CALIBRATION_POPUP" prefWidth="75.0"
+                             style="-fx-background-color: #FF000080; -fx-background-radius: 10;"
+                             text="Kalibrierung"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
     </VBox>
 
 </AnchorPane>
