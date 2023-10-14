@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
 
@@ -46,28 +47,41 @@ public class MetrologistViewController {
     private TableColumn<TestBench, Date> TC_B_CALIBRATION;
 
     @FXML
-    private TableView<TestBench> TV_TESTBENCH_POPUP;
+    private TableView<TestBench> TV_BENCH_POPUP;
     @FXML
     private TableColumn<TestBench, String> TC_B_NAME_POPUP;
     @FXML
     private TableColumn<TestBench, Date> TC_B_MAINTENANCE_POPUP;
     @FXML
     private TableColumn<TestBench, Date> TC_B_CALIBRATION_POPUP;
+    @FXML
+    private VBox VBOX_BENCH;
 
+    @FXML
+    private TableView<Metrology> TV_METROLOGY_POPUP;
+    @FXML
+    private TableColumn<Metrology, String> TC_M_INVENTORY_POPUP;
+    @FXML
+    private TableColumn<Metrology, String> TC_M_TYPE_POPUP;
+    @FXML
+    private TableColumn<Metrology, Date> TC_M_MAINTENANCE_POPUP;
+    @FXML
+    private TableColumn<Metrology, Date> TC_M_CALIBRATION_POPUP;
 //    @FXML
-//    private Label LF_MESSAGE;
-//
-//    @FXML
-//    private ListView<Metrology> LV_POPUP;
+//    private VBox VBOX_METROLOGY;
 
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
+
+    @FXML
     private final MetrologistViewService metrologistViewService = MetrologistViewService.getInstance();
 
     public void initialize() {
         getMetrologies();
         getTestBenches();
-        getPopUpTestBenchesMaintenance();
+        getPopUpTestBench();
+        getPopUpMetrology();
+
     }
 
     @FXML
@@ -105,7 +119,7 @@ public class MetrologistViewController {
     }
 
     @FXML
-    public void getPopUpTestBenchesMaintenance() {
+    private void getPopUpTestBench() {
 
         List<TestBench> testBenchesByMaintenanceDue = metrologistViewService.getTestBenchByMaintenanceDue();
         List<TestBench> testBenchesByCalibrationDue = metrologistViewService.getTestBenchByCalibrationDue();
@@ -116,8 +130,31 @@ public class MetrologistViewController {
         TC_B_MAINTENANCE_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
         TC_B_CALIBRATION_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
         TC_B_CALIBRATION_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
-        TV_TESTBENCH_POPUP.getItems().addAll(testBenchesByMaintenanceDue);
-        TV_TESTBENCH_POPUP.getItems().addAll(testBenchesByCalibrationDue);
+        TV_BENCH_POPUP.getItems().addAll(testBenchesByMaintenanceDue);
+        TV_BENCH_POPUP.getItems().addAll(testBenchesByCalibrationDue);
+
+//        VBOX_BENCH.getChildren().add(TV_BENCH_POPUP);
+        TV_BENCH_POPUP.setVisible(!testBenchesByMaintenanceDue.isEmpty());
+    }
+
+    @FXML
+    private void getPopUpMetrology() {
+
+        List<Metrology> metrologyByMaintenanceDue = metrologistViewService.getMetrologyByMaintenanceDue();
+        List<Metrology> metrologyByCalibrationDue = metrologistViewService.getMetrologyByCalibrationDue();
+        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
+
+        TC_M_INVENTORY_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().iavInventory()));
+        TC_M_TYPE_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
+        TC_M_MAINTENANCE_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_M_MAINTENANCE_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+        TC_M_CALIBRATION_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_M_CALIBRATION_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
+        TV_METROLOGY_POPUP.getItems().addAll(metrologyByMaintenanceDue);
+        TV_METROLOGY_POPUP.getItems().addAll(metrologyByCalibrationDue);
+
+//        VBOX_BENCH.getChildren().add(TV_METROLOGY_POPUP);
+        TV_METROLOGY_POPUP.setVisible(!metrologyByMaintenanceDue.isEmpty()/* && !metrologyByCalibrationDue.isEmpty()*/);
     }
 
     @FXML

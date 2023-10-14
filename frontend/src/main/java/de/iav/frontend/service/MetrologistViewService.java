@@ -144,7 +144,7 @@ public class MetrologistViewService {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology/" + metrologyId))
                 .header("Accept", JSON)
-                .header("Cookie", "JSESSEIONID=" +authenticationService.getSessionId())
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
                 .GET()
                 .build();
 
