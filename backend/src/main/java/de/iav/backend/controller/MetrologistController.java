@@ -37,7 +37,7 @@ public class MetrologistController {
 
     @PutMapping("/{metrologistId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Metrologist updateMetrologist(@PathVariable String metrologistId, @RequestBody Metrologist metrologistToUpdate) {
+    public Metrologist updateMetrologist(@PathVariable String metrologistId, @RequestBody MetrologistDTO metrologistToUpdate) {
         return metrologistService.updateMetrologist(metrologistId, metrologistToUpdate);
     }
 
