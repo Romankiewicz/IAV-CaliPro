@@ -4,7 +4,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Document(collection = "Metrology")
 public record Metrology(

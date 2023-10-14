@@ -1,7 +1,6 @@
 package de.iav.frontend.controller;
 
 import de.iav.frontend.security.AuthenticationService;
-import de.iav.frontend.service.LoginViewService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

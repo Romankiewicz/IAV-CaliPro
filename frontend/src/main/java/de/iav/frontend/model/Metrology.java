@@ -1,6 +1,5 @@
 package de.iav.frontend.model;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public record Metrology(
