@@ -7,8 +7,6 @@ import de.iav.frontend.service.SceneSwitchService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -48,10 +46,19 @@ public class MetrologistViewController {
     private TableColumn<TestBench, Date> TC_B_CALIBRATION;
 
     @FXML
-    private Label LF_MESSAGE;
-
+    private TableView<TestBench> TV_TESTBENCH_POPUP;
     @FXML
-    private ListView<Metrology> LV_POPUP;
+    private TableColumn<TestBench, String> TC_B_NAME_POPUP;
+    @FXML
+    private TableColumn<TestBench, Date> TC_B_MAINTENANCE_POPUP;
+    @FXML
+    private TableColumn<TestBench, Date> TC_B_CALIBRATION_POPUP;
+
+//    @FXML
+//    private Label LF_MESSAGE;
+//
+//    @FXML
+//    private ListView<Metrology> LV_POPUP;
 
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
@@ -60,7 +67,7 @@ public class MetrologistViewController {
     public void initialize() {
         getMetrologies();
         getTestBenches();
-        getPopUpMetrologyMaintenance();
+        getPopUpTestBenchesMaintenance();
     }
 
     @FXML
@@ -98,13 +105,19 @@ public class MetrologistViewController {
     }
 
     @FXML
-    public void getPopUpMetrologyMaintenance() {
+    public void getPopUpTestBenchesMaintenance() {
 
-        List<Metrology> metrologyByMaintenanceDue = metrologistViewService.getMetrologyByMaintenanceDue();
-        if (metrologyByMaintenanceDue != null) {
-            LV_POPUP.getItems().addAll(metrologyByMaintenanceDue);
-        }
+        List<TestBench> testBenchesByMaintenanceDue = metrologistViewService.getTestBenchByMaintenanceDue();
+        List<TestBench> testBenchesByCalibrationDue = metrologistViewService.getTestBenchByCalibrationDue();
+        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
 
+        TC_B_NAME_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().name()));
+        TC_B_MAINTENANCE_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_B_MAINTENANCE_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+        TC_B_CALIBRATION_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_B_CALIBRATION_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
+        TV_TESTBENCH_POPUP.getItems().addAll(testBenchesByMaintenanceDue);
+        TV_TESTBENCH_POPUP.getItems().addAll(testBenchesByCalibrationDue);
     }
 
     @FXML
