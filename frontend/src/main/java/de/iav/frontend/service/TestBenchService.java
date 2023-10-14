@@ -10,7 +10,7 @@ public class TestBenchService {
 
     }
 
-    public TestBenchService getInstance() {
+    public static synchronized TestBenchService getInstance() {
 
         if (instance == null) {
             instance = new TestBenchService();
