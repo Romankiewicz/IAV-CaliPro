@@ -3,6 +3,7 @@ package de.iav.frontend.controller;
 import de.iav.frontend.model.Metrology;
 import de.iav.frontend.model.TestBench;
 import de.iav.frontend.service.MetrologistViewService;
+import de.iav.frontend.service.MetrologyService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -67,7 +68,6 @@ public class MetrologistViewController {
 
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
-
     @FXML
     private final MetrologistViewService metrologistViewService = MetrologistViewService.getInstance();
 
@@ -95,6 +95,22 @@ public class MetrologistViewController {
         TC_M_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
         TC_M_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
         TV_METROLOGY.getItems().addAll(metrologyData);
+    }
+    @FXML
+    private void getPopUpMetrology() {
+
+        List<Metrology> metrologyByMaintenanceOrCalibrationDue = metrologistViewService.getMetrologyByMaintenanceOrCalibrationDue();
+        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
+
+        TC_M_INVENTORY_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().iavInventory()));
+        TC_M_TYPE_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
+        TC_M_MAINTENANCE_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_M_MAINTENANCE_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+        TC_M_CALIBRATION_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_M_CALIBRATION_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
+
+        TV_METROLOGY_POPUP.getItems().addAll(metrologyByMaintenanceOrCalibrationDue);
+        TV_METROLOGY_POPUP.setVisible(!metrologyByMaintenanceOrCalibrationDue.isEmpty());
     }
 
     @FXML
@@ -129,22 +145,6 @@ public class MetrologistViewController {
         TV_BENCH_POPUP.setVisible(!testBenchesByMaintenanceOrCalibrationDue.isEmpty());
     }
 
-    @FXML
-    private void getPopUpMetrology() {
-
-        List<Metrology> metrologyByMaintenanceOrCalibrationDue = metrologistViewService.getMetrologyByMaintenanceOrCalibrationDue();
-        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
-
-        TC_M_INVENTORY_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().iavInventory()));
-        TC_M_TYPE_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
-        TC_M_MAINTENANCE_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
-        TC_M_MAINTENANCE_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
-        TC_M_CALIBRATION_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
-        TC_M_CALIBRATION_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
-
-        TV_METROLOGY_POPUP.getItems().addAll(metrologyByMaintenanceOrCalibrationDue);
-        TV_METROLOGY_POPUP.setVisible(!metrologyByMaintenanceOrCalibrationDue.isEmpty());
-    }
 
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {

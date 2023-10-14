@@ -20,8 +20,6 @@ public class LoginViewController {
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     @FXML
-    private final LoginViewService loginViewService = LoginViewService.getInstance();
-    @FXML
     private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     @FXML
@@ -48,7 +46,7 @@ public class LoginViewController {
 
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
-        SceneSwitchService.getInstance().switchToStartView(event);
+        sceneSwitchService.switchToStartView(event);
     }
 
     @FXML
@@ -58,7 +56,7 @@ public class LoginViewController {
             String password = PF_PASSWORD.getText();
             boolean result = authenticationService.login(username, password);
 
-            if (result && !AuthenticationService.getInstance().getUsername().equals("anonymousUser")) {
+            if (result && !authenticationService.getUsername().equals("anonymousUser")) {
 
 
                 HttpRequest request = HttpRequest.newBuilder()
@@ -67,8 +65,7 @@ public class LoginViewController {
                         .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
                         .build();
 
-                var response = AuthenticationService
-                        .getInstance()
+                var response = authenticationService
                         .getAuthenticationClient()
                         .sendAsync(request, HttpResponse.BodyHandlers.ofString());
                 int statusCode = response.join().statusCode();
