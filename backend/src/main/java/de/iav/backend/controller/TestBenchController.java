@@ -4,6 +4,7 @@ import de.iav.backend.exceptions.NoSuchMetrologyException;
 import de.iav.backend.exceptions.NoSuchTestBenchException;
 import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.model.TestBench;
+import de.iav.backend.model.TestBenchDTO;
 import de.iav.backend.service.TestBenchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,7 +34,7 @@ public class TestBenchController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TestBench addTestBench(@RequestBody TestBench testBenchToAdd){
+    public TestBench addTestBench(@RequestBody TestBenchDTO testBenchToAdd){
         return testBenchService.addTestBench(testBenchToAdd);
     }
 

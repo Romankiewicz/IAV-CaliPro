@@ -6,6 +6,7 @@ import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.model.Metrology;
 import de.iav.backend.model.Operator;
 import de.iav.backend.model.TestBench;
+import de.iav.backend.model.TestBenchDTO;
 import de.iav.backend.repository.MetrologyRepository;
 import de.iav.backend.repository.OperatorRepository;
 import de.iav.backend.repository.TestBenchRepository;
@@ -23,6 +24,7 @@ public class TestBenchService {
     private final TestBenchRepository testBenchRepository;
     private final MetrologyRepository metrologyRepository;
     private final OperatorRepository operatorRepository;
+    private final IdService idService;
 
 
     public List<TestBench> listAllTestBenches() {
@@ -33,11 +35,11 @@ public class TestBenchService {
         return testBenchRepository.findById(testBenchId);
     }
 
-    public TestBench addTestBench(TestBench testBenchToAdd) {
+    public TestBench addTestBench(TestBenchDTO testBenchToAdd) {
         return testBenchRepository
                 .save(
                         new TestBench(
-                                testBenchToAdd.benchId(),
+                                idService.generateId(),
                                 testBenchToAdd.name(),
                                 new ArrayList<>(),
                                 new ArrayList<>(),
