@@ -2,6 +2,7 @@ package de.iav.backend.service;
 
 import de.iav.backend.exceptions.NoSuchMetrologyException;
 import de.iav.backend.model.Metrology;
+import de.iav.backend.model.MetrologyDTO;
 import de.iav.backend.repository.MetrologyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class MetrologyService {
         return metrologyRepository.findAll();
     }
 
-    public Metrology addMetrology(Metrology metrologyToAdd) {
+    public Metrology addMetrology(MetrologyDTO metrologyToAdd) {
         return metrologyRepository
                 .save(
                         new Metrology(
@@ -36,7 +37,7 @@ public class MetrologyService {
                                 metrologyToAdd.calibration()));
     }
 
-    public Metrology updateMetology(String metrologyId, Metrology metrologyToUpdate) throws NoSuchMetrologyException {
+    public Metrology updateMetology(String metrologyId, MetrologyDTO metrologyToUpdate) throws NoSuchMetrologyException {
         getMetrologyById(metrologyId);
         return metrologyRepository
                 .save(

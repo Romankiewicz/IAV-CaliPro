@@ -2,6 +2,7 @@ package de.iav.backend.controller;
 
 import de.iav.backend.exceptions.NoSuchMetrologyException;
 import de.iav.backend.model.Metrology;
+import de.iav.backend.model.MetrologyDTO;
 import de.iav.backend.service.MetrologyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,13 +31,13 @@ public class MetrologyController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Metrology addMetrology(@RequestBody Metrology metrologyToAdd) {
+    public Metrology addMetrology(@RequestBody  MetrologyDTO metrologyToAdd) {
         return metrologyService.addMetrology(metrologyToAdd);
     }
 
     @PutMapping("/{metrologyId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Metrology updateMetrology(@PathVariable String metrologyId, @RequestBody Metrology metrologyToUpdate) throws NoSuchMetrologyException {
+    public Metrology updateMetrology(@PathVariable String metrologyId, @RequestBody MetrologyDTO metrologyToUpdate) throws NoSuchMetrologyException {
         return metrologyService.updateMetology(metrologyId, metrologyToUpdate);
     }
 
