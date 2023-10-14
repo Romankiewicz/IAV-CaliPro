@@ -70,13 +70,13 @@
     <TableView fx:id="TV_METROLOGY" layoutX="140.0" layoutY="590.0" prefHeight="200.0" prefWidth="600.0"
                style="-fx-background-radius: 20; -fx-background-color: #FE2EF710;">
         <columns>
-            <TableColumn fx:id="TC_M_ID" prefWidth="75.0"
-                         style="-fx-background-radius: 20;                     -fx-background-color: #FE2EF750;"
-                         text="ID">
-                <cellValueFactory>
-                    <PropertyValueFactory property="metrologyId"/>
-                </cellValueFactory>
-            </TableColumn>
+<!--            <TableColumn fx:id="TC_M_ID" prefWidth="75.0"-->
+<!--                         style="-fx-background-radius: 20;                     -fx-background-color: #FE2EF750;"-->
+<!--                         text="ID">-->
+<!--                <cellValueFactory>-->
+<!--                    <PropertyValueFactory property="metrologyId"/>-->
+<!--                </cellValueFactory>-->
+<!--            </TableColumn>-->
 
             <TableColumn fx:id="TC_M_INVENTORY" prefWidth="75.0"
                          style="-fx-background-radius: 20;                       -fx-background-color: #FE2EF750;"
@@ -86,13 +86,13 @@
                 </cellValueFactory>
             </TableColumn>
 
-            <TableColumn fx:id="TC_M_MANUFACTURER" prefWidth="75.0"
-                         style="-fx-background-radius: 20;                       -fx-background-color: #FE2EF750;"
-                         text="Hersteller">
-                <cellValueFactory>
-                    <PropertyValueFactory property="manufacturer"/>
-                </cellValueFactory>
-            </TableColumn>
+<!--            <TableColumn fx:id="TC_M_MANUFACTURER" prefWidth="75.0"-->
+<!--                         style="-fx-background-radius: 20;                       -fx-background-color: #FE2EF750;"-->
+<!--                         text="Hersteller">-->
+<!--                <cellValueFactory>-->
+<!--                    <PropertyValueFactory property="manufacturer"/>-->
+<!--                </cellValueFactory>-->
+<!--            </TableColumn>-->
 
             <TableColumn fx:id="TC_M_TYPE" prefWidth="75.0"
                          style="-fx-background-radius: 20;                       -fx-background-color: #FE2EF750;"

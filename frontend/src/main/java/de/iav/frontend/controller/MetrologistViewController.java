@@ -22,12 +22,12 @@ public class MetrologistViewController {
 
     @FXML
     private TableView<Metrology> TV_METROLOGY;
-    @FXML
-    private TableColumn<Metrology, String> TC_M_ID;
+//    @FXML
+//    private TableColumn<Metrology, String> TC_M_ID;
     @FXML
     private TableColumn<Metrology, String> TC_M_INVENTORY;
-    @FXML
-    private TableColumn<Metrology, String> TC_M_MANUFACTURER;
+//    @FXML
+//    private TableColumn<Metrology, String> TC_M_MANUFACTURER;
     @FXML
     private TableColumn<Metrology, String> TC_M_TYPE;
     @FXML
@@ -86,9 +86,9 @@ public class MetrologistViewController {
         StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
         TV_METROLOGY.getItems().clear();
 
-        TC_M_ID.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().metrologyId()));
+//        TC_M_ID.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().metrologyId()));
         TC_M_INVENTORY.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().iavInventory()));
-        TC_M_MANUFACTURER.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().manufacturer()));
+//        TC_M_MANUFACTURER.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().manufacturer()));
         TC_M_TYPE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
         TC_M_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
         TC_M_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
