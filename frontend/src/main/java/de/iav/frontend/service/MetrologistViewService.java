@@ -11,6 +11,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MetrologistViewService {
@@ -31,6 +33,25 @@ public class MetrologistViewService {
             instance = new MetrologistViewService();
         }
         return instance;
+    }
+
+    public List<Metrology> getMetrologyByMaintenanceDue() {
+
+        List<Metrology> allMetrology = getAllMetrologies();
+        List<Metrology> result = new ArrayList<>();
+        int maxDiff = 5;
+        Date currentDate = new Date();
+
+        for (Metrology metrology : allMetrology) {
+            long diff = metrology.maintenance().getTime() - currentDate.getTime();
+            int diffDays = (int) (diff / (24 * 60 * 60 * 1000));
+
+            if (diffDays == maxDiff) {
+                result.add(metrology);
+            }
+        }
+
+        return result;
     }
 
     public List<Metrology> getAllMetrologies() {

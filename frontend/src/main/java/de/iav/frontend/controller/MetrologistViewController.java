@@ -46,14 +46,7 @@ public class MetrologistViewController {
 
     @FXML
     private Label LF_MESSAGE;
-    @FXML
-    private Button PB_HOME;
-    @FXML
-    private Button PB_ADD_METROLOGY;
-    @FXML
-    private Button PB_METROLOGY_DETAIL;
-    @FXML
-    private Button PB_BENCH_DETAIL;
+
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     private final MetrologistViewService metrologistViewService = MetrologistViewService.getInstance();
