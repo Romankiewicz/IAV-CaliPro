@@ -15,7 +15,8 @@ public class RegistrationViewController {
 
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
-
+    @FXML
+    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
     @FXML
     private final RegistrationViewService registrationViewService = RegistrationViewService.getInstance();
 
@@ -74,16 +75,16 @@ public class RegistrationViewController {
                 if (AuthenticationService.getInstance().addMetrologist(userName, password)) {
                     MetrologistDTO newMetrologist = new MetrologistDTO(userName, password, firstName, lastName, email);
 
-                    boolean result = AuthenticationService.getInstance().login(userName, password);
+                    boolean result = authenticationService.login(userName, password);
 
-                    if (result && !AuthenticationService.getInstance().getUsername().equals("anonymousUser")) {
-                        registrationViewService.addMetrologist(newMetrologist, AuthenticationService.getInstance().getSessionId());
+                    if (result && !authenticationService.getUsername().equals("anonymousUser")) {
+                        registrationViewService.addMetrologist(newMetrologist, authenticationService.getSessionId());
                     } else {
                         LF_ERROR.setText("Registrierung fehlgeschlagen!!!");
                     }
                     sceneSwitchService.switchToStartView(event);
                 } else {
-                    LF_ERROR.setText(AuthenticationService.getInstance().getErrorMassage());
+                    LF_ERROR.setText(authenticationService.getErrorMassage());
                 }
             }
         }

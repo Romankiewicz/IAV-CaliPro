@@ -90,6 +90,32 @@ public class MetrologyService {
                 .join();
     }
 
+    public Metrology updateMetrologyMaintenanceByMetrologyId(String metrologyId, Date maintenanceUpdate) throws JsonProcessingException {
+
+        Metrology metrology = getMetrologyById(metrologyId);
+        Metrology metrologyUpdate = new Metrology(
+                metrology.metrologyId(),
+                metrology.iavInventory(),
+                metrology.manufacturer(),
+                metrology.type(),
+                maintenanceUpdate,
+                metrology.calibration()
+        );
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology/" + metrologyId))
+                .header("Accept", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .PUT(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(metrologyUpdate)))
+                .build();
+
+        return metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenApply(this::mapToMetrology)
+                .join();
+
+    }
+
     public void deleteMetrology(String metrologyId) {
 
         HttpRequest request = HttpRequest.newBuilder()

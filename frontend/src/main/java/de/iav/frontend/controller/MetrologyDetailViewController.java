@@ -1,5 +1,6 @@
 package de.iav.frontend.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import de.iav.frontend.model.Metrology;
 import de.iav.frontend.service.MetrologyService;
 import de.iav.frontend.service.SceneSwitchService;
@@ -12,6 +13,8 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,13 +22,10 @@ import java.util.List;
 public class MetrologyDetailViewController {
 
     @FXML
-    private Button PB_HOME;
-    @FXML
-    private Button PB_CLOSE;
-    @FXML
     private ChoiceBox<Metrology> CB_METROLOGY;
     @FXML
     private DatePicker DP_DATE;
+    private Date selectedDate;
 
     @FXML
     private TableView<Metrology> TV_METROLOGY_DETAIL;
@@ -87,6 +87,30 @@ public class MetrologyDetailViewController {
         TC_M_CALIBRATION_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
         TV_METROLOGY_DETAIL.getItems().addAll(metrologies);
         TV_METROLOGY_DETAIL.setVisible(true);
+    }
+
+    @FXML
+    public void addMaintenanceDate(ActionEvent event) {
+
+        LocalDate localDate = DP_DATE.getValue();
+
+        CB_METROLOGY.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                Metrology selectedMetrology = metrologyService.getMetrologyById(newValue.metrologyId());
+
+
+                if (localDate != null) {
+                    selectedDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+                    try {
+                        metrologyService.updateMetrologyMaintenanceByMetrologyId(selectedMetrology.metrologyId(), selectedDate);
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+
     }
 
     @FXML
