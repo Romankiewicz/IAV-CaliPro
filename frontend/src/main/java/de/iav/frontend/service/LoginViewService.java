@@ -17,6 +17,7 @@ public class LoginViewService {
     private final HttpClient loginClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     public LoginViewService() {
 
