@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="de.iav.frontend.controller.MetrologyDetailViewController"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.MetrologyDetailViewController">
 
     <ImageView fitHeight="830.0" fitWidth="1200.0">
         <Image url="@../png/Background.png" />
@@ -19,17 +18,50 @@
     <ImageView layoutX="1060.0" scaleX="0.25" scaleY="0.25">
         <Image url="@../png/HomeButton.png" />
     </ImageView>
-    <ImageView fitHeight="110.0" fitWidth="110.0"
-               layoutX="1025.0" layoutY="25.0" scaleX="0.25" scaleY="0.25">
+    <ImageView fitHeight="110.0" fitWidth="110.0" layoutX="1025.0" layoutY="25.0" scaleX="0.25" scaleY="0.25">
         <Image url="@../png/CloseButton.png" />
     </ImageView>
-    <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0"
-            mnemonicParsing="false"
-            prefHeight="40.0" prefWidth="40.0" style="
-            -fx-background-color: #ffffff00;" textFill="#ffffff00" />
-    <Button fx:id="PB_CLOSE" layoutX="1058.0" layoutY="57.0"
-            mnemonicParsing="false"
-            prefHeight="40.0" prefWidth="40.0" style="
-           -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
+    <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="             -fx-background-color: #ffffff00;" textFill="#ffffff00" />
+    <Button fx:id="PB_CLOSE" layoutX="1058.0" layoutY="57.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="            -fx-background-color: #ffffff00;" textFill="#ffffff00" />
+   <TextField fx:id="TF_INVENTORY" layoutX="500.0" layoutY="180.0" prefHeight="30.0" prefWidth="200.0" promptText="IAV Inventarnummer" style="-fx-background-color: ffffff;">
+      <effect>
+         <DropShadow />
+      </effect>
+   </TextField>
+   <TextField fx:id="TF_MANUFACTURER" layoutX="500.0" layoutY="220.0" prefHeight="30.0" prefWidth="200.0" promptText="Hersteller" style="-fx-background-color: ffffff;">
+      <effect>
+         <DropShadow />
+      </effect>
+   </TextField>
+   <TextField fx:id="TF_TYP" layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0" promptText="Herstellerbezeichnung" style="-fx-background-color: ffffff;">
+      <effect>
+         <DropShadow />
+      </effect>
+   </TextField>
+   <DatePicker fx:id="DP_MAIN" layoutX="500.0" layoutY="340.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;">
+      <effect>
+         <DropShadow />
+      </effect>
+   </DatePicker>
+   <DatePicker fx:id="DP_CAL" layoutX="500.0" layoutY="420.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: BAB9B9;">
+      <effect>
+         <DropShadow />
+      </effect>
+   </DatePicker>
+   <Label layoutX="500.0" layoutY="300.0" prefHeight="30.0" prefWidth="200.0" text="Letze Wartung">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <Label layoutX="500.0" layoutY="380.0" prefHeight="30.0" prefWidth="200.0" text="Letze Kalibrierung">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Label>
+   <Button fx:id="PB_ADD" layoutX="960.0" layoutY="770.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Messgerät hinzufügen">
+      <effect>
+         <DropShadow />
+      </effect>
+   </Button>
 
 </AnchorPane>
