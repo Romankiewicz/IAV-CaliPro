@@ -1,12 +1,16 @@
 package de.iav.frontend.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import de.iav.frontend.model.Metrology;
 import de.iav.frontend.service.MetrologyService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
@@ -48,7 +52,6 @@ public class MetrologyDetailViewController {
     private final MetrologyService metrologyService = MetrologyService.getInstance();
 
 
-
     public void initialize() {
 
         List<Metrology> allMetrologies = metrologyService.getAllMetrologies();
@@ -60,28 +63,22 @@ public class MetrologyDetailViewController {
                 updateTableView();
             }
         });
-//        getSelectedMetrology();
         updateTableView();
     }
 
-//    @FXML
-//    public Metrology getSelectedMetrology() {
-//
-//        CB_METROLOGY.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue != null) {
-//               Metrology selectedMetrology = metrologyService.getMetrologyById(newValue.metrologyId());
-////                updateTableView(selectedMetrology);
-////            } else {
-////                TV_METROLOGY_DETAIL.setVisible(false);
-//            }
-//
-//        });
-//
-//    }
+    @FXML
+    public void updateChoiceBox() {
+
+        CB_METROLOGY.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                selectedMetrology = metrologyService.getMetrologyById(newValue.metrologyId());
+                updateTableView();
+            }
+        });
+    }
 
     @FXML
     public void updateTableView() {
-
 
 
         if (selectedMetrology != null) {
@@ -99,7 +96,7 @@ public class MetrologyDetailViewController {
             TC_M_MAINTENANCE_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
             TC_M_CALIBRATION_DETAIL.setCellFactory(TextFieldTableCell.forTableColumn(dateStringConverter));
             TC_M_CALIBRATION_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
-            TV_METROLOGY_DETAIL.getItems().addAll(selectedMetrology);
+            TV_METROLOGY_DETAIL.getItems().addAll(metrologies);
             TV_METROLOGY_DETAIL.setVisible(true);
         } else {
             TV_METROLOGY_DETAIL.setVisible(false);
@@ -107,23 +104,26 @@ public class MetrologyDetailViewController {
     }
 
     @FXML
-    public void addMaintenanceDate(ActionEvent event) {
+    public void addMaintenanceDate() throws JsonProcessingException {
 
         LocalDate localDate = DP_DATE.getValue();
 
         if (selectedMetrology != null && localDate != null) {
             selectedDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Metrology metrologyUpdate = new Metrology(
+                    selectedMetrology.metrologyId(),
+                    selectedMetrology.iavInventory(),
+                    selectedMetrology.manufacturer(),
+                    selectedMetrology.type(),
+                    selectedDate,
+                    selectedMetrology.calibration());
 
-            try {
-                metrologyService.updateMetrologyMaintenanceByMetrologyId(selectedMetrology.metrologyId(), selectedDate);
-                sceneSwitchService.switchToMetrologyDetailView(event);
-                System.out.println(selectedMetrology + "\n" + selectedDate);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            metrologyService.updateMetrologyMaintenanceByMetrologyId(selectedMetrology.metrologyId(), metrologyUpdate);
+
+            CB_METROLOGY.
+            initialize();
+
         }
-
-
 
     }
 

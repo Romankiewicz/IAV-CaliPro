@@ -90,30 +90,26 @@ public class MetrologyService {
                 .join();
     }
 
-    public void updateMetrologyMaintenanceByMetrologyId(String metrologyId, Date maintenanceUpdate) throws JsonProcessingException {
+    public Metrology updateMetrologyMaintenanceByMetrologyId(String metrologyId, Metrology metrologyUpdate) throws JsonProcessingException {
 
-        Metrology metrology = getMetrologyById(metrologyId);
-        Metrology metrologyUpdate = new Metrology(
-                metrology.metrologyId(),
-                metrology.iavInventory(),
-                metrology.manufacturer(),
-                metrology.type(),
-                maintenanceUpdate,
-                metrology.calibration()
-        );
+        try {
+            String requestBody = objectMapper.writeValueAsString(metrologyUpdate);
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology/" + metrologyId))
-                .header("Accept", JSON)
-                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-                .PUT(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(metrologyUpdate)))
-                .build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology/" + metrologyId))
+                    .header("Content-Type", JSON)
+                    .header("Accept", JSON)
+                    .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
 
-        metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenApply(this::mapToMetrology)
-                .join();
-
+            return metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(HttpResponse::body)
+                    .thenApply(this::mapToMetrology)
+                    .join();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void deleteMetrology(String metrologyId) {
