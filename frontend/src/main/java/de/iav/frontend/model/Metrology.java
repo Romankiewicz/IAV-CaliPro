@@ -1,8 +1,11 @@
 package de.iav.frontend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 import java.util.Objects;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record Metrology(
         String metrologyId,
         String iavInventory,
