@@ -26,10 +26,6 @@ public class MetrologyService {
 
 
 
-    public MetrologyService() {
-
-    }
-
     public static synchronized MetrologyService getInstance() {
 
         if (instance == null) {

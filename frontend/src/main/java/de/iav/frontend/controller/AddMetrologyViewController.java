@@ -34,6 +34,7 @@ public class AddMetrologyViewController {
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     @FXML
     private final MetrologyService metrologyService = MetrologyService.getInstance();
+    @FXML
     private final IdService idService = IdService.getInstance();
 
     public AddMetrologyViewController() {
@@ -48,6 +49,7 @@ public class AddMetrologyViewController {
     public void onClick_PB_CLOSE(ActionEvent event) throws IOException {
         sceneSwitchService.switchToMetrologistView(event);
     }
+
 
     @FXML
     public void onClick_PB_ADD_addMetrology(ActionEvent event) throws IOException {

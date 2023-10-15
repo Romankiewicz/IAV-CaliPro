@@ -159,4 +159,9 @@ public class MetrologistViewController {
     public void onClick_PB_METROLOGY_DETAIL(ActionEvent event) throws IOException {
         sceneSwitchService.switchToMetrologyDetailView(event);
     }
+
+    @FXML
+    public void onClick_PB_ADD_METROLOGY_switchToAddMetrologyView(ActionEvent event) throws IOException{
+        sceneSwitchService.switchToAddMetrologyView(event);
+    }
 }

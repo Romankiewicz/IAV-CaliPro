@@ -25,9 +25,7 @@ public class MetrologistViewService {
     private static final String JSON = "application/json";
     private final MetrologyService metrologyService = MetrologyService.getInstance();
 
-    public MetrologistViewService() {
 
-    }
 
     public static synchronized MetrologistViewService getInstance() {
         if (instance == null) {

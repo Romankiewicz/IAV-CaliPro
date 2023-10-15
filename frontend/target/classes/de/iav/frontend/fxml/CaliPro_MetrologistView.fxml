@@ -30,7 +30,8 @@
             <DropShadow height="30.0" radius="22.0" width="60.0"/>
         </effect>
     </Button>
-    <Button layoutX="780.0" layoutY="665.0" mnemonicParsing="false" prefHeight="50.0"
+    <Button layoutX="780.0" layoutY="665.0" mnemonicParsing="false"
+            onAction="#onClick_PB_ADD_METROLOGY_switchToAddMetrologyView" prefHeight="50.0"
             prefWidth="270.0" style="-fx-background-color: BAB9B9;" text="Messtechnik hinzufügen"
             textAlignment="CENTER">
         <font>
