@@ -5,7 +5,6 @@ import de.iav.backend.model.Metrology;
 import de.iav.backend.model.MetrologyDTO;
 import de.iav.backend.repository.MetrologyRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.List;
 public class MetrologyService {
 
     private final MetrologyRepository metrologyRepository;
-    private final IdService idService;
 
     public Metrology getMetrologyById(String metrologyId) throws NoSuchMetrologyException {
         return metrologyRepository
@@ -31,7 +29,7 @@ public class MetrologyService {
         return metrologyRepository
                 .save(
                         new Metrology(
-                                idService.generateId(),
+                                metrologyToAdd.metrologyId(),
                                 metrologyToAdd.iavInventory(),
                                 metrologyToAdd.manufacturer(),
                                 metrologyToAdd.type(),

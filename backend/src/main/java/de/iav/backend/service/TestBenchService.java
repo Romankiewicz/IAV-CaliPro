@@ -39,7 +39,7 @@ public class TestBenchService {
         return testBenchRepository
                 .save(
                         new TestBench(
-                                idService.generateId(),
+                                testBenchToAdd.testBenchId(),
                                 testBenchToAdd.name(),
                                 new ArrayList<>(),
                                 new ArrayList<>(),
