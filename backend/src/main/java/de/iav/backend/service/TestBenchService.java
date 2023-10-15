@@ -24,7 +24,6 @@ public class TestBenchService {
     private final TestBenchRepository testBenchRepository;
     private final MetrologyRepository metrologyRepository;
     private final OperatorRepository operatorRepository;
-    private final IdService idService;
 
 
     public List<TestBench> listAllTestBenches() {
