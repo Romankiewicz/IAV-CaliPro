@@ -90,7 +90,22 @@ public class MetrologyService {
                 .join();
     }
 
+    public void addMetrology(Metrology metrologyToAdd) throws JsonProcessingException {
 
+        String requestBody = objectMapper.writeValueAsString(metrologyToAdd);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology"))
+                .header("Content-Type", JSON)
+                .header("Accept", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+        metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenApply(this::mapToMetrology)
+                .join();
+    }
 
     public void updateMetrologyMaintenanceByMetrologyId(String metrologyId, Metrology maintenanceUpdate) throws JsonProcessingException {
 
