@@ -90,7 +90,7 @@ public class MetrologyService {
                 .join();
     }
 
-    public Metrology updateMetrologyMaintenanceByMetrologyId(String metrologyId, Metrology metrologyUpdate) throws JsonProcessingException {
+    public void updateMetrologyMaintenanceByMetrologyId(String metrologyId, Metrology metrologyUpdate) throws JsonProcessingException {
 
         try {
             String requestBody = objectMapper.writeValueAsString(metrologyUpdate);
@@ -103,7 +103,29 @@ public class MetrologyService {
                     .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
-            return metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+            metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                    .thenApply(HttpResponse::body)
+                    .thenApply(this::mapToMetrology)
+                    .join();
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateMetrologyCalibrationByMetrologyId(String metrologyId, Metrology metrologyUpdate) throws JsonProcessingException {
+
+        try {
+            String requestBody = objectMapper.writeValueAsString(metrologyUpdate);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology/" + metrologyId))
+                    .header("Content-Type", JSON)
+                    .header("Accept", JSON)
+                    .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(HttpResponse::body)
                     .thenApply(this::mapToMetrology)
                     .join();

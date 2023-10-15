@@ -23,7 +23,8 @@
             prefWidth="40.0" style="             -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
     <Button layoutX="1058.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_CLOSE" prefHeight="40.0"
             prefWidth="40.0" style="            -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
-    <Button fx:id="PB_CALIBRATION" layoutX="520.0" layoutY="700.0" mnemonicParsing="false" prefHeight="50.0"
+    <Button layoutX="520.0" layoutY="700.0" mnemonicParsing="false"
+            onAction="#updateCalibrationDate" prefHeight="50.0"
             prefWidth="280.0" style="-fx-background-color: BAB9B9;" text="Kalibrierung durchgeführt">
         <font>
             <Font name="Baloo 2 Regular" size="22.0"/>
@@ -32,8 +33,8 @@
             <DropShadow height="30.0" radius="19.5" width="50.0"/>
         </effect>
     </Button>
-    <Button fx:id="PB_MAINTENANCE" layoutX="200.0" layoutY="700.0" mnemonicParsing="false"
-            onAction="#addMaintenanceDate" prefHeight="50.0" prefWidth="280.0" style="-fx-background-color: BAB9B9;"
+    <Button layoutX="200.0" layoutY="700.0" mnemonicParsing="false"
+            onAction="#updateMaintenanceDate" prefHeight="50.0" prefWidth="280.0" style="-fx-background-color: BAB9B9;"
             text="Wartung durchgefuhrt">
         <font>
             <Font name="Baloo 2 Regular" size="22.0"/>

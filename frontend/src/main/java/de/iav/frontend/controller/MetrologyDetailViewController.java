@@ -114,7 +114,7 @@ public class MetrologyDetailViewController {
     }
 
     @FXML
-    public void addMaintenanceDate() throws JsonProcessingException {
+    public void updateMaintenanceDate() throws JsonProcessingException {
 
         LocalDate localDate = DP_DATE.getValue();
 
@@ -134,9 +134,31 @@ public class MetrologyDetailViewController {
             TV_METROLOGY_DETAIL.getItems().clear();
             updateChoiceBox();
             updateChoiceBox();
-
         }
+    }
 
+    @FXML
+    public void updateCalibrationDate() throws JsonProcessingException {
+
+        LocalDate localDate = DP_DATE.getValue();
+
+        if (selectedMetrology != null && localDate != null) {
+            selectedDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Metrology metrologyUpdate = new Metrology(
+                    selectedMetrology.metrologyId(),
+                    selectedMetrology.iavInventory(),
+                    selectedMetrology.manufacturer(),
+                    selectedMetrology.type(),
+                    selectedMetrology.maintenance(),
+                    selectedDate);
+
+            metrologyService.updateMetrologyCalibrationByMetrologyId(selectedMetrology.metrologyId(), metrologyUpdate);
+
+            CB_METROLOGY.setValue(null);
+            TV_METROLOGY_DETAIL.getItems().clear();
+            updateChoiceBox();
+            updateChoiceBox();
+        }
     }
 
     @FXML
