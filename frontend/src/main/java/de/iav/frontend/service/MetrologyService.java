@@ -90,10 +90,11 @@ public class MetrologyService {
                 .join();
     }
 
-    public void updateMetrologyMaintenanceByMetrologyId(String metrologyId, Metrology metrologyUpdate) throws JsonProcessingException {
 
-        try {
-            String requestBody = objectMapper.writeValueAsString(metrologyUpdate);
+
+    public void updateMetrologyMaintenanceByMetrologyId(String metrologyId, Metrology maintenanceUpdate) throws JsonProcessingException {
+
+            String requestBody = objectMapper.writeValueAsString(maintenanceUpdate);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology/" + metrologyId))
@@ -107,15 +108,11 @@ public class MetrologyService {
                     .thenApply(HttpResponse::body)
                     .thenApply(this::mapToMetrology)
                     .join();
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    public void updateMetrologyCalibrationByMetrologyId(String metrologyId, Metrology metrologyUpdate) throws JsonProcessingException {
+    public void updateMetrologyCalibrationByMetrologyId(String metrologyId, Metrology calibrationUpdate) throws JsonProcessingException {
 
-        try {
-            String requestBody = objectMapper.writeValueAsString(metrologyUpdate);
+            String requestBody = objectMapper.writeValueAsString(calibrationUpdate);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology/" + metrologyId))
@@ -129,9 +126,6 @@ public class MetrologyService {
                     .thenApply(HttpResponse::body)
                     .thenApply(this::mapToMetrology)
                     .join();
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public void deleteMetrology(String metrologyId) {
