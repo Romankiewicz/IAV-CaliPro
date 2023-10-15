@@ -49,28 +49,28 @@ public class MetrologistViewService {
         metrologyService.deleteMetrology(metrologyId);
     }
 
-//    public List<TestBench> getTestBenchesByMaintenanceOrCalibrationDue() {
-//
-//        List<TestBench> allTestBenches = getAllTestBenches();
-//        List<TestBench> result = new ArrayList<>();
-//
-//        int maxDiff = 5;
-//        Date currentDate = new Date();
-//
-//        for (TestBench testBench : allTestBenches) {
-//
-//            long maintenanceDiff = testBench.maintenance().getTime() - currentDate.getTime();
-//            int maintenanceDiffDays = (int) (maintenanceDiff / (24 * 60 * 60 * 1000));
-//
-//            long calibrationDiff = testBench.calibration().getTime() - currentDate.getTime();
-//            int calibrationDiffDays = (int) (calibrationDiff / (24 * 60 * 60 * 1000));
-//
-//            if (maintenanceDiffDays <= maxDiff || calibrationDiffDays <= maxDiff) {
-//                result.add(testBench);
-//            }
-//        }
-//        return result;
-//    }
+    public List<TestBench> getTestBenchesByMaintenanceOrCalibrationDue() {
+
+        List<TestBench> allTestBenches = getAllTestBenches();
+        List<TestBench> result = new ArrayList<>();
+
+        int maxDiff = 5;
+        Date currentDate = new Date();
+
+        for (TestBench testBench : allTestBenches) {
+
+            long maintenanceDiff = testBench.maintenance().getTime() - currentDate.getTime();
+            int maintenanceDiffDays = (int) (maintenanceDiff / (24 * 60 * 60 * 1000));
+
+            long calibrationDiff = testBench.calibration().getTime() - currentDate.getTime();
+            int calibrationDiffDays = (int) (calibrationDiff / (24 * 60 * 60 * 1000));
+
+            if (maintenanceDiffDays <= maxDiff || calibrationDiffDays <= maxDiff) {
+                result.add(testBench);
+            }
+        }
+        return result;
+    }
 
     public List<TestBench> getAllTestBenches() {
 

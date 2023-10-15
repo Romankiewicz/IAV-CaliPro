@@ -69,7 +69,7 @@ public class MetrologistViewController {
     public void initialize() {
         getMetrologies();
         getTestBenches();
-//        getPopUpTestBench();
+        getPopUpTestBench();
         getPopUpMetrology();
 
     }
@@ -122,21 +122,21 @@ public class MetrologistViewController {
         TV_BENCH.getItems().addAll(testBenchData);
     }
 
-//    @FXML
-//    private void getPopUpTestBench() {
-//
-//        List<TestBench> testBenchesByMaintenanceOrCalibrationDue = metrologistViewService.getTestBenchesByMaintenanceOrCalibrationDue();
-//        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
-//
-//        TC_B_NAME_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().name()));
-//        TC_B_MAINTENANCE_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
-//        TC_B_MAINTENANCE_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
-//        TC_B_CALIBRATION_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
-//        TC_B_CALIBRATION_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
-//
-//        TV_BENCH_POPUP.getItems().addAll(testBenchesByMaintenanceOrCalibrationDue);
-//        TV_BENCH_POPUP.setVisible(!testBenchesByMaintenanceOrCalibrationDue.isEmpty());
-//    }
+    @FXML
+    private void getPopUpTestBench() {
+
+        List<TestBench> testBenchesByMaintenanceOrCalibrationDue = metrologistViewService.getTestBenchesByMaintenanceOrCalibrationDue();
+        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
+
+        TC_B_NAME_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().name()));
+        TC_B_MAINTENANCE_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_B_MAINTENANCE_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+        TC_B_CALIBRATION_POPUP.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_B_CALIBRATION_POPUP.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
+
+        TV_BENCH_POPUP.getItems().addAll(testBenchesByMaintenanceOrCalibrationDue);
+        TV_BENCH_POPUP.setVisible(!testBenchesByMaintenanceOrCalibrationDue.isEmpty());
+    }
 
 
     @FXML
