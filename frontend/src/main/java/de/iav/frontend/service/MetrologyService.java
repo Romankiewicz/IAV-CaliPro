@@ -90,7 +90,7 @@ public class MetrologyService {
                 .join();
     }
 
-    public Metrology updateMetrologyMaintenanceByMetrologyId(String metrologyId, Date maintenanceUpdate) throws JsonProcessingException {
+    public void updateMetrologyMaintenanceByMetrologyId(String metrologyId, Date maintenanceUpdate) throws JsonProcessingException {
 
         Metrology metrology = getMetrologyById(metrologyId);
         Metrology metrologyUpdate = new Metrology(
@@ -109,7 +109,7 @@ public class MetrologyService {
                 .PUT(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(metrologyUpdate)))
                 .build();
 
-        return metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+        metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
                 .thenApply(this::mapToMetrology)
                 .join();

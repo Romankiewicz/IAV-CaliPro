@@ -25,6 +25,7 @@ public class MetrologyDetailViewController {
     @FXML
     private DatePicker DP_DATE;
     private Date selectedDate;
+    private Metrology selectedMetrology;
 
     @FXML
     private TableView<Metrology> TV_METROLOGY_DETAIL;
@@ -47,45 +48,62 @@ public class MetrologyDetailViewController {
     private final MetrologyService metrologyService = MetrologyService.getInstance();
 
 
+
     public void initialize() {
 
         List<Metrology> allMetrologies = metrologyService.getAllMetrologies();
         CB_METROLOGY.getItems().addAll(allMetrologies);
-        getSelectedMetrology();
-    }
-
-    @FXML
-    public void getSelectedMetrology() {
 
         CB_METROLOGY.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                Metrology selectedMetrology = metrologyService.getMetrologyById(newValue.metrologyId());
-                updateTableView(selectedMetrology);
-            } else {
-                TV_METROLOGY_DETAIL.setVisible(false);
+                selectedMetrology = metrologyService.getMetrologyById(newValue.metrologyId());
+                updateTableView();
             }
         });
+//        getSelectedMetrology();
+        updateTableView();
     }
 
+//    @FXML
+//    public Metrology getSelectedMetrology() {
+//
+//        CB_METROLOGY.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//            if (newValue != null) {
+//               Metrology selectedMetrology = metrologyService.getMetrologyById(newValue.metrologyId());
+////                updateTableView(selectedMetrology);
+////            } else {
+////                TV_METROLOGY_DETAIL.setVisible(false);
+//            }
+//
+//        });
+//
+//    }
+
     @FXML
-    public void updateTableView(Metrology metrology) {
+    public void updateTableView() {
 
-        List<Metrology> metrologies = new ArrayList<>();
-        metrologies.add(metrology);
 
-        StringConverter<Date> dateStringConverter = new DateStringConverter("dd.MM.yyyy");
-        TV_METROLOGY_DETAIL.getItems().clear();
 
-        TC_M_ID_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().metrologyId()));
-        TC_M_INVENTORY_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().iavInventory()));
-        TC_M_MANUFACTURER_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().manufacturer()));
-        TC_M_TYPE_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
-        TC_M_MAINTENANCE_DETAIL.setCellFactory(TextFieldTableCell.forTableColumn(dateStringConverter));
-        TC_M_MAINTENANCE_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
-        TC_M_CALIBRATION_DETAIL.setCellFactory(TextFieldTableCell.forTableColumn(dateStringConverter));
-        TC_M_CALIBRATION_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
-        TV_METROLOGY_DETAIL.getItems().addAll(metrologies);
-        TV_METROLOGY_DETAIL.setVisible(true);
+        if (selectedMetrology != null) {
+            List<Metrology> metrologies = new ArrayList<>();
+            metrologies.add(selectedMetrology);
+
+            StringConverter<Date> dateStringConverter = new DateStringConverter("dd.MM.yyyy");
+            TV_METROLOGY_DETAIL.getItems().clear();
+
+            TC_M_ID_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().metrologyId()));
+            TC_M_INVENTORY_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().iavInventory()));
+            TC_M_MANUFACTURER_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().manufacturer()));
+            TC_M_TYPE_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
+            TC_M_MAINTENANCE_DETAIL.setCellFactory(TextFieldTableCell.forTableColumn(dateStringConverter));
+            TC_M_MAINTENANCE_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+            TC_M_CALIBRATION_DETAIL.setCellFactory(TextFieldTableCell.forTableColumn(dateStringConverter));
+            TC_M_CALIBRATION_DETAIL.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
+            TV_METROLOGY_DETAIL.getItems().addAll(selectedMetrology);
+            TV_METROLOGY_DETAIL.setVisible(true);
+        } else {
+            TV_METROLOGY_DETAIL.setVisible(false);
+        }
     }
 
     @FXML
@@ -93,23 +111,19 @@ public class MetrologyDetailViewController {
 
         LocalDate localDate = DP_DATE.getValue();
 
-        CB_METROLOGY.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                Metrology selectedMetrology = metrologyService.getMetrologyById(newValue.metrologyId());
+        if (selectedMetrology != null && localDate != null) {
+            selectedDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-
-                if (localDate != null) {
-                    selectedDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-                    try {
-                        metrologyService.updateMetrologyMaintenanceByMetrologyId(selectedMetrology.metrologyId(), selectedDate);
-                        sceneSwitchService.switchToMetrologyDetailView(event);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
+            try {
+                metrologyService.updateMetrologyMaintenanceByMetrologyId(selectedMetrology.metrologyId(), selectedDate);
+                sceneSwitchService.switchToMetrologyDetailView(event);
+                System.out.println(selectedMetrology + "\n" + selectedDate);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        });
+        }
+
+
 
     }
 
