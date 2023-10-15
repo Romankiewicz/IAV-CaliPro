@@ -1,6 +1,5 @@
 package de.iav.frontend.service;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.Random;
 

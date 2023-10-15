@@ -1,8 +1,6 @@
 package de.iav.frontend.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import de.iav.frontend.model.Metrology;
-import de.iav.frontend.security.AuthenticationService;
 import de.iav.frontend.service.IdService;
 import de.iav.frontend.service.MetrologyService;
 import de.iav.frontend.service.SceneSwitchService;
@@ -29,10 +27,8 @@ public class AddMetrologyViewController {
     private Label LF_ERROR;
     @FXML
     private DatePicker DP_MAINTENANCE;
-    private Date maintenanceDate;
     @FXML
     private DatePicker DP_CALIBRATION;
-    private Date calibrationDate;
 
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
@@ -63,8 +59,8 @@ public class AddMetrologyViewController {
             LocalDate localDateMaintenance = DP_MAINTENANCE.getValue();
             LocalDate localDateCalibration = DP_CALIBRATION.getValue();
 
-            maintenanceDate = Date.from(localDateMaintenance.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            calibrationDate = Date.from(localDateCalibration.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date maintenanceDate = Date.from(localDateMaintenance.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date calibrationDate = Date.from(localDateCalibration.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
             Metrology metrologyToAdd = new Metrology(
                     idService.generateRandomId(),

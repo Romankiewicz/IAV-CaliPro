@@ -58,7 +58,7 @@
             <Font size="14.0" />
         </font>
     </Label>
-    <Button fx:id="PB_ADD" layoutX="960.0" layoutY="770.0" mnemonicParsing="false" onAction="#onClick_PB_ADD_addMetrology" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Messgerät hinzufügen">
+    <Button layoutX="960.0" layoutY="770.0" mnemonicParsing="false" onAction="#onClick_PB_ADD_addMetrology" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Messgerät hinzufügen">
         <effect>
             <DropShadow />
         </effect>

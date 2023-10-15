@@ -30,7 +30,7 @@ public class RegistrationViewService {
         return instance;
     }
 
-    public Metrologist addMetrologist(MetrologistDTO metrologistToAdd, String sessionId) {
+    public void addMetrologist(MetrologistDTO metrologistToAdd, String sessionId) {
         try {
             String requestBody = objectMapper.writeValueAsString(metrologistToAdd);
 
@@ -42,7 +42,7 @@ public class RegistrationViewService {
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
-            return registrationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+            registrationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(HttpResponse::body)
                     .thenApply(this::mapToMetrologist)
                     .join();
