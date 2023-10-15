@@ -55,6 +55,7 @@ public class MetrologyDetailViewController {
     public void initialize() {
 
         List<Metrology> allMetrologies = metrologyService.getAllMetrologies();
+        CB_METROLOGY.getItems().clear();
         CB_METROLOGY.getItems().addAll(allMetrologies);
 
         CB_METROLOGY.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -66,8 +67,17 @@ public class MetrologyDetailViewController {
         updateTableView();
     }
 
+    public List<Metrology> getAllMetrologies() {
+
+        return metrologyService.getAllMetrologies();
+    }
+
     @FXML
     public void updateChoiceBox() {
+
+        List<Metrology> allMetrologies = getAllMetrologies();
+        CB_METROLOGY.getItems().clear();
+        CB_METROLOGY.getItems().addAll(allMetrologies);
 
         CB_METROLOGY.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -120,8 +130,10 @@ public class MetrologyDetailViewController {
 
             metrologyService.updateMetrologyMaintenanceByMetrologyId(selectedMetrology.metrologyId(), metrologyUpdate);
 
-            CB_METROLOGY.
-            initialize();
+            CB_METROLOGY.setValue(null);
+            TV_METROLOGY_DETAIL.getItems().clear();
+            updateChoiceBox();
+            updateChoiceBox();
 
         }
 
