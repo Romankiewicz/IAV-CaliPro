@@ -104,7 +104,10 @@ public class MetrologyDetailViewController {
 
                     try {
                         metrologyService.updateMetrologyMaintenanceByMetrologyId(selectedMetrology.metrologyId(), selectedDate);
+                        sceneSwitchService.switchToMetrologyDetailView(event);
                     } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }

@@ -21,10 +21,6 @@ public class RegistrationViewController {
     private final RegistrationViewService registrationViewService = RegistrationViewService.getInstance();
 
     @FXML
-    private Button PB_HOME;
-    @FXML
-    private Button PB_REGISTER;
-    @FXML
     private ChoiceBox CB_ROLE;
     @FXML
     private TextField TF_USERNAME;

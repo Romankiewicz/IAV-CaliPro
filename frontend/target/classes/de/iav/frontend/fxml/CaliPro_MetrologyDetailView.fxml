@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
-<?import javafx.scene.effect.*?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -19,14 +19,12 @@
     <ImageView fitHeight="110.0" fitWidth="110.0" layoutX="1025.0" layoutY="25.0" scaleX="0.25" scaleY="0.25">
         <Image url="@../png/CloseButton.png"/>
     </ImageView>
-    <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME" prefHeight="40.0" prefWidth="40.0"
-            style="             -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
-    <Button fx:id="PB_CLOSE" layoutX="1058.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_CLOSE" prefHeight="40.0" prefWidth="40.0"
-            style="            -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
-    <Button fx:id="PB_CALIBRATION" layoutX="650.0" layoutY="620.0"
-            mnemonicParsing="false"
-            prefHeight="50.0" prefWidth="200.0"
-            style="-fx-background-color: BAB9B9;" text="Kalibrierung durchgeführt">
+    <Button layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME" prefHeight="40.0"
+            prefWidth="40.0" style="             -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
+    <Button layoutX="1058.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_CLOSE" prefHeight="40.0"
+            prefWidth="40.0" style="            -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
+    <Button fx:id="PB_CALIBRATION" layoutX="520.0" layoutY="700.0" mnemonicParsing="false" prefHeight="50.0"
+            prefWidth="280.0" style="-fx-background-color: BAB9B9;" text="Kalibrierung durchgeführt">
         <font>
             <Font name="Baloo 2 Regular" size="22.0"/>
         </font>
@@ -34,10 +32,9 @@
             <DropShadow height="30.0" radius="19.5" width="50.0"/>
         </effect>
     </Button>
-    <Button fx:id="PB_MAINTENANCE" layoutX="650.0" layoutY="620.0"
-            mnemonicParsing="false"
-            prefHeight="50.0" prefWidth="200.0"
-            style="-fx-background-color: BAB9B9;" text="Wartung durchgefuhrt">
+    <Button fx:id="PB_MAINTENANCE" layoutX="200.0" layoutY="700.0" mnemonicParsing="false"
+            onAction="#addMaintenanceDate" prefHeight="50.0" prefWidth="280.0" style="-fx-background-color: BAB9B9;"
+            text="Wartung durchgefuhrt">
         <font>
             <Font name="Baloo 2 Regular" size="22.0"/>
         </font>
@@ -51,13 +48,13 @@
             <DropShadow/>
         </effect>
     </ChoiceBox>
-    <DatePicker fx:id="DP_DATE" layoutX="680.0" layoutY="180.0" prefHeight="25.0" prefWidth="200.0"
+    <DatePicker fx:id="DP_DATE" layoutX="200.0" layoutY="600.0" prefHeight="25.0" prefWidth="200.0"
                 style="-fx-background-color: BAB9B9;">
         <effect>
             <DropShadow/>
         </effect>
     </DatePicker>
-    <TableView fx:id="TV_METROLOGY_DETAIL" layoutX="142.0" layoutY="387.0" prefHeight="200.0" prefWidth="600.0"
+    <TableView fx:id="TV_METROLOGY_DETAIL" layoutX="142.0" layoutY="387.0" prefHeight="80.0" prefWidth="600.0"
                style="-fx-background-radius: 20; -fx-background-color: #FE2EF710;">
         <columns>
             <TableColumn fx:id="TC_M_ID_DETAIL" prefWidth="75.0"
@@ -107,10 +104,4 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
         </columnResizePolicy>
     </TableView>
-    <ComboBox fx:id="CB_METROLOGY_1" layoutX="200.0" layoutY="130.0" prefHeight="25.0" prefWidth="200.0"
-              style="-fx-background-color: BAB9B9;">
-        <effect>
-            <DropShadow/>
-        </effect>
-    </ComboBox>
 </AnchorPane>
