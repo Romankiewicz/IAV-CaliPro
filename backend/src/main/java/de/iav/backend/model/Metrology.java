@@ -3,7 +3,7 @@ package de.iav.backend.model;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Document(collection = "Metrology")
 public record Metrology(
@@ -12,7 +12,7 @@ public record Metrology(
         String iavInventory,
         String manufacturer,
         String type,
-        LocalDate maintenance,
-        LocalDate calibration
+        Date maintenance,
+        Date calibration
 ) {
 }

@@ -1,14 +1,14 @@
 package de.iav.backend.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public record MetrologyDTO(
         String metrologyId,
         String iavInventory,
         String manufacturer,
         String type,
-        LocalDate maintenance,
-        LocalDate calibration
+        Date maintenance,
+        Date calibration
 ) {
 
 
