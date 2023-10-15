@@ -87,5 +87,4 @@ public class RegistrationViewService {
             throw new RuntimeException(e);
         }
     }
-
 }

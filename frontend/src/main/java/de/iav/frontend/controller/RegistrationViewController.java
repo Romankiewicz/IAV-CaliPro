@@ -14,13 +14,6 @@ import java.io.IOException;
 public class RegistrationViewController {
 
     @FXML
-    private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
-    @FXML
-    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
-    @FXML
-    private final RegistrationViewService registrationViewService = RegistrationViewService.getInstance();
-
-    @FXML
     private ChoiceBox CB_ROLE;
     @FXML
     private TextField TF_USERNAME;
@@ -34,8 +27,15 @@ public class RegistrationViewController {
     private PasswordField PF_PASSWORD;
     @FXML
     private Label LF_ERROR;
-
     private UserRole selectedRole;
+
+    @FXML
+    private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
+    @FXML
+    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
+    @FXML
+    private final RegistrationViewService registrationViewService = RegistrationViewService.getInstance();
+
 
     public void initialize() {
 
