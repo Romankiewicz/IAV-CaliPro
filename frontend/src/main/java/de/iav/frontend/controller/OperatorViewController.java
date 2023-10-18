@@ -4,10 +4,14 @@ import de.iav.frontend.model.Metrology;
 import de.iav.frontend.model.TestBench;
 import de.iav.frontend.service.SceneSwitchService;
 import de.iav.frontend.service.TestBenchService;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.StringConverter;
+import javafx.util.converter.DateStringConverter;
 
 import java.io.IOException;
 import java.util.Date;
@@ -16,7 +20,7 @@ import java.util.List;
 public class OperatorViewController {
 
     @FXML
-    private TableView<TestBench> TV_Bench;
+    private TableView<TestBench> TV_BENCH;
     @FXML
     private TableColumn<TestBench, String> TC_B_NAME;
     @FXML
@@ -44,7 +48,21 @@ public class OperatorViewController {
 
     }
 
-
+//    @FXML
+//    private void getTestBench() {
+//
+//        TestBench testBenchData = testBenchService.getTestBenchById();
+//        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
+//
+//
+//        TC_B_ID.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().benchId()));
+//        TC_B_NAME.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().name()));
+//        TC_B_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+//        TC_B_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+//        TC_B_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+//        TC_B_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
+//        TV_BENCH.getItems().addAll(testBenchData);
+//    }
 
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
