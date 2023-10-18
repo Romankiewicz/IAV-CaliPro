@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.jar.JarEntry;
 
 public class LoginViewController {
 
@@ -24,7 +23,7 @@ public class LoginViewController {
     private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     @FXML
-    private ChoiceBox CB_ROLE;
+    private ChoiceBox<String> CB_ROLE;
     @FXML
     private Label LF_ERROR;
     @FXML
@@ -45,13 +44,15 @@ public class LoginViewController {
 
         selectedRole = UserRole.ADMIN;
 
-        CB_ROLE.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.equals("Als Prüfstandsfahrer einloggen")) {
-                this.selectedRole = UserRole.OPERATOR;
-            } else if (newValue.equals("Als Messtechniker einloggen")) {
-                this.selectedRole = UserRole.METROLOGIST;
-            }
-        });
+        CB_ROLE.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if ("Als Prüfstandsfahrer registrieren".equals(newValue)) {
+                        this.selectedRole = UserRole.OPERATOR;
+                    } else if ("Als Messtechniker registrieren".equals(newValue)) {
+                        this.selectedRole = UserRole.METROLOGIST;
+                    }
+                }
+        );
     }
 
     @FXML

@@ -14,7 +14,7 @@ import java.io.IOException;
 public class RegistrationViewController {
 
     @FXML
-    private ChoiceBox CB_ROLE;
+    private ChoiceBox<String> CB_ROLE;
     @FXML
     private TextField TF_USERNAME;
     @FXML
