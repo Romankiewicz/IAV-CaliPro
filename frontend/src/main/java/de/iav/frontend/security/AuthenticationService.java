@@ -19,7 +19,8 @@ public class AuthenticationService {
 
     private final HttpClient authenticationClient = HttpClient.newHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+    private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+    private static final String JSON = "application/json";
 
     private AuthenticationService() {
 
@@ -32,14 +33,34 @@ public class AuthenticationService {
         return instance;
     }
 
-    public boolean addMetrologist(String username, String password) {
+    public boolean addMetrologist(String username, String password, String email) {
         try {
-            UserRequest userRequest = new UserRequest(username, password);
+            UserRequest userRequest = new UserRequest(username, password, email);
             String requestBody = objectMapper.writeValueAsString(userRequest);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(IAVCALIPRO_URL_BACKEND + "users/register/metrologist"))
-                    .header("Content-Type", "application/json")
+                    .header("Content-Type", JSON)
+                    .header("Accept", JSON)
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+            var response = authenticationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+            int statusCode = response.join().statusCode();
+
+            return handleStatusCheckAndSetSessionId(statusCode, response, "Registrierung fehlgeschlagen.");
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public boolean addOperator(String username, String password, String email) {
+        try {
+            UserRequest userRequest = new UserRequest(username, password, email);
+            String requestBody = objectMapper.writeValueAsString(userRequest);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "users/register/operator"))
+                    .header("Content-Type", JSON)
+                    .header("Accept", JSON)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
             var response = authenticationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());

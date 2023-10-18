@@ -1,13 +1,17 @@
 package de.iav.frontend.controller;
 
 import de.iav.frontend.model.MetrologistDTO;
+import de.iav.frontend.model.OperatorDTO;
 import de.iav.frontend.security.AuthenticationService;
 import de.iav.frontend.security.UserRole;
 import de.iav.frontend.service.RegistrationViewService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
@@ -39,7 +43,7 @@ public class RegistrationViewController {
 
     public void initialize() {
 
-        selectedRole = UserRole.ADMIN;
+        selectedRole = UserRole.OPERATOR;
 
         CB_ROLE.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
@@ -60,31 +64,67 @@ public class RegistrationViewController {
 
     @FXML
     public void onClick_PB_REGISTER_SwitchToNextView(ActionEvent event) throws IOException {
-        if(isEveryTextFieldValid()) {
+
+
+        if (selectedRole.equals(UserRole.METROLOGIST)) {
+            registerMetrologist();
+            sceneSwitchService.switchToStartView(event);
+        } else if (selectedRole.equals(UserRole.OPERATOR)) {
+            registerOperator();
+            sceneSwitchService.switchToStartView(event);
+        }
+    }
+
+
+    private void registerMetrologist() {
+        if (isEveryTextFieldValid()) {
             String userName = TF_USERNAME.getText();
             String firstName = TF_FIRSTNAME.getText();
             String lastName = TF_LASTNAME.getText();
             String email = TF_EMAIL.getText();
             String password = PF_PASSWORD.getText();
 
-            if (selectedRole.equals(UserRole.METROLOGIST)) {
-                if (AuthenticationService.getInstance().addMetrologist(userName, password)) {
-                    MetrologistDTO newMetrologist = new MetrologistDTO(userName, password, firstName, lastName, email);
+            if (authenticationService.addMetrologist(userName, password, email)) {
+                MetrologistDTO newMetrologist = new MetrologistDTO(userName, password, firstName, lastName, email);
 
-                    boolean result = authenticationService.login(userName, password);
+                boolean result = authenticationService.login(userName, password);
 
-                    if (result && !authenticationService.getUsername().equals("anonymousUser")) {
-                        registrationViewService.addMetrologist(newMetrologist, authenticationService.getSessionId());
-                    } else {
-                        LF_ERROR.setText("Registrierung fehlgeschlagen!!!");
-                    }
-                    sceneSwitchService.switchToStartView(event);
+                if (result && !authenticationService.getUsername().equals("anonymousUser")) {
+                    registrationViewService.addMetrologist(newMetrologist, authenticationService.getSessionId());
                 } else {
-                    LF_ERROR.setText(authenticationService.getErrorMassage());
+                    LF_ERROR.setText("Registrierung fehlgeschlagen!!!");
                 }
+            }else {
+                LF_ERROR.setText(authenticationService.getErrorMassage());
             }
         }
     }
+
+    private void registerOperator() {
+
+        if (isEveryTextFieldValid()) {
+            String userName = TF_USERNAME.getText();
+            String firstName = TF_FIRSTNAME.getText();
+            String lastName = TF_LASTNAME.getText();
+            String email = TF_EMAIL.getText();
+            String password = PF_PASSWORD.getText();
+
+            if (authenticationService.addOperator(userName, password, email)) {
+                OperatorDTO newOperator = new OperatorDTO(userName, password, firstName, lastName, email);
+
+                boolean result = authenticationService.login(userName, password);
+
+                if (result && !authenticationService.getUsername().equals("anonymousUser")) {
+                    registrationViewService.addTestBenchOperator(newOperator, authenticationService.getSessionId());
+                } else {
+                    LF_ERROR.setText("Registrierung fehlgeschlagen!!!");
+                }
+            } else {
+                LF_ERROR.setText(authenticationService.getErrorMassage());
+            }
+        }
+    }
+
     private boolean isEveryTextFieldValid() {
         if (TF_USERNAME.getText() == null || TF_USERNAME.getText().isEmpty()) {
             LF_ERROR.setText("Bitte Benutzernamen eingeben");
@@ -107,3 +147,4 @@ public class RegistrationViewController {
         }
     }
 }
+

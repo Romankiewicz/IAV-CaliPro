@@ -35,25 +35,26 @@ public class LoginViewController {
     @FXML
     private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
-    @FXML
-    protected void onClick_PB_LOGIN(ActionEvent event) throws IOException {
-        login(event);
-    }
 
     public void initialize() {
 
-        selectedRole = UserRole.ADMIN;
+        selectedRole = UserRole.OPERATOR;
 
         CB_ROLE.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    if ("Als Prüfstandsfahrer registrieren".equals(newValue)) {
+                    if ("Als Prüfstandsfahrer einloggen".equals(newValue)) {
                         this.selectedRole = UserRole.OPERATOR;
-                    } else if ("Als Messtechniker registrieren".equals(newValue)) {
+                    } else if ("Als Messtechniker einloggen".equals(newValue)) {
                         this.selectedRole = UserRole.METROLOGIST;
                     }
                 }
         );
     }
+
+//    @FXML
+//    protected void onClick_PB_LOGIN(ActionEvent event) throws IOException {
+//        login(event);
+//    }
 
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
@@ -61,7 +62,7 @@ public class LoginViewController {
     }
 
     @FXML
-    public void login(ActionEvent event) throws IOException {
+    public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
         if (isEveryTextFieldValid()) {
             String username = TF_USERNAME.getText();
             String password = PF_PASSWORD.getText();
@@ -87,26 +88,26 @@ public class LoginViewController {
                     } else {
                         LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
                     }
+                } else if (selectedRole == UserRole.OPERATOR) {
+
+                    HttpRequest request = HttpRequest.newBuilder()
+                            .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators/" + username))
+                            .header("Accept", JSON)
+                            .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                            .build();
+                    var response = authenticationService
+                            .getAuthenticationClient()
+                            .sendAsync(request, HttpResponse.BodyHandlers.ofString());
+                    int statusCode = response.join().statusCode();
+                    String body = response.join().body();
+                    if (statusCode == 202 && !body.isEmpty()) {
+                        sceneSwitchService.switchToOperatorView(event);
+                    } else {
+                        LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
+
+                    }
+
                 }
-            } else if (selectedRole == UserRole.OPERATOR) {
-
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators/" + username))
-                        .header("Accept", JSON)
-                        .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-                        .build();
-                var response = authenticationService
-                        .getAuthenticationClient()
-                        .sendAsync(request, HttpResponse.BodyHandlers.ofString());
-                int statusCode = response.join().statusCode();
-                String body = response.join().body();
-                if (statusCode == 202 && !body.isEmpty()) {
-                    sceneSwitchService.switchToOperatorView(event);
-                } else {
-                    LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
-
-                }
-
             }
         }
     }

@@ -51,19 +51,19 @@ public class RegistrationViewService {
         }
     }
 
-    public Operator addTestbenchOperator(OperatorDTO operatorToAdd, String sessionId) {
+    public void addTestBenchOperator(OperatorDTO operatorToAdd, String sessionId) {
         try {
             String requestBody = objectMapper.writeValueAsString(operatorToAdd);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators"))
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators/register"))
                     .header("Content-Type", JSON)
                     .header("Accept", JSON)
                     .header("Cookie", "JSESSIONID=" +sessionId)
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
-            return registrationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+            registrationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(HttpResponse::body)
                     .thenApply(this::mapToOperator)
                     .join();
