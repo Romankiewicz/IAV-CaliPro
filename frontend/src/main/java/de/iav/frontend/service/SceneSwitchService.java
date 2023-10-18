@@ -71,6 +71,19 @@ public class SceneSwitchService {
         stage.show();
     }
 
+    public void switchToOperatorView(ActionEvent event) throws IOException {
+
+        FXMLLoader loaderOperatorView = new FXMLLoader(getClass()
+                .getResource("/de/iav/frontend/fxml/CaliPro_OperatorView.fxml"));
+
+        Scene sceneRegView = new Scene(loaderOperatorView.load());
+
+        Stage stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+
+        stage.setScene(sceneRegView);
+        stage.show();
+    }
+
     public void switchToTestBenchDetailView(ActionEvent event) throws IOException {
 
         FXMLLoader loaderTestBenchDetailView = new FXMLLoader(getClass()
@@ -109,6 +122,5 @@ public class SceneSwitchService {
         stage.setScene(sceneRegView);
         stage.show();
     }
-
 
 }

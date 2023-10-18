@@ -1,10 +1,11 @@
 package de.iav.frontend.controller;
 
 import de.iav.frontend.security.AuthenticationService;
+import de.iav.frontend.security.UserRole;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.jar.JarEntry;
 
 public class LoginViewController {
 
@@ -22,15 +24,15 @@ public class LoginViewController {
     private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     @FXML
-    private Button PB_HOME;
-    @FXML
-    private Button PB_LOGIN;
+    private ChoiceBox CB_ROLE;
     @FXML
     private Label LF_ERROR;
     @FXML
     private TextField TF_USERNAME;
     @FXML
     private PasswordField PF_PASSWORD;
+    private UserRole selectedRole;
+    private final String JSON = "application/json";
     @FXML
     private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
@@ -41,6 +43,15 @@ public class LoginViewController {
 
     public void initialize() {
 
+        selectedRole = UserRole.ADMIN;
+
+        CB_ROLE.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals("Als Prüfstandsfahrer einloggen")) {
+                this.selectedRole = UserRole.OPERATOR;
+            } else if (newValue.equals("Als Messtechniker einloggen")) {
+                this.selectedRole = UserRole.METROLOGIST;
+            }
+        });
     }
 
     @FXML
@@ -57,24 +68,44 @@ public class LoginViewController {
 
             if (result && !authenticationService.getUsername().equals("anonymousUser")) {
 
+                if (selectedRole == UserRole.METROLOGIST) {
+                    HttpRequest request = HttpRequest.newBuilder()
+                            .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrologist/" + username))
+                            .header("Accept", JSON)
+                            .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                            .build();
+
+                    var response = authenticationService
+                            .getAuthenticationClient()
+                            .sendAsync(request, HttpResponse.BodyHandlers.ofString());
+                    int statusCode = response.join().statusCode();
+                    String body = response.join().body();
+
+                    if (statusCode == 202 && !body.isEmpty()) {
+                        sceneSwitchService.switchToMetrologistView(event);
+                    } else {
+                        LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
+                    }
+                }
+            } else if (selectedRole == UserRole.OPERATOR) {
 
                 HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrologist/" + username))
-                        .header("Accept", "application/json")
+                        .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators/" + username))
+                        .header("Accept", JSON)
                         .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
                         .build();
-
                 var response = authenticationService
                         .getAuthenticationClient()
                         .sendAsync(request, HttpResponse.BodyHandlers.ofString());
                 int statusCode = response.join().statusCode();
                 String body = response.join().body();
-
                 if (statusCode == 202 && !body.isEmpty()) {
-                    sceneSwitchService.switchToMetrologistView(event);
+                    sceneSwitchService.switchToOperatorView(event);
                 } else {
                     LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
+
                 }
+
             }
         }
     }
