@@ -119,7 +119,7 @@ public class MetrologyDetailViewController {
         LocalDate localDate = DP_DATE.getValue();
         LocalDate maintenanceDate = localDate.plusYears(1);
 
-        if (selectedMetrology != null && localDate != null) {
+        if (selectedMetrology != null) {
             selectedDate = Date.from(maintenanceDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Metrology metrologyUpdate = new Metrology(
                     selectedMetrology.metrologyId(),
@@ -144,7 +144,7 @@ public class MetrologyDetailViewController {
         LocalDate localDate = DP_DATE.getValue();
         LocalDate calibrationDate = localDate.plusYears(1);
 
-        if (selectedMetrology != null && localDate != null) {
+        if (selectedMetrology != null) {
             selectedDate = Date.from(calibrationDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Metrology metrologyUpdate = new Metrology(
                     selectedMetrology.metrologyId(),
