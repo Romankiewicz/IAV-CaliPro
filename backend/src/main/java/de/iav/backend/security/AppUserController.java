@@ -28,13 +28,6 @@ public class AppUserController {
         return "anonymousUser";
     }
 
-//    @PostMapping("/login")
-//    public String login(){
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        UserDetails user = appUserService.loadUserByUsername(username);
-//
-//        return user.getUsername() + user.getAuthorities();
-//    }
     @PostMapping("/login")
     public String login() {
 
@@ -46,14 +39,15 @@ public class AppUserController {
     }
 
     @PostMapping("/register/metrologist")
-    public AppUserResponse registerNewMetrologist(@RequestBody NewAppUser newAppUser){
+    public AppUserResponse registerNewMetrologist(@RequestBody NewAppUser newAppUser) {
         return appUserService.registerNewMetrologist(newAppUser);
     }
 
     @PostMapping("/register/operator")
-    public AppUserResponse registerNewOperator(@RequestBody NewAppUser newAppUser){
+    public AppUserResponse registerNewOperator(@RequestBody NewAppUser newAppUser) {
         return appUserService.registerNewOperator(newAppUser);
     }
+
     @PostMapping("/logout")
     public String logout(HttpSession httpSession) {
         httpSession.invalidate();

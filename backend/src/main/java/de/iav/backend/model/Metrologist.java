@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Document(collection = "Metrologist")
+@Document(collection = "metrologist")
 public record Metrologist(
         @MongoId
         String metrologistId,
@@ -13,7 +13,7 @@ public record Metrologist(
         String username,
         String firstName,
         String lastName,
-        String eMail,
+        String email,
         UserRole role
 ) {
 }

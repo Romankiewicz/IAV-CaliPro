@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class StartViewController {
 
-//    private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+    private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();

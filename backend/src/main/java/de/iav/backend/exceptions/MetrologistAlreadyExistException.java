@@ -3,9 +3,9 @@ package de.iav.backend.exceptions;
 
 import org.springframework.dao.DuplicateKeyException;
 
-public class MetologistAlredyExistException extends DuplicateKeyException {
+public class MetrologistAlreadyExistException extends DuplicateKeyException {
 
-    public MetologistAlredyExistException() {
+    public MetrologistAlreadyExistException() {
         super("User already taken!");
     }
 }

@@ -1,5 +1,8 @@
 package de.iav.backend.security;
 
+import de.iav.backend.exceptions.MetrologistAlreadyExistException;
+import de.iav.backend.exceptions.TestBenchOperatorAlreadyExistException;
+import de.iav.backend.service.IdService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,6 +20,7 @@ import java.util.List;
 public class AppUserService implements UserDetailsService {
 
     private final AppUserRepository appUserRepository;
+    private final IdService idService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -35,8 +39,12 @@ public class AppUserService implements UserDetailsService {
 
         Argon2PasswordEncoder passwordEncoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
 
+        if (appUserRepository.existsByUsername(newAppUser.username())) {
+            throw new MetrologistAlreadyExistException();
+        }
+
         AppUser appUser = new AppUser(
-                null,
+                idService.generateId(),
                 newAppUser.username(),
                 passwordEncoder.encode(newAppUser.password()),
                 newAppUser.email(),
@@ -50,8 +58,12 @@ public class AppUserService implements UserDetailsService {
 
         Argon2PasswordEncoder passwordEncoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
 
+        if (appUserRepository.existsByUsername(newAppUser.username())) {
+            throw new TestBenchOperatorAlreadyExistException();
+        }
+
         AppUser appUser = new AppUser(
-                null,
+                idService.generateId(),
                 newAppUser.username(),
                 passwordEncoder.encode(newAppUser.password()),
                 newAppUser.email(),

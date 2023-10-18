@@ -2,6 +2,7 @@ package de.iav.frontend.controller;
 
 import de.iav.frontend.security.AuthenticationService;
 import de.iav.frontend.security.UserRole;
+import de.iav.frontend.service.LoginViewService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,6 +32,7 @@ public class LoginViewController {
     private final String JSON = "application/json";
     @FXML
     private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
+    private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
 
     @FXML

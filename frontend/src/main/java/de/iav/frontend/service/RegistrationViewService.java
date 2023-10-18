@@ -72,7 +72,6 @@ public class RegistrationViewService {
         }
     }
 
-
     private Metrologist mapToMetrologist(String responseBody) {
         try {
             return objectMapper.readValue(responseBody, Metrologist.class);

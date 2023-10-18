@@ -30,27 +30,42 @@ public class TestBenchService {
         return testBenchRepository.findAll();
     }
 
-    public Optional<TestBench> findTestBenchById(String testBenchId) {
-        return testBenchRepository.findById(testBenchId);
+    public TestBench findTestBenchById(String testBenchId) throws NoSuchTestBenchException {
+
+        Optional<TestBench> testBenchOptional = testBenchRepository.findTestBenchByBenchId(testBenchId);
+
+        TestBench testBench;
+
+        if (testBenchOptional.isPresent()) {
+            testBench = testBenchOptional.get();
+        } else {
+            throw new NoSuchTestBenchException(testBenchId);
+        }
+
+        return testBench;
     }
 
     public TestBench addTestBench(TestBenchDTO testBenchToAdd) {
-        return testBenchRepository
-                .save(
-                        new TestBench(
-                                testBenchToAdd.testBenchId(),
-                                testBenchToAdd.name(),
-                                new ArrayList<>(),
-                                new ArrayList<>(),
-                                testBenchToAdd.calibration(),
-                                testBenchToAdd.maintenance()
-                        )
-                );
+        if (testBenchRepository.existsByBenchId(testBenchToAdd.benchId())) {
+            throw new TestBenchAleadyExistException();
+        }
+
+        TestBench testBench = new TestBench(
+                testBenchToAdd.benchId(),
+                testBenchToAdd.name(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                testBenchToAdd.maintenance(),
+                testBenchToAdd.calibration());
+
+        testBenchRepository.save(testBench);
+
+        return testBench;
     }
 
     public void addMetrologyToTestBench(String testBenchId, String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
         TestBench testBench = testBenchRepository
-                .findById(testBenchId)
+                .findTestBenchByBenchId(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
         Metrology metrology = metrologyRepository
                 .findById(metrologyId)
@@ -61,7 +76,7 @@ public class TestBenchService {
 
     public void removeMetrologyFromTestBench(String testBenchId, String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
         TestBench testBench = testBenchRepository
-                .findById(testBenchId)
+                .findTestBenchByBenchId(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
         Metrology metrology = metrologyRepository
                 .findById(metrologyId)
@@ -70,31 +85,53 @@ public class TestBenchService {
         testBenchRepository.save(testBench);
     }
 
+    public void addOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
 
     public void addTestBenchOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         TestBench testBench = testBenchRepository
-                .findById(testBenchId)
+                .findTestBenchByBenchId(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
+
         Operator operator = operatorRepository
-                .findById(testBenchOperatorId)
+                .findOperatorByOperatorId(testBenchOperatorId)
                 .orElseThrow(() -> new NoSuchTestBenchOperatorException(testBenchOperatorId));
+
         testBench.operator().add(operator);
         operator.testBench().add(testBench);
         operatorRepository.save(operator);
         testBenchRepository.save(testBench);
     }
 
-    public void removeTestBenchOperatorFromTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+    public void removeOperatorFromTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         TestBench testBench = testBenchRepository
-                .findById(testBenchId)
+                .findTestBenchByBenchId(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
         Operator operator = operatorRepository
-                .findById(testBenchOperatorId)
+                .findOperatorByOperatorId(testBenchOperatorId)
                 .orElseThrow(() -> new NoSuchTestBenchOperatorException(testBenchOperatorId));
         operator.testBench().remove(testBench);
         testBench.operator().remove(operator);
         testBenchRepository.save(testBench);
         operatorRepository.save(operator);
+    }
+
+    public TestBench updateTestBenchById(String benchId, TestBenchDTO testBenchUpdate) throws NoSuchTestBenchException {
+
+        TestBench testBenchToUpdate = testBenchRepository
+                .findTestBenchByBenchId(benchId)
+                .orElseThrow(() -> new NoSuchTestBenchException(benchId));
+
+        TestBench updatedTestBench = new TestBench(
+                benchId,
+                testBenchUpdate.name(),
+                testBenchToUpdate.metrology(),
+                testBenchToUpdate.operator(),
+                testBenchUpdate.maintenance(),
+                testBenchUpdate.calibration());
+
+        testBenchRepository.save(updatedTestBench);
+
+        return updatedTestBench;
     }
 
 }

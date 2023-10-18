@@ -33,7 +33,22 @@ public class SecurityConfig {
                     c.requestMatchers(HttpMethod.PUT, "/api/metrologist/**").authenticated();
                     c.requestMatchers(HttpMethod.GET, "/api/metrologist/**").authenticated();
                     c.requestMatchers(HttpMethod.DELETE, "/api/metrologist/**").hasRole(UserRole.METROLOGIST.name());
-                    c.requestMatchers(HttpMethod.GET,"/api/operator/**").authenticated();
+
+                    c.requestMatchers(HttpMethod.POST, "/api/operators").authenticated();
+                    c.requestMatchers(HttpMethod.PUT, "/api/operators/**").authenticated();
+                    c.requestMatchers(HttpMethod.GET, "/api/operators/**").authenticated();
+                    c.requestMatchers(HttpMethod.DELETE, "/api/operators/**").hasRole(UserRole.OPERATOR.name());
+
+                    c.requestMatchers(HttpMethod.POST, "/api/metrology").hasRole(UserRole.METROLOGIST.name());
+                    c.requestMatchers(HttpMethod.PUT, "/api/metrology/**").hasRole(UserRole.METROLOGIST.name());
+                    c.requestMatchers(HttpMethod.GET, "/api/metrology/**").authenticated();
+                    c.requestMatchers(HttpMethod.DELETE, "/api/metrology/**").hasRole(UserRole.METROLOGIST.name());
+
+                    c.requestMatchers(HttpMethod.POST, "/api/testbenches").hasRole(UserRole.METROLOGIST.name());
+                    c.requestMatchers(HttpMethod.PUT, "/api/testbenches/**").authenticated();
+                    c.requestMatchers(HttpMethod.GET, "/api/testbenches/**").authenticated();
+                    c.requestMatchers(HttpMethod.DELETE, "/api/testbenches/**").hasRole(UserRole.METROLOGIST.name());
+
                     c.anyRequest().permitAll();
                 })
                 .httpBasic(Customizer.withDefaults())

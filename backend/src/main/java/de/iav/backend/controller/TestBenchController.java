@@ -22,44 +22,50 @@ public class TestBenchController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public List<TestBench> getAllTestBenches(){
+    public List<TestBench> getAllTestBenches() {
         return testBenchService.listAllTestBenches();
     }
 
     @GetMapping("/{testBenchId}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Optional<TestBench> getTestBenchById(@PathVariable String testBenchId){
+    public TestBench getTestBenchById(@PathVariable String testBenchId) throws NoSuchTestBenchException {
         return testBenchService.findTestBenchById(testBenchId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TestBench addTestBench(@RequestBody TestBenchDTO testBenchToAdd){
+    public TestBench addTestBench(@RequestBody TestBenchDTO testBenchToAdd) {
         return testBenchService.addTestBench(testBenchToAdd);
     }
 
-    @PutMapping("/metrology/{testBenchId}")
+    @PutMapping("/{testBenchId}/metrology/{metrologyId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addMetrologyToTestBench(@PathVariable String testBenchId, @RequestBody String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
+    public void addMetrologyToTestBench(@PathVariable String testBenchId, @PathVariable String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
         testBenchService.addMetrologyToTestBench(testBenchId, metrologyId);
     }
 
-    @DeleteMapping("/metrology/{testBenchId}")
+    @DeleteMapping("/{testBenchId}/metrology/{metrologyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeMetrologyFromTestBench(@PathVariable String testBenchId, @RequestBody String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
+    public void removeMetrologyFromTestBench(@PathVariable String testBenchId, @PathVariable String metrologyId) throws NoSuchTestBenchException, NoSuchMetrologyException {
         testBenchService.removeMetrologyFromTestBench(testBenchId, metrologyId);
     }
 
-    @PutMapping("/operator/{testBenchId}")
+    @PutMapping("/{testBenchId}/operator/{operatorId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addTestBenchOperatorToTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
-        testBenchService.addTestBenchOperatorToTestBench(testBenchId, operatorId);
+    public void addOperatorToTestBench(@PathVariable String testBenchId, @PathVariable String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+        testBenchService.addOperatorToTestBench(testBenchId, operatorId);
     }
 
-    @DeleteMapping("/operator/{testBenchId}")
+    @DeleteMapping("/{testBenchId}/operator/{operatorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeTestBechOperatorFromTestBench(@PathVariable String testBenchId, @RequestBody String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
-        testBenchService.removeTestBenchOperatorFromTestBench(testBenchId, operatorId);
+    public void removeOperatorFromTestBench(@PathVariable String testBenchId, @PathVariable String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+        testBenchService.removeOperatorFromTestBench(testBenchId, operatorId);
+    }
+
+    @PutMapping("/{testBenchId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TestBench updateTestBenchByBenchId(@PathVariable String testBenchId, @RequestBody TestBenchDTO testBenchUpdate) throws NoSuchTestBenchException {
+        return testBenchService.updateTestBenchById(testBenchId, testBenchUpdate);
     }
 
 }
