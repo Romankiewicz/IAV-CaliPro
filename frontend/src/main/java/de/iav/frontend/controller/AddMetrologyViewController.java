@@ -58,8 +58,10 @@ public class AddMetrologyViewController {
             String iavInventory = TF_INVENTORY.getText();
             String manufacturer = TF_MANUFACTURER.getText();
             String type = TF_TYPE.getText();
-            LocalDate localDateMaintenance = DP_MAINTENANCE.getValue();
-            LocalDate localDateCalibration = DP_CALIBRATION.getValue();
+            LocalDate localDateMaintenanceSelection = DP_MAINTENANCE.getValue();
+            LocalDate localDateMaintenance = localDateMaintenanceSelection.plusYears(1);
+            LocalDate localDateCalibrationSelection = DP_CALIBRATION.getValue();
+            LocalDate localDateCalibration = localDateCalibrationSelection.plusYears(1);
 
             Date maintenanceDate = Date.from(localDateMaintenance.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date calibrationDate = Date.from(localDateCalibration.atStartOfDay(ZoneId.systemDefault()).toInstant());

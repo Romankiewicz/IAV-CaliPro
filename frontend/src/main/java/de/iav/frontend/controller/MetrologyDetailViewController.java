@@ -117,9 +117,10 @@ public class MetrologyDetailViewController {
     public void updateMaintenanceDate() throws JsonProcessingException {
 
         LocalDate localDate = DP_DATE.getValue();
+        LocalDate maintenanceDate = localDate.plusYears(1);
 
         if (selectedMetrology != null && localDate != null) {
-            selectedDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            selectedDate = Date.from(maintenanceDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Metrology metrologyUpdate = new Metrology(
                     selectedMetrology.metrologyId(),
                     selectedMetrology.iavInventory(),
@@ -141,9 +142,10 @@ public class MetrologyDetailViewController {
     public void updateCalibrationDate() throws JsonProcessingException {
 
         LocalDate localDate = DP_DATE.getValue();
+        LocalDate calibrationDate = localDate.plusYears(1);
 
         if (selectedMetrology != null && localDate != null) {
-            selectedDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            selectedDate = Date.from(calibrationDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Metrology metrologyUpdate = new Metrology(
                     selectedMetrology.metrologyId(),
                     selectedMetrology.iavInventory(),

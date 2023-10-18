@@ -18,12 +18,7 @@ import java.util.List;
 public class MetrologistViewService {
 
     private static MetrologistViewService instance;
-    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
     private final TestBenchService testBenchService = TestBenchService.getInstance();
-    private final HttpClient metrologistClient = HttpClient.newHttpClient();
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
-    private static final String JSON = "application/json";
     private final MetrologyService metrologyService = MetrologyService.getInstance();
 
 

@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="830.0" prefWidth="1200.0"
-            xmlns="http://javafx.com/javafx/20.0.1"
-            fx:controller="de.iav.frontend.controller.OperatorViewController"
-            xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0"
+            prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.iav.frontend.controller.OperatorViewController">
     <ImageView fitHeight="830.0" fitWidth="1200.0">
         <Image url="@../png/Background.png"/>
     </ImageView>
     <ImageView layoutX="1060.0" scaleX="0.25" scaleY="0.25">
         <Image url="@../png/HomeButton.png"/>
     </ImageView>
-    <Button layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME"
-            prefHeight="40.0" prefWidth="40.0" style="
-          -fx-background-color: #ffffff00;" textFill="#ffffff00"
-    />
+    <Button layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME" prefHeight="40.0"
+            prefWidth="40.0" style="           -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
 
-    <TableView fx:id="TV_BENCH" layoutX="140.0" layoutY="130.0" prefHeight="200.0" prefWidth="600.0"
+    <TableView fx:id="TV_BENCH" layoutX="50.0" layoutY="130.0" prefHeight="200.0" prefWidth="1100.0"
                style="-fx-background-radius: 20; -fx-background-color: #FE2EF710;">
         <columns>
 
