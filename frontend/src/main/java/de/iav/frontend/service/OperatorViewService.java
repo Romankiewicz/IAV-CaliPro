@@ -33,7 +33,7 @@ public class OperatorViewService {
         String username = authenticationService.getUsername();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "/operators/username/" + username))
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators/" + username))
                 .header("Accept", JSON)
                 .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
                 .build();
