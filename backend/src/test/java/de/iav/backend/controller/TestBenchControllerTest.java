@@ -17,8 +17,10 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -39,7 +41,18 @@ class TestBenchControllerTest {
     private OperatorRepository operatorRepository;
 
     private final String BASE_URL = "/api/testbenches";
-    private final String OPERATOR_URL = "/api/operators";
+    private final String OPERATOR_URL = "/api/operator";
+
+    private Date getTestDate() {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            return dateFormat.parse("2022-02-20");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
     @Test
@@ -56,13 +69,15 @@ class TestBenchControllerTest {
     @DirtiesContext
     void getAllTestBenches_whenTestBenchExists_thenReturnTestBenchList() throws Exception {
 
+        Date date = getTestDate();
+
         TestBench testBench = new TestBench(
                 "1",
                 "Pruefstand_1",
                 new ArrayList<>(),
                 new ArrayList<>(),
-                LocalDate.of(2022, 2, 20),
-                LocalDate.of(2022, 2, 20)
+                date,
+                date
         );
 
         testBenchRepository.save(testBench);
@@ -73,8 +88,8 @@ class TestBenchControllerTest {
                 .andExpect(jsonPath("$[0].name").value("Pruefstand_1"))
                 .andExpect(jsonPath("$[0].metrology.length()").value(0))
                 .andExpect(jsonPath("$[0].operator.length()").value(0))
-                .andExpect(jsonPath("$[0].maintenance").value("2022-02-20"))
-                .andExpect(jsonPath("$[0].calibration").value("2022-02-20"));
+                .andExpect(jsonPath("$[0].maintenance").value("2022-02-20T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$[0].calibration").value("2022-02-20T00:00:00.000+00:00"));
     }
 
     @Test
@@ -82,13 +97,15 @@ class TestBenchControllerTest {
     @WithMockUser
     void getTestBenchById_whenTestBenchExists_thenReturnTestBench() throws Exception {
 
+
+        Date date = getTestDate();
         TestBench testBench = new TestBench(
                 "1",
                 "Pruefstand_1",
                 new ArrayList<>(),
                 new ArrayList<>(),
-                LocalDate.of(2022, 2, 20),
-                LocalDate.of(2022, 2, 20)
+                date,
+                date
         );
 
         testBenchRepository.save(testBench);
@@ -101,8 +118,8 @@ class TestBenchControllerTest {
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
                 .andExpect(jsonPath("$.metrology.length()").value(0))
                 .andExpect(jsonPath("$.operator.length()").value(0))
-                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
-                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20T00:00:00.000+00:00"));
 
     }
 
@@ -152,13 +169,14 @@ class TestBenchControllerTest {
     @WithMockUser(roles = "METROLOGIST")
     void addMetrologyToTestBench_whenTestBenchAndMetrologyExistsAndLoggedIn_thenReturnTestBenchWithAssingnedMetrology() throws Exception {
 
+        Date date = getTestDate();
         TestBench testBench = new TestBench(
                 "1",
                 "Pruefstand_1",
                 new ArrayList<>(),
                 new ArrayList<>(),
-                LocalDate.of(2022, 2, 20),
-                LocalDate.of(2022, 2, 20)
+                date,
+                date
         );
 
         testBenchRepository.save(testBench);
@@ -168,8 +186,9 @@ class TestBenchControllerTest {
                 "1",
                 "Horiba",
                 "MEXA",
-                LocalDate.of(2022, 2, 20),
-                LocalDate.of(2022, 2, 20));
+                date,
+                date
+        );
 
         metrologyRepository.save(metrology);
 
@@ -188,8 +207,8 @@ class TestBenchControllerTest {
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
                 .andExpect(jsonPath("$.metrology.length()").value(1))
                 .andExpect(jsonPath("$.operator.length()").value(0))
-                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
-                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20T00:00:00.000+00:00"));
     }
 
     @Test
@@ -197,13 +216,15 @@ class TestBenchControllerTest {
     @WithMockUser(roles = "METROLOGIST")
     void removeMetrologyFromTestBench_whenLoggedIn_thenReturnStatusIsNoConttent() throws Exception {
 
+        Date date = getTestDate();
+
         TestBench testBench = new TestBench(
                 "1",
                 "Pruefstand_1",
                 new ArrayList<>(),
                 new ArrayList<>(),
-                LocalDate.of(2022, 2, 20),
-                LocalDate.of(2022, 2, 20)
+                date,
+                date
         );
 
         testBenchRepository.save(testBench);
@@ -213,8 +234,9 @@ class TestBenchControllerTest {
                 "1",
                 "Horiba",
                 "MEXA",
-                LocalDate.of(2022, 2, 20),
-                LocalDate.of(2022, 2, 20));
+                date,
+                date
+        );
 
         metrologyRepository.save(metrology);
 
@@ -233,8 +255,8 @@ class TestBenchControllerTest {
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
                 .andExpect(jsonPath("$.metrology.length()").value(1))
                 .andExpect(jsonPath("$.operator.length()").value(0))
-                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
-                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20T00:00:00.000+00:00"));
 
 
         mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/" + testBench.benchId()
@@ -252,8 +274,8 @@ class TestBenchControllerTest {
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
                 .andExpect(jsonPath("$.metrology.length()").value(0))
                 .andExpect(jsonPath("$.operator.length()").value(0))
-                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
-                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20T00:00:00.000+00:00"));
     }
 
     @Test
@@ -261,13 +283,16 @@ class TestBenchControllerTest {
     @WithMockUser("METROLOGIST")
     void addTestBenchOperatorToTestBench_whenTestBenchAndOperatorExistsAndLoggedIn_thenReturnTestBenchWithAssingnedOperator() throws Exception {
 
+        Date date = getTestDate();
+
         TestBench testBench = new TestBench(
                 "1",
                 "Pruefstand_1",
                 new ArrayList<>(),
                 new ArrayList<>(),
-                LocalDate.of(2022, 2, 20),
-                LocalDate.of(2022, 2, 20));
+                date,
+                date
+        );
 
         testBenchRepository.save(testBench);
 
@@ -297,8 +322,8 @@ class TestBenchControllerTest {
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
                 .andExpect(jsonPath("$.metrology.length()").value(0))
                 .andExpect(jsonPath("$.operator.length()").value(1))
-                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
-                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20T00:00:00.000+00:00"));
 
         mockMvc.perform(MockMvcRequestBuilders.get(OPERATOR_URL + "/id/" + operator.operatorId()))
                 .andExpect(status().isAccepted())
@@ -315,13 +340,16 @@ class TestBenchControllerTest {
     @WithMockUser(roles = "METROLOGIST")
     void removeTestBechOperatorFromTestBench_whenLoggedIn_thenExpectStatusIsNoContentAndReturnTestBench() throws Exception {
 
+        Date date = getTestDate();
+
         TestBench testBench = new TestBench(
                 "1",
                 "Pruefstand_1",
                 new ArrayList<>(),
                 new ArrayList<>(),
-                LocalDate.of(2022, 2, 20),
-                LocalDate.of(2022, 2, 20));
+                date,
+                date
+        );
 
         testBenchRepository.save(testBench);
 
@@ -351,8 +379,8 @@ class TestBenchControllerTest {
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
                 .andExpect(jsonPath("$.metrology.length()").value(0))
                 .andExpect(jsonPath("$.operator.length()").value(1))
-                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
-                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20T00:00:00.000+00:00"));
 
         mockMvc.perform(MockMvcRequestBuilders.get(OPERATOR_URL + "/id/" + operator.operatorId()))
                 .andExpect(status().isAccepted())
@@ -377,8 +405,8 @@ class TestBenchControllerTest {
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
                 .andExpect(jsonPath("$.metrology.length()").value(0))
                 .andExpect(jsonPath("$.operator.length()").value(0))
-                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
-                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20T00:00:00.000+00:00"));
     }
 
 
@@ -387,13 +415,16 @@ class TestBenchControllerTest {
     @WithMockUser
     void updateTestBenchByBenchId_whenLoggedIn_thenReturnUpdatedTestBench() throws Exception {
 
+        Date date = getTestDate();
+
         TestBench testBench = new TestBench(
                 "1",
                 "Pruefstand_1",
                 new ArrayList<>(),
                 new ArrayList<>(),
-                LocalDate.of(2022, 2, 20),
-                LocalDate.of(2022, 2, 20));
+                date,
+                date
+        );
 
         testBenchRepository.save(testBench);
 
@@ -405,8 +436,8 @@ class TestBenchControllerTest {
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
                 .andExpect(jsonPath("$.metrology.length()").value(0))
                 .andExpect(jsonPath("$.operator.length()").value(0))
-                .andExpect(jsonPath("$.maintenance").value("2022-02-20"))
-                .andExpect(jsonPath("$.calibration").value("2022-02-20"));
+                .andExpect(jsonPath("$.maintenance").value("2022-02-20T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.calibration").value("2022-02-20T00:00:00.000+00:00"));
 
         mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + testBench.benchId())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -431,7 +462,7 @@ class TestBenchControllerTest {
                 .andExpect(jsonPath("$.name").value("Pruefstand_1"))
                 .andExpect(jsonPath("$.metrology.length()").value(0))
                 .andExpect(jsonPath("$.operator.length()").value(0))
-                .andExpect(jsonPath("$.maintenance").value("2023-02-20"))
-                .andExpect(jsonPath("$.calibration").value("2023-02-20"));
+                .andExpect(jsonPath("$.maintenance").value("2023-02-20T00:00:00.000+00:00"))
+                .andExpect(jsonPath("$.calibration").value("2023-02-20T00:00:00.000+00:00"));
     }
 }

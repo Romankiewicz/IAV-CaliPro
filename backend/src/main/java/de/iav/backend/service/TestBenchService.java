@@ -3,6 +3,7 @@ package de.iav.backend.service;
 import de.iav.backend.exceptions.NoSuchMetrologyException;
 import de.iav.backend.exceptions.NoSuchTestBenchException;
 import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
+import de.iav.backend.exceptions.TestBenchAleadyExistException;
 import de.iav.backend.model.Metrology;
 import de.iav.backend.model.Operator;
 import de.iav.backend.model.TestBench;
@@ -46,12 +47,12 @@ public class TestBenchService {
     }
 
     public TestBench addTestBench(TestBenchDTO testBenchToAdd) {
-        if (testBenchRepository.existsByBenchId(testBenchToAdd.benchId())) {
+        if (testBenchRepository.existsByBenchId(testBenchToAdd.testBenchId())) {
             throw new TestBenchAleadyExistException();
         }
 
         TestBench testBench = new TestBench(
-                testBenchToAdd.benchId(),
+                testBenchToAdd.testBenchId(),
                 testBenchToAdd.name(),
                 new ArrayList<>(),
                 new ArrayList<>(),
@@ -87,7 +88,6 @@ public class TestBenchService {
 
     public void addOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
 
-    public void addTestBenchOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
         TestBench testBench = testBenchRepository
                 .findTestBenchByBenchId(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));

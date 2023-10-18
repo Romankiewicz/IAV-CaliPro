@@ -1,6 +1,5 @@
 package de.iav.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import de.iav.backend.security.UserRole;
 import org.springframework.data.mongodb.core.index.Indexed;
