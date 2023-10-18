@@ -23,94 +23,21 @@ public class LoginViewController {
     private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     @FXML
-    private ChoiceBox<String> CB_ROLE;
-    @FXML
     private Label LF_ERROR;
     @FXML
     private TextField TF_USERNAME;
     @FXML
     private PasswordField PF_PASSWORD;
-    private UserRole selectedRole;
     private final String JSON = "application/json";
     @FXML
     private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
-
-    public void initialize() {
-
-//        selectedRole = UserRole.OPERATOR;
-//
-//        CB_ROLE.getSelectionModel().selectedItemProperty().addListener(
-//                (observable, oldValue, newValue) -> {
-//                    if ("Als Prüfstandsfahrer einloggen".equals(newValue)) {
-//                        this.selectedRole = UserRole.OPERATOR;
-//                    } else if ("Als Messtechniker einloggen".equals(newValue)) {
-//                        this.selectedRole = UserRole.METROLOGIST;
-//                    }
-//                }
-//        );
-    }
-
-//    @FXML
-//    protected void onClick_PB_LOGIN(ActionEvent event) throws IOException {
-//        login(event);
-//    }
 
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
         sceneSwitchService.switchToStartView(event);
     }
 
-    //    @FXML
-//    public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
-//        if (isEveryTextFieldValid()) {
-//            String username = TF_USERNAME.getText();
-//            String password = PF_PASSWORD.getText();
-//            boolean result = authenticationService.login(username, password);
-//
-//            if (result && !authenticationService.getUsername().equals("anonymousUser")) {
-//
-//                if (selectedRole == UserRole.METROLOGIST) {
-//                    HttpRequest request = HttpRequest.newBuilder()
-//                            .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrologist/" + username))
-//                            .header("Accept", JSON)
-//                            .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-//                            .build();
-//
-//                    var response = authenticationService
-//                            .getAuthenticationClient()
-//                            .sendAsync(request, HttpResponse.BodyHandlers.ofString());
-//                    int statusCode = response.join().statusCode();
-//                    String body = response.join().body();
-//
-//                    if (statusCode == 202 && !body.isEmpty()) {
-//                        sceneSwitchService.switchToMetrologistView(event);
-//                    } else {
-//                        LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
-//                    }
-//                } else if (selectedRole == UserRole.OPERATOR) {
-//
-//                    HttpRequest request = HttpRequest.newBuilder()
-//                            .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators/" + username))
-//                            .header("Accept", JSON)
-//                            .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-//                            .build();
-//                    var response = authenticationService
-//                            .getAuthenticationClient()
-//                            .sendAsync(request, HttpResponse.BodyHandlers.ofString());
-//                    int statusCode = response.join().statusCode();
-//                    String body = response.join().body();
-//                    if (statusCode == 202 && !body.isEmpty()) {
-//                        sceneSwitchService.switchToOperatorView(event);
-//                    } else {
-//                        LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
-//
-//                    }
-//
-//                }
-//            }
-//        }
-//    }
     @FXML
     public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
         if (isEveryTextFieldValid()) {
@@ -129,13 +56,6 @@ public class LoginViewController {
                     LF_ERROR.setText("Unerwartete Benuzerrolle!");
                 }
             }
-//            if (result && !authenticationService.getUsername().equals("anonymousUser")) {
-//                if (selectedRole == UserRole.METROLOGIST) {
-//                    handleLoginForRole(username, "metrologist", event);
-//                } else if (selectedRole == UserRole.OPERATOR) {
-//                    handleLoginForRole(username, "operators", event);
-//                }
-//            }
         }
     }
 
@@ -145,7 +65,7 @@ public class LoginViewController {
         if (parts.length >= 2) {
             String roleName = parts[1].replace("]", "");
             return UserRole.valueOf(roleName);
-        }else {
+        } else {
             return null;
         }
     }
@@ -153,25 +73,23 @@ public class LoginViewController {
     private void handleLoginForRole(String username, UserRole role, ActionEvent event) throws IOException {
 
         String roleString = role == UserRole.METROLOGIST ? "metrologist" : "operator";
-        System.out.println(roleString);
-        System.out.println(username);
 
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + roleString + "/" + username))
-                    .header("Accept", JSON)
-                    .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-                    .build();
-            var response = authenticationService
-                    .getAuthenticationClient()
-                    .sendAsync(request, HttpResponse.BodyHandlers.ofString());
-            int statusCode = response.join().statusCode();
-            String body = response.join().body();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + roleString + "/" + username))
+                .header("Accept", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .build();
+        var response = authenticationService
+                .getAuthenticationClient()
+                .sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        int statusCode = response.join().statusCode();
+        String body = response.join().body();
 
-            if (statusCode == 202 && !body.isEmpty()) {
-                sceneSwitchService.switchToView(event, role);
-            } else {
-                LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
-            }
+        if (statusCode == 202 && !body.isEmpty()) {
+            sceneSwitchService.switchToView(event, role);
+        } else {
+            LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
+        }
     }
 
     private boolean isEveryTextFieldValid() {
