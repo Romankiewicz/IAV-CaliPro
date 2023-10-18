@@ -57,7 +57,7 @@ class AppUserControllerTest {
 
         mockMvc.perform(post(BASE_URL + "/login"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("user"));
+                .andExpect(content().string("user[ROLE_USER]"));
     }
 
     @Test

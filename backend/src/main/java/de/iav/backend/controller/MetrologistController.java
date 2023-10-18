@@ -29,7 +29,7 @@ public class MetrologistController {
         return metrologistService.findMetrologistByUsername(username);
     }
 
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public Metrologist addMetrologist(@RequestBody MetrologistDTO metrologistToAdd) {
         return metrologistService.addMetrologist(metrologistToAdd);

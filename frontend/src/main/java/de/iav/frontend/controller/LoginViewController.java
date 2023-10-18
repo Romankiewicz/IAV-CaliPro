@@ -31,7 +31,6 @@ public class LoginViewController {
     private PasswordField PF_PASSWORD;
     private final String JSON = "application/json";
     @FXML
-    private String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
     private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
 
@@ -49,7 +48,6 @@ public class LoginViewController {
 
             if (result && !authenticationService.getUsername().equals("anonymousUser")) {
                 String usernameResponse = authenticationService.getUsernameResponse();
-                System.out.println(usernameResponse);
                 UserRole role = extractRoleFromUsername(usernameResponse);
 
                 if (role != null) {

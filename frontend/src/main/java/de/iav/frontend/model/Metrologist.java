@@ -8,7 +8,7 @@ public record Metrologist(
         String password,
         String firstName,
         String lastName,
-        String eMail,
+        String email,
         UserRole role
 ) {
 }

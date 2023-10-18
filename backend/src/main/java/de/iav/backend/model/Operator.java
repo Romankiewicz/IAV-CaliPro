@@ -19,7 +19,7 @@ public record Operator(
         String lastName,
         String email,
         @DBRef(lazy = true)
-        @JsonIgnoreProperties("operators")
+        @JsonIgnoreProperties("operator")
         List<TestBench> testBench,
         UserRole role
 ) {

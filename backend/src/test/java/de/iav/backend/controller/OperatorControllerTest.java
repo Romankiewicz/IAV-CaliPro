@@ -32,7 +32,7 @@ class OperatorControllerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private final String Base_URL = "/api/operators";
+    private final String BASE_URL = "/api/operator";
 
     @Test
     @DirtiesContext
@@ -47,7 +47,7 @@ class OperatorControllerTest {
                 "johnny.knoxville@jackass.com",
                 new ArrayList<>(),
                 UserRole.OPERATOR);
-        mockMvc.perform(MockMvcRequestBuilders.post(Base_URL)
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated());
@@ -65,7 +65,7 @@ class OperatorControllerTest {
                 "johnny.knoxville@jackass.com",
                 new ArrayList<>(),
                 UserRole.OPERATOR);
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isUnauthorized());
@@ -85,7 +85,7 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())
@@ -96,7 +96,7 @@ class OperatorControllerTest {
                         .getResponse()
                         .getContentAsString(), Operator.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/operators/id/"
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/id/"
                         + expectedOperator.operatorId()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.username").value("Jackass"))
@@ -121,7 +121,7 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())
@@ -132,7 +132,7 @@ class OperatorControllerTest {
                         .getResponse()
                         .getContentAsString(), Operator.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/operators/"
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/"
                         + expectedOperator.username()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.username").value("Jackass"))
@@ -157,7 +157,7 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())
@@ -177,13 +177,13 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/operators/"
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/"
                                 + expectedOperator.operatorId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operatorUpdate)))
                 .andExpect(status().isCreated());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/operators/id/"
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/id/"
                         + expectedOperator.operatorId()))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.username").value("Kampfkollos"))
@@ -208,7 +208,7 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())
@@ -219,7 +219,7 @@ class OperatorControllerTest {
                         .getResponse()
                         .getContentAsString(), Operator.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/operators/"
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/"
                         + operatorToDelete.operatorId()))
                 .andExpect(status().isNoContent());
     }
@@ -238,7 +238,7 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post("/api/operators")
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())
@@ -249,7 +249,7 @@ class OperatorControllerTest {
                         .getResponse()
                         .getContentAsString(), Operator.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/operators/"
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/"
                         + operatorToDelete.operatorId()))
                 .andExpect(status().isForbidden());
     }
@@ -269,7 +269,7 @@ class OperatorControllerTest {
 
         operatorRepository.save(operator);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/operators/"
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/"
                         + operator.operatorId()))
                 .andExpect(status().isUnauthorized());
     }
