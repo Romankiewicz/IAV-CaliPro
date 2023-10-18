@@ -33,7 +33,6 @@ public class RegistrationViewService {
     public void addMetrologist(MetrologistDTO metrologistToAdd, String sessionId) {
         try {
             String requestBody = objectMapper.writeValueAsString(metrologistToAdd);
-            System.out.println(requestBody);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrologist/register"))
                     .header("Content-Type", JSON)

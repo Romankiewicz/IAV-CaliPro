@@ -109,8 +109,7 @@ public class AuthenticationService {
 
         String[] parts = usernameResponse.split("\\[");
         if (parts.length >= 1) {
-            String username = parts[0];
-            return username;
+            return parts[0];
         }else {
             return null;
         }
