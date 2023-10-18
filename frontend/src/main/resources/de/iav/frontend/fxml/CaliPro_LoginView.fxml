@@ -9,39 +9,35 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0"
             prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="de.iav.frontend.controller.LoginViewController">
-    <children>
-        <ImageView fitHeight="830.0" fitWidth="1200.0">
-            <image>
-                <Image url="@../png/Background.png"/>
-            </image>
-        </ImageView>
-        <TextField fx:id="TF_USERNAME" layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0"
-                   promptText="Benutzername" style="-fx-background-color: FFFFFF;">
-            <effect>
-                <DropShadow/>
-            </effect>
-            <opaqueInsets>
-                <Insets/>
-            </opaqueInsets>
-        </TextField>
-        <PasswordField fx:id="PF_PASSWORD" layoutX="500.0" layoutY="300.0" prefHeight="30.0" prefWidth="200.0"
-                       promptText="Passwort" style="-fx-background-color: FFFFFF;">
-            <effect>
-                <DropShadow/>
-            </effect>
-        </PasswordField>
-        <Button layoutX="960.0" layoutY="770.0" mnemonicParsing="false" onAction="#onClick_PB_LOGIN"
-                prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Login">
-            <effect>
-                <DropShadow/>
-            </effect>
-        </Button>
-        <ImageView layoutX="1060.0" scaleX="0.25" scaleY="0.25">
-            <Image url="@../png/HomeButton.png"/>
-        </ImageView>
-        <Button layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME"
-                prefHeight="40.0" prefWidth="40.0" style="               -fx-background-color: #ffffff00;"
-                textFill="#ffffff00"/>
-        <Label fx:id="LF_ERROR" layoutX="500.0" layoutY="340.0" prefHeight="30.0" prefWidth="200.0" textFill="#ff4800"/>
-    </children>
+    <ImageView fitHeight="830.0" fitWidth="1200.0">
+        <Image url="@../png/Background.png"/>
+    </ImageView>
+    <TextField fx:id="TF_USERNAME" layoutX="500.0" layoutY="260.0" prefHeight="30.0" prefWidth="200.0"
+               promptText="Benutzername" style="-fx-background-color: FFFFFF;">
+        <effect>
+            <DropShadow/>
+        </effect>
+        <opaqueInsets>
+            <Insets/>
+        </opaqueInsets>
+    </TextField>
+    <PasswordField fx:id="PF_PASSWORD" layoutX="500.0" layoutY="300.0" prefHeight="30.0" prefWidth="200.0"
+                   promptText="Passwort" style="-fx-background-color: FFFFFF;">
+        <effect>
+            <DropShadow/>
+        </effect>
+    </PasswordField>
+    <Button layoutX="960.0" layoutY="770.0" mnemonicParsing="false" onAction="#onClick_PB_LOGIN"
+            prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Login">
+        <effect>
+            <DropShadow/>
+        </effect>
+    </Button>
+    <ImageView layoutX="1060.0" scaleX="0.25" scaleY="0.25">
+        <Image url="@../png/HomeButton.png"/>
+    </ImageView>
+    <Button layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME"
+            prefHeight="40.0" prefWidth="40.0" style="               -fx-background-color: #ffffff00;"
+            textFill="#ffffff00"/>
+    <Label fx:id="LF_ERROR" layoutX="500.0" layoutY="340.0" prefHeight="30.0" prefWidth="200.0" textFill="#ff4800"/>
 </AnchorPane>

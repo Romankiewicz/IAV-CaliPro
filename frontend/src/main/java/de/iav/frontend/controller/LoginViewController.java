@@ -2,11 +2,9 @@ package de.iav.frontend.controller;
 
 import de.iav.frontend.security.AuthenticationService;
 import de.iav.frontend.security.UserRole;
-import de.iav.frontend.service.LoginViewService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

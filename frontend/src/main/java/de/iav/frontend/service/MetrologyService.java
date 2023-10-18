@@ -88,14 +88,12 @@ public class MetrologyService {
 
     public void addMetrology(Metrology metrologyToAdd) throws JsonProcessingException {
 
-        String requestBody = objectMapper.writeValueAsString(metrologyToAdd);
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology"))
                 .header("Content-Type", JSON)
                 .header("Accept", JSON)
                 .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .POST(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(metrologyToAdd)))
                 .build();
         metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                 .thenApply(HttpResponse::body)
@@ -105,14 +103,12 @@ public class MetrologyService {
 
     public void updateMetrologyMaintenanceByMetrologyId(String metrologyId, Metrology maintenanceUpdate) throws JsonProcessingException {
 
-            String requestBody = objectMapper.writeValueAsString(maintenanceUpdate);
-
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology/" + metrologyId))
                     .header("Content-Type", JSON)
                     .header("Accept", JSON)
                     .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .PUT(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(maintenanceUpdate)))
                     .build();
 
             metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
@@ -123,14 +119,12 @@ public class MetrologyService {
 
     public void updateMetrologyCalibrationByMetrologyId(String metrologyId, Metrology calibrationUpdate) throws JsonProcessingException {
 
-            String requestBody = objectMapper.writeValueAsString(calibrationUpdate);
-
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrology/" + metrologyId))
                     .header("Content-Type", JSON)
                     .header("Accept", JSON)
                     .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-                    .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .PUT(HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(calibrationUpdate)))
                     .build();
 
             metrologyClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
