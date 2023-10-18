@@ -45,16 +45,16 @@
         </ImageView>
         <Button fx:id="PB_HOME" layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME" prefHeight="40.0" prefWidth="40.0" style="               -fx-background-color: #ffffff00;" textFill="#ffffff00" />
         <Label fx:id="LF_ERROR" layoutX="500.0" layoutY="340.0" prefHeight="30.0" prefWidth="200.0" textFill="#ff4800" />
-      <ChoiceBox fx:id="CB_ROLE" layoutX="500.0" layoutY="340.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: FFFFFF;" value="Als Prüfstandsfahrer einloggen">
-         <items>
-            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="Als Prüfstandsfahrer einloggen" />
-               <String fx:value="Als Messtechniker einloggen" />
-            </FXCollections>
-         </items>
-         <effect>
-            <DropShadow />
-         </effect>
-      </ChoiceBox>
+<!--      <ChoiceBox fx:id="CB_ROLE" layoutX="500.0" layoutY="340.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: FFFFFF;" value="Als Prüfstandsfahrer einloggen">-->
+<!--         <items>-->
+<!--            <FXCollections fx:factory="observableArrayList">-->
+<!--               <String fx:value="Als Prüfstandsfahrer einloggen" />-->
+<!--               <String fx:value="Als Messtechniker einloggen" />-->
+<!--            </FXCollections>-->
+<!--         </items>-->
+<!--         <effect>-->
+<!--            <DropShadow />-->
+<!--         </effect>-->
+<!--      </ChoiceBox>-->
     </children>
 </AnchorPane>

@@ -33,6 +33,7 @@ public class SecurityConfig {
                     c.requestMatchers(HttpMethod.PUT, "/api/metrologist/**").authenticated();
                     c.requestMatchers(HttpMethod.GET, "/api/metrologist/**").authenticated();
                     c.requestMatchers(HttpMethod.DELETE, "/api/metrologist/**").hasRole(UserRole.METROLOGIST.name());
+                    c.requestMatchers(HttpMethod.GET,"/api/operator/**").authenticated();
                     c.anyRequest().permitAll();
                 })
                 .httpBasic(Customizer.withDefaults())

@@ -38,17 +38,17 @@ public class LoginViewController {
 
     public void initialize() {
 
-        selectedRole = UserRole.OPERATOR;
-
-        CB_ROLE.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    if ("Als Prüfstandsfahrer einloggen".equals(newValue)) {
-                        this.selectedRole = UserRole.OPERATOR;
-                    } else if ("Als Messtechniker einloggen".equals(newValue)) {
-                        this.selectedRole = UserRole.METROLOGIST;
-                    }
-                }
-        );
+//        selectedRole = UserRole.OPERATOR;
+//
+//        CB_ROLE.getSelectionModel().selectedItemProperty().addListener(
+//                (observable, oldValue, newValue) -> {
+//                    if ("Als Prüfstandsfahrer einloggen".equals(newValue)) {
+//                        this.selectedRole = UserRole.OPERATOR;
+//                    } else if ("Als Messtechniker einloggen".equals(newValue)) {
+//                        this.selectedRole = UserRole.METROLOGIST;
+//                    }
+//                }
+//        );
     }
 
 //    @FXML
@@ -61,7 +61,7 @@ public class LoginViewController {
         sceneSwitchService.switchToStartView(event);
     }
 
-//    @FXML
+    //    @FXML
 //    public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
 //        if (isEveryTextFieldValid()) {
 //            String username = TF_USERNAME.getText();
@@ -111,41 +111,67 @@ public class LoginViewController {
 //            }
 //        }
 //    }
-@FXML
-public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
-    if (isEveryTextFieldValid()) {
-        String username = TF_USERNAME.getText();
-        String password = PF_PASSWORD.getText();
-        boolean result = authenticationService.login(username, password);
+    @FXML
+    public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
+        if (isEveryTextFieldValid()) {
+            String username = TF_USERNAME.getText();
+            String password = PF_PASSWORD.getText();
+            boolean result = authenticationService.login(username, password);
 
-        if (result && !authenticationService.getUsername().equals("anonymousUser")) {
-            if (selectedRole == UserRole.METROLOGIST) {
-                handleLoginForRole(username, "metrologist", UserRole.METROLOGIST, event);
-            } else if (selectedRole == UserRole.OPERATOR) {
-                handleLoginForRole(username, "operators",UserRole.OPERATOR, event);
+            if (result && !authenticationService.getUsername().equals("anonymousUser")) {
+                String usernameResponse = authenticationService.getUsernameResponse();
+                System.out.println(usernameResponse);
+                UserRole role = extractRoleFromUsername(usernameResponse);
+
+                if (role != null) {
+                    handleLoginForRole(username, role, event);
+                } else {
+                    LF_ERROR.setText("Unerwartete Benuzerrolle!");
+                }
             }
+//            if (result && !authenticationService.getUsername().equals("anonymousUser")) {
+//                if (selectedRole == UserRole.METROLOGIST) {
+//                    handleLoginForRole(username, "metrologist", event);
+//                } else if (selectedRole == UserRole.OPERATOR) {
+//                    handleLoginForRole(username, "operators", event);
+//                }
+//            }
         }
     }
-}
 
-    private void handleLoginForRole(String username, String roleString, UserRole role, ActionEvent event) throws IOException {
+    private UserRole extractRoleFromUsername(String username) {
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(IAVCALIPRO_URL_BACKEND + roleString + "/" + username))
-                .header("Accept", JSON)
-                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-                .build();
-        var response = authenticationService
-                .getAuthenticationClient()
-                .sendAsync(request, HttpResponse.BodyHandlers.ofString());
-        int statusCode = response.join().statusCode();
-        String body = response.join().body();
-
-        if (statusCode == 202 && !body.isEmpty()) {
-            sceneSwitchService.switchToView(event, role);
-        } else {
-            LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
+        String[] parts = username.split("\\[ROLE_");
+        if (parts.length >= 2) {
+            String roleName = parts[1].replace("]", "");
+            return UserRole.valueOf(roleName);
+        }else {
+            return null;
         }
+    }
+
+    private void handleLoginForRole(String username, UserRole role, ActionEvent event) throws IOException {
+
+        String roleString = role == UserRole.METROLOGIST ? "metrologist" : "operator";
+        System.out.println(roleString);
+        System.out.println(username);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + roleString + "/" + username))
+                    .header("Accept", JSON)
+                    .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                    .build();
+            var response = authenticationService
+                    .getAuthenticationClient()
+                    .sendAsync(request, HttpResponse.BodyHandlers.ofString());
+            int statusCode = response.join().statusCode();
+            String body = response.join().body();
+
+            if (statusCode == 202 && !body.isEmpty()) {
+                sceneSwitchService.switchToView(event, role);
+            } else {
+                LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
+            }
     }
 
     private boolean isEveryTextFieldValid() {

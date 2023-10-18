@@ -14,6 +14,7 @@ public class AuthenticationService {
 
     private static AuthenticationService instance;
     private String username;
+    private String usernameResponse;
     private String sessionId;
     private String errorMessage;
 
@@ -52,6 +53,7 @@ public class AuthenticationService {
             throw new RuntimeException(e);
         }
     }
+
     public boolean addOperator(String username, String password, String email) {
         try {
             UserRequest userRequest = new UserRequest(username, password, email);
@@ -75,7 +77,8 @@ public class AuthenticationService {
 
     private boolean handleStatusCheckAndSetSessionId(int statusCode, CompletableFuture<HttpResponse<String>> response, String errorMessage) {
         if (statusCode == 200) {
-            setUsername(response.join().body());
+            setUsernameResponse(response.join().body());
+            setUsername(extractUsernameFromUsernameResponse(usernameResponse));
             String responseSessionId = response.join().headers().firstValue("Set-Cookie").orElseThrow();
             setSessionId(responseSessionId.substring(11, responseSessionId.indexOf(";")));
             return true;
@@ -102,6 +105,17 @@ public class AuthenticationService {
         return handleStatusCheckAndSetSessionId(statusCode, response, "Login fehlgeschlagen!");
     }
 
+    private String extractUsernameFromUsernameResponse(String usernameResponse) {
+
+        String[] parts = usernameResponse.split("\\[");
+        if (parts.length >= 1) {
+            String username = parts[0];
+            return username;
+        }else {
+            return null;
+        }
+    }
+
     public String getUsername() {
         return username;
     }
@@ -114,8 +128,13 @@ public class AuthenticationService {
         return errorMessage;
     }
 
+    public String getUsernameResponse() {
+        return usernameResponse;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+
     }
 
     public void setSessionId(String sessionId) {
@@ -124,6 +143,10 @@ public class AuthenticationService {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public void setUsernameResponse(String usernameResponse) {
+        this.usernameResponse = usernameResponse;
     }
 
     public HttpClient getAuthenticationClient() {

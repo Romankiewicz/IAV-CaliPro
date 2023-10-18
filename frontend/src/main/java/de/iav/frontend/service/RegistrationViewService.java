@@ -56,7 +56,7 @@ public class RegistrationViewService {
             String requestBody = objectMapper.writeValueAsString(operatorToAdd);
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators/register"))
+                    .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operator/register"))
                     .header("Content-Type", JSON)
                     .header("Accept", JSON)
                     .header("Cookie", "JSESSIONID=" +sessionId)
