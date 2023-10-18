@@ -1,5 +1,6 @@
 package de.iav.frontend.service;
 
+import de.iav.frontend.security.UserRole;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -17,6 +18,27 @@ public class SceneSwitchService {
             instance = new SceneSwitchService();
         }
         return instance;
+    }
+    private String getFXMLFileNameBasedOnRole(UserRole role) {
+        if (role == UserRole.METROLOGIST) {
+            return "CaliPro_MetrologistView.fxml";
+        } else if  (role == UserRole.OPERATOR) {
+            return "CaliPro_OperatorView.fxml";
+        } else {
+            return "CaliPro_LoginView.fxml";
+        }
+    }
+
+    public void switchToView(ActionEvent event, UserRole role) throws IOException {
+
+        String fxmlFileName = getFXMLFileNameBasedOnRole(role);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/iav/frontend/fxml/" + fxmlFileName));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void switchToStartView(ActionEvent event) throws IOException {

@@ -61,54 +61,90 @@ public class LoginViewController {
         sceneSwitchService.switchToStartView(event);
     }
 
-    @FXML
-    public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
-        if (isEveryTextFieldValid()) {
-            String username = TF_USERNAME.getText();
-            String password = PF_PASSWORD.getText();
-            boolean result = authenticationService.login(username, password);
+//    @FXML
+//    public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
+//        if (isEveryTextFieldValid()) {
+//            String username = TF_USERNAME.getText();
+//            String password = PF_PASSWORD.getText();
+//            boolean result = authenticationService.login(username, password);
+//
+//            if (result && !authenticationService.getUsername().equals("anonymousUser")) {
+//
+//                if (selectedRole == UserRole.METROLOGIST) {
+//                    HttpRequest request = HttpRequest.newBuilder()
+//                            .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrologist/" + username))
+//                            .header("Accept", JSON)
+//                            .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+//                            .build();
+//
+//                    var response = authenticationService
+//                            .getAuthenticationClient()
+//                            .sendAsync(request, HttpResponse.BodyHandlers.ofString());
+//                    int statusCode = response.join().statusCode();
+//                    String body = response.join().body();
+//
+//                    if (statusCode == 202 && !body.isEmpty()) {
+//                        sceneSwitchService.switchToMetrologistView(event);
+//                    } else {
+//                        LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
+//                    }
+//                } else if (selectedRole == UserRole.OPERATOR) {
+//
+//                    HttpRequest request = HttpRequest.newBuilder()
+//                            .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators/" + username))
+//                            .header("Accept", JSON)
+//                            .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+//                            .build();
+//                    var response = authenticationService
+//                            .getAuthenticationClient()
+//                            .sendAsync(request, HttpResponse.BodyHandlers.ofString());
+//                    int statusCode = response.join().statusCode();
+//                    String body = response.join().body();
+//                    if (statusCode == 202 && !body.isEmpty()) {
+//                        sceneSwitchService.switchToOperatorView(event);
+//                    } else {
+//                        LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
+//
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
+@FXML
+public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
+    if (isEveryTextFieldValid()) {
+        String username = TF_USERNAME.getText();
+        String password = PF_PASSWORD.getText();
+        boolean result = authenticationService.login(username, password);
 
-            if (result && !authenticationService.getUsername().equals("anonymousUser")) {
-
-                if (selectedRole == UserRole.METROLOGIST) {
-                    HttpRequest request = HttpRequest.newBuilder()
-                            .uri(URI.create(IAVCALIPRO_URL_BACKEND + "metrologist/" + username))
-                            .header("Accept", JSON)
-                            .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-                            .build();
-
-                    var response = authenticationService
-                            .getAuthenticationClient()
-                            .sendAsync(request, HttpResponse.BodyHandlers.ofString());
-                    int statusCode = response.join().statusCode();
-                    String body = response.join().body();
-
-                    if (statusCode == 202 && !body.isEmpty()) {
-                        sceneSwitchService.switchToMetrologistView(event);
-                    } else {
-                        LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
-                    }
-                } else if (selectedRole == UserRole.OPERATOR) {
-
-                    HttpRequest request = HttpRequest.newBuilder()
-                            .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operators/" + username))
-                            .header("Accept", JSON)
-                            .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
-                            .build();
-                    var response = authenticationService
-                            .getAuthenticationClient()
-                            .sendAsync(request, HttpResponse.BodyHandlers.ofString());
-                    int statusCode = response.join().statusCode();
-                    String body = response.join().body();
-                    if (statusCode == 202 && !body.isEmpty()) {
-                        sceneSwitchService.switchToOperatorView(event);
-                    } else {
-                        LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
-
-                    }
-
-                }
+        if (result && !authenticationService.getUsername().equals("anonymousUser")) {
+            if (selectedRole == UserRole.METROLOGIST) {
+                handleLoginForRole(username, "metrologist", UserRole.METROLOGIST, event);
+            } else if (selectedRole == UserRole.OPERATOR) {
+                handleLoginForRole(username, "operators",UserRole.OPERATOR, event);
             }
+        }
+    }
+}
+
+    private void handleLoginForRole(String username, String roleString, UserRole role, ActionEvent event) throws IOException {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + roleString + "/" + username))
+                .header("Accept", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .build();
+        var response = authenticationService
+                .getAuthenticationClient()
+                .sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        int statusCode = response.join().statusCode();
+        String body = response.join().body();
+
+        if (statusCode == 202 && !body.isEmpty()) {
+            sceneSwitchService.switchToView(event, role);
+        } else {
+            LF_ERROR.setText("LOGIN FAILED!!!" + "\n" + statusCode + "\n" + body);
         }
     }
 
