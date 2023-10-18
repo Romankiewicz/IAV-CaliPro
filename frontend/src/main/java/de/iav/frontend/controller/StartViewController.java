@@ -3,8 +3,6 @@ package de.iav.frontend.controller;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-
 import java.io.IOException;
 
 public class StartViewController {

@@ -27,7 +27,7 @@ public class LoginViewController {
     private TextField TF_USERNAME;
     @FXML
     private PasswordField PF_PASSWORD;
-    private final String JSON = "application/json";
+    private static final String JSON = "application/json";
     @FXML
     private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
