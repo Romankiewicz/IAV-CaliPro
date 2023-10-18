@@ -51,7 +51,7 @@
             <DropShadow height="30.0" radius="22.0" width="60.0"/>
         </effect>
     </Button>
-    <Label fx:id="LF_MESSAGE" layoutX="140.0" layoutY="400.0" prefHeight="100.0" prefWidth="600.0">
+    <Label layoutX="140.0" layoutY="400.0" prefHeight="100.0" prefWidth="600.0">
         <font>
             <Font name="Baloo 2 Regular" size="22.0"/>
         </font>
