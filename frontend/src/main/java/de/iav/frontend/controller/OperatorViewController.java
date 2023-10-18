@@ -4,10 +4,12 @@ import de.iav.frontend.model.Metrology;
 import de.iav.frontend.model.TestBench;
 import de.iav.frontend.service.SceneSwitchService;
 import de.iav.frontend.service.TestBenchService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -43,4 +45,9 @@ public class OperatorViewController {
     }
 
 
+
+    @FXML
+    public void onClick_PB_HOME(ActionEvent event) throws IOException {
+        sceneSwitchService.switchToStartView(event);
+    }
 }
