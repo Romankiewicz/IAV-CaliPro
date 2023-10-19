@@ -34,6 +34,30 @@ public class AuthenticationService {
         return instance;
     }
 
+    public boolean logout() {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "users/logout"))
+                .POST(HttpRequest.BodyPublishers.ofString(""))
+                .header("Cookie", "JSESSIONID=" + sessionId)
+                .build();
+
+        var response = authenticationClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        int statusCode = response.join().statusCode();
+
+        if (statusCode == 200) {
+            return true;
+        } else {
+            if (statusCode == 401) {
+                setErrorMessage("Logout failed");
+            } else {
+                setErrorMessage("The Cake is a LIE!!!");
+            }
+            return false;
+        }
+
+    }
+
     public boolean addMetrologist(String username, String password, String email) {
         try {
             UserRequest userRequest = new UserRequest(username, password, email);
@@ -110,7 +134,7 @@ public class AuthenticationService {
         String[] parts = usernameResponse.split("\\[");
         if (parts.length >= 1) {
             return parts[0];
-        }else {
+        } else {
             return null;
         }
     }

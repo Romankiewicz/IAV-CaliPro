@@ -359,6 +359,7 @@ public class TestBenchDetailViewController {
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
 
+        authenticationService.logout();
         sceneSwitchService.switchToStartView(event);
     }
 
