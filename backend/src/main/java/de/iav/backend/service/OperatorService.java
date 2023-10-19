@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,10 @@ public class OperatorService {
     private final OperatorRepository operatorRepository;
     private final IdService idService;
 
+
+    public List<Operator> getAllOperators() {
+        return operatorRepository.findAll();
+    }
 
     public Operator findOperatorById(String operatorId) throws NoSuchTestBenchOperatorException {
 

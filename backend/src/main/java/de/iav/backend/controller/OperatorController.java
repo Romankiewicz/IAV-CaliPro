@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/operator")
@@ -15,6 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class OperatorController {
 
     private final OperatorService operatorService;
+
+
+    @GetMapping
+    public List<Operator> getAllOperators() {
+        return operatorService.getAllOperators();
+    }
 
     @GetMapping("/id/{operatorId}")
     @ResponseStatus(HttpStatus.ACCEPTED)

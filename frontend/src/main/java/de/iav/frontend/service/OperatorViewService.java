@@ -1,6 +1,7 @@
 package de.iav.frontend.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.iav.frontend.model.Operator;
 import de.iav.frontend.security.AuthenticationService;
@@ -9,6 +10,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 public class OperatorViewService {
 
@@ -26,6 +28,19 @@ public class OperatorViewService {
             instance = new OperatorViewService();
         }
         return instance;
+    }
+
+    public List<Operator> getAllOperators() {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operator"))
+                .header("Accept", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .build();
+        return operatorClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenApply(this::mapToOperatorList)
+                .join();
     }
 
     public Operator getLoginOperator() {
@@ -46,10 +61,19 @@ public class OperatorViewService {
     private Operator mapToOperator(String responseBody) {
         try {
             return objectMapper.readValue(responseBody, Operator.class);
-        }
-        catch (JsonProcessingException e) {
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
+
+    private List<Operator> mapToOperatorList(String responseBody) {
+        try {
+            return objectMapper.readValue(responseBody, new TypeReference<>() {
+            });
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
