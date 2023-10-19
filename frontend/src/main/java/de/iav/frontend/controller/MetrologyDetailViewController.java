@@ -2,6 +2,7 @@ package de.iav.frontend.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import de.iav.frontend.model.Metrology;
+import de.iav.frontend.security.AuthenticationService;
 import de.iav.frontend.service.MetrologyService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.beans.property.SimpleObjectProperty;
@@ -50,6 +51,8 @@ public class MetrologyDetailViewController {
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     @FXML
     private final MetrologyService metrologyService = MetrologyService.getInstance();
+    @FXML
+    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
 
     public void initialize() {
@@ -172,6 +175,7 @@ public class MetrologyDetailViewController {
 
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
+        authenticationService.logout();
         sceneSwitchService.switchToStartView(event);
     }
 

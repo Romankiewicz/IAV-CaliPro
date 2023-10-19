@@ -1,6 +1,7 @@
 package de.iav.frontend.controller;
 
 import de.iav.frontend.model.Metrology;
+import de.iav.frontend.security.AuthenticationService;
 import de.iav.frontend.service.IdService;
 import de.iav.frontend.service.MetrologyService;
 import de.iav.frontend.service.SceneSwitchService;
@@ -35,6 +36,8 @@ public class AddMetrologyViewController {
     @FXML
     private final MetrologyService metrologyService = MetrologyService.getInstance();
     @FXML
+    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
+    @FXML
     private final IdService idService = IdService.getInstance();
 
     public AddMetrologyViewController() {
@@ -42,6 +45,7 @@ public class AddMetrologyViewController {
 
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
+        authenticationService.logout();
         sceneSwitchService.switchToStartView(event);
     }
 

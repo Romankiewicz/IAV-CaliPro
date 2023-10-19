@@ -3,6 +3,7 @@ package de.iav.frontend.controller;
 import de.iav.frontend.model.Metrology;
 import de.iav.frontend.model.Operator;
 import de.iav.frontend.model.TestBench;
+import de.iav.frontend.security.AuthenticationService;
 import de.iav.frontend.service.OperatorViewService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.beans.property.SimpleObjectProperty;
@@ -43,6 +44,8 @@ public class OperatorViewController {
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     @FXML
     private final OperatorViewService operatorViewService = OperatorViewService.getInstance();
+    @FXML
+    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     public void initialize() {
         getTestBenchOfLoginOperator();
@@ -87,6 +90,7 @@ public class OperatorViewController {
 
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
+        authenticationService.logout();
         sceneSwitchService.switchToStartView(event);
     }
 }
