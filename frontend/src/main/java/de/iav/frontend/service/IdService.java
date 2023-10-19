@@ -1,11 +1,12 @@
 package de.iav.frontend.service;
 
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public class IdService {
 
     private static IdService instance;
+    private final SecureRandom random =new SecureRandom();
 
     public static synchronized IdService getInstance() {
         if (instance == null) {
@@ -15,10 +16,9 @@ public class IdService {
     }
 
     public String generateRandomId() {
-        Random random = new Random();
         int min = 10000;
         int max = 99999;
-        int randomNum = random.nextInt(max - min + 1) + min;
+        int randomNum = this.random.nextInt(max - min + 1) + min;
         return String.valueOf(randomNum);
     }
 }
