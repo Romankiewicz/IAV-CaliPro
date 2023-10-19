@@ -44,9 +44,6 @@ public class OperatorViewController {
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
     @FXML
     private final OperatorViewService operatorViewService = OperatorViewService.getInstance();
-    @FXML
-    private final TestBenchService testBenchService = TestBenchService.getInstance();
-
 
     public void initialize() {
         getTestBenchOfLoginOperator();
