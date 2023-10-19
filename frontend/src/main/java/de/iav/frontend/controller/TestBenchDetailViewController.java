@@ -97,26 +97,35 @@ public class TestBenchDetailViewController {
 
     public void initialize() {
 
-        List<TestBench> allTestBenches = getAllTestBenches();
-        List<Operator> allOperators = getAllOperators();
-
-        CB_OPERATOR.getItems().clear();
-        CB_OPERATOR.getItems().addAll(allOperators);
-
         updateOperatorComboBox();
-
-        CB_TESTBENCH.getItems().clear();
-        CB_TESTBENCH.getItems().addAll(allTestBenches);
 
         updateTestBenchComboBox();
 
         updateMetrologyTableView();
+
+        updateTestBenchTableView();
     }
 
     @FXML
     public void updateOperatorComboBox() {
 
         List<Operator> allOperators = getAllOperators();
+
+        CB_OPERATOR.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Operator operator) {
+                if (operator != null) {
+                    return operator.firstName() + " " + operator.lastName();
+                }
+                return null;
+            }
+
+            @Override
+            public Operator fromString(String string) {
+                return null;
+            }
+        });
+
         CB_OPERATOR.getItems().clear();
         CB_OPERATOR.getItems().addAll(allOperators);
 
@@ -131,6 +140,22 @@ public class TestBenchDetailViewController {
     public void updateTestBenchComboBox() {
 
         List<TestBench> allTestBenches = getAllTestBenches();
+
+        CB_TESTBENCH.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(TestBench testBench) {
+                if (testBench != null) {
+                    return testBench.name();
+                }
+                return null;
+            }
+
+            @Override
+            public TestBench fromString(String s) {
+                return null;
+            }
+        });
+
         CB_TESTBENCH.getItems().clear();
         CB_TESTBENCH.getItems().addAll(allTestBenches);
 
