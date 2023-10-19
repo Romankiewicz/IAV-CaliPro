@@ -54,16 +54,7 @@ public class MetrologyDetailViewController {
 
     public void initialize() {
 
-        List<Metrology> allMetrologies = metrologyService.getAllMetrologies();
-        CB_METROLOGY.getItems().clear();
-        CB_METROLOGY.getItems().addAll(allMetrologies);
-
-        CB_METROLOGY.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                selectedMetrology = metrologyService.getMetrologyById(newValue.metrologyId());
-                updateTableView();
-            }
-        });
+        updateChoiceBox();
         updateTableView();
     }
 
@@ -76,6 +67,22 @@ public class MetrologyDetailViewController {
     public void updateChoiceBox() {
 
         List<Metrology> allMetrologies = getAllMetrologies();
+
+        CB_METROLOGY.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Metrology metrology) {
+                if (metrology != null) {
+                    return metrology.iavInventory() + "\n" + metrology.manufacturer() + "\n" + metrology.type();
+                }
+                return null;
+            }
+
+            @Override
+            public Metrology fromString(String s) {
+                return null;
+            }
+        });
+
         CB_METROLOGY.getItems().clear();
         CB_METROLOGY.getItems().addAll(allMetrologies);
 

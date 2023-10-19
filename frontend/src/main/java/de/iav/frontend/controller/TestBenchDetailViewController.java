@@ -115,7 +115,7 @@ public class TestBenchDetailViewController {
             @Override
             public String toString(Operator operator) {
                 if (operator != null) {
-                    return operator.firstName() + " " + operator.lastName();
+                    return operator.username() + "\n" + operator.firstName() + " " + operator.lastName();
                 }
                 return null;
             }
