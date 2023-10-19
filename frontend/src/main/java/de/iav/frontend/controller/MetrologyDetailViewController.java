@@ -67,7 +67,7 @@ public class MetrologyDetailViewController {
         updateTableView();
     }
 
-    public List<Metrology> getAllMetrologies() {
+    private List<Metrology> getAllMetrologies() {
 
         return metrologyService.getAllMetrologies();
     }

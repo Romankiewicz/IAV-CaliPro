@@ -43,6 +43,21 @@ public class OperatorViewService {
                 .join();
     }
 
+    public Operator getOperatorById(String operatorId) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "operator/id/" + operatorId))
+                .header("Accept", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .GET()
+                .build();
+
+        return operatorClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenApply(HttpResponse::body)
+                .thenApply(this::mapToOperator)
+                .join();
+    }
+
     public Operator getLoginOperator() {
 
         String username = authenticationService.getUsername();
