@@ -1,5 +1,6 @@
 package de.iav.frontend.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import de.iav.frontend.model.Metrology;
 import de.iav.frontend.model.Operator;
 import de.iav.frontend.model.TestBench;
@@ -19,6 +20,8 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -94,7 +97,6 @@ public class TestBenchDetailViewController {
 
     public void initialize() {
 
-        List<Metrology> allMetrologies = getAllMetrologies();
         List<TestBench> allTestBenches = getAllTestBenches();
         List<Operator> allOperators = getAllOperators();
 
@@ -179,6 +181,54 @@ public class TestBenchDetailViewController {
         TC_M_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
         TC_M_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
         TV_METROLOGY.getItems().addAll(metrologyData);
+    }
+
+    @FXML
+    public void updateTestBenchMaintenanceDate() throws JsonProcessingException {
+
+        LocalDate localDate = DP_DATE.getValue();
+        LocalDate maintenanceDate = localDate.plusYears(1);
+
+        if (selectedTestBench != null) {
+            selectedDate = Date.from(maintenanceDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            TestBench testBenchUpdate = new TestBench(
+                    selectedTestBench.benchId(),
+                    selectedTestBench.name(),
+                    selectedTestBench.metrology(),
+                    selectedTestBench.operator(),
+                    selectedDate,
+                    selectedTestBench.calibration());
+
+            testBenchService.updateTestBenchMaintenanceByTestBenchId(selectedTestBench.benchId(), testBenchUpdate);
+
+            CB_TESTBENCH.setValue(null);
+            TV_BENCH.getItems().clear();
+            updateTestBenchTableView();
+        }
+    }
+
+    @FXML
+    public void updateTestBenchCalibrationDate() throws JsonProcessingException {
+
+        LocalDate localDate = DP_DATE.getValue();
+        LocalDate calibrationDate = localDate.plusYears(1);
+
+        if (selectedTestBench != null) {
+            selectedDate = Date.from(calibrationDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            TestBench testBenchUpdate = new TestBench(
+                    selectedTestBench.benchId(),
+                    selectedTestBench.name(),
+                    selectedTestBench.metrology(),
+                    selectedTestBench.operator(),
+                    selectedTestBench.maintenance(),
+                    selectedDate);
+
+            testBenchService.updateTestBenchMaintenanceByTestBenchId(selectedTestBench.benchId(), testBenchUpdate);
+
+            CB_TESTBENCH.setValue(null);
+            TV_BENCH.getItems().clear();
+            updateTestBenchTableView();
+        }
     }
 
     @FXML

@@ -56,7 +56,7 @@
             <DropShadow height="30.0" radius="19.5" width="50.0"/>
         </effect>
     </Button>
-    <Button fx:id="BP_T_MAINTENANCE" layoutX="130.0" layoutY="280.0" mnemonicParsing="false" prefHeight="25.0"
+    <Button layoutX="130.0" layoutY="280.0" onAction="#updateTestBenchMaintenanceDate" mnemonicParsing="false" prefHeight="25.0"
             prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Wartung durchgeführt">
         <font>
             <Font name="Baloo 2 Regular" size="13.0"/>
@@ -65,7 +65,7 @@
             <DropShadow height="30.0" radius="19.5" width="50.0"/>
         </effect>
     </Button>
-    <Button fx:id="PB_T_CALIBRATION" layoutX="380.0" layoutY="280.0" mnemonicParsing="false" prefHeight="25.0"
+    <Button layoutX="380.0" layoutY="280.0" onAction="#updateTestBenchCalibrationDate" mnemonicParsing="false" prefHeight="25.0"
             prefWidth="200.0" style="-fx-background-color: BAB9B9;" text="Kalibrierung durchgeführt">
         <font>
             <Font name="Baloo 2 Regular" size="13.0"/>
