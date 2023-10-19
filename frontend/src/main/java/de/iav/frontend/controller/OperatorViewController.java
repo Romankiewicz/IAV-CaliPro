@@ -5,7 +5,6 @@ import de.iav.frontend.model.Operator;
 import de.iav.frontend.model.TestBench;
 import de.iav.frontend.service.OperatorViewService;
 import de.iav.frontend.service.SceneSwitchService;
-import de.iav.frontend.service.TestBenchService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
