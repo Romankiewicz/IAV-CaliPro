@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import de.iav.frontend.model.Metrology;
 import de.iav.frontend.model.Operator;
 import de.iav.frontend.model.TestBench;
+import de.iav.frontend.security.AuthenticationService;
 import de.iav.frontend.service.MetrologyService;
 import de.iav.frontend.service.OperatorViewService;
 import de.iav.frontend.service.SceneSwitchService;
@@ -73,6 +74,8 @@ public class TestBenchDetailViewController {
     private final OperatorViewService operatorViewService = OperatorViewService.getInstance();
     @FXML
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
+    @FXML
+    private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     private List<Operator> getAllOperators() {
 
@@ -172,7 +175,9 @@ public class TestBenchDetailViewController {
 
         if (selectedTestBench != null) {
             List<TestBench> testBench = new ArrayList<>();
+
             testBench.add(selectedTestBench);
+
 
             StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
             TV_BENCH.getItems().clear();
@@ -268,6 +273,7 @@ public class TestBenchDetailViewController {
             testBenchService.updateTestBenchMaintenanceByTestBenchId(selectedTestBench.benchId(), testBenchUpdate);
 
             CB_TESTBENCH.setValue(null);
+            selectedTestBench = null;
             TV_BENCH.getItems().clear();
             updateTestBenchTableView();
         }
@@ -292,6 +298,7 @@ public class TestBenchDetailViewController {
             testBenchService.updateTestBenchMaintenanceByTestBenchId(selectedTestBench.benchId(), testBenchUpdate);
 
             CB_TESTBENCH.setValue(null);
+            selectedTestBench = null;
             TV_BENCH.getItems().clear();
             updateTestBenchTableView();
         }
@@ -302,6 +309,7 @@ public class TestBenchDetailViewController {
 
         testBenchService.addMetrologyToTestBench(selectedMetrology().metrologyId(), selectedTestBench.benchId());
         CB_TESTBENCH.setValue(null);
+        selectedTestBench = null;
         TV_METROLOGY.getItems().clear();
         TV_BENCH.getItems().clear();
         updateTestBenchComboBox();
@@ -314,6 +322,7 @@ public class TestBenchDetailViewController {
 
         testBenchService.removeMetrologyFromTestBench(selectedMetrology().metrologyId(), selectedTestBench.benchId());
         CB_TESTBENCH.setValue(null);
+        selectedTestBench = null;
         TV_METROLOGY.getItems().clear();
         TV_BENCH.getItems().clear();
         updateTestBenchComboBox();
@@ -327,6 +336,7 @@ public class TestBenchDetailViewController {
         testBenchService.addOperatorToTestBench(selectedOperator.username(), selectedTestBench.benchId());
         CB_TESTBENCH.setValue(null);
         CB_OPERATOR.setValue(null);
+        selectedTestBench = null;
         TV_BENCH.getItems().clear();
         updateTestBenchComboBox();
         updateOperatorComboBox();
@@ -339,6 +349,7 @@ public class TestBenchDetailViewController {
         testBenchService.removeOperatorFromTestBench(selectedOperator.username(), selectedTestBench.benchId());
         CB_TESTBENCH.setValue(null);
         CB_OPERATOR.setValue(null);
+        selectedTestBench = null;
         TV_BENCH.getItems().clear();
         updateTestBenchComboBox();
         updateOperatorComboBox();
