@@ -157,43 +157,54 @@ public class TestBenchDetailViewController {
             TC_B_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
             TC_B_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
             TC_B_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
-            TC_B_METROLOGY.setCellValueFactory(param -> {
-                List<Metrology> metrologyList = param.getValue().metrology();
-                if (metrologyList != null && !metrologyList.isEmpty()) {
-                    StringBuilder metrologyInfo = new StringBuilder();
-                    for (Metrology metrology : metrologyList) {
-                        metrologyInfo.append(metrology.iavInventory())
-                                .append(", ")
-                                .append(metrology.type())
-                                .append("\n");
-                    }
-                    return new SimpleObjectProperty<>(metrologyInfo.toString());
-                }else {
-                    return new SimpleObjectProperty<>("");
-                }
-            });
-            TC_B_OPERATOR.setCellValueFactory(param -> {
-                List<Operator> operatorList = param.getValue().operator();
-                if (operatorList != null && !operatorList.isEmpty()) {
-                    StringBuilder operatorInfo = new StringBuilder();
-                    for (Operator operator : operatorList) {
-                        operatorInfo.append(operator.username())
-                                .append(", ")
-                                .append(operator.firstName())
-                                .append(", ")
-                                .append(operator.lastName())
-                                .append("\n");
-                    }
-                    return new SimpleObjectProperty<>(operatorInfo.toString());
-                }else {
-                    return new SimpleObjectProperty<>("");
-                }
-            });
+            getMetrologyListView();
+            getOperatorsListView();
+
             TV_BENCH.getItems().addAll(testBench);
             TV_BENCH.setVisible(true);
         } else {
             TV_BENCH.setVisible(false);
         }
+    }
+
+    @FXML
+    public void getMetrologyListView() {
+        TC_B_METROLOGY.setCellValueFactory(param -> {
+            List<Metrology> metrologyList = param.getValue().metrology();
+            if (metrologyList != null && !metrologyList.isEmpty()) {
+                StringBuilder metrologyInfo = new StringBuilder();
+                for (Metrology metrology : metrologyList) {
+                    metrologyInfo.append(metrology.iavInventory())
+                            .append(", ")
+                            .append(metrology.type())
+                            .append("\n");
+                }
+                return new SimpleObjectProperty<>(metrologyInfo.toString());
+            }else {
+                return new SimpleObjectProperty<>("");
+            }
+        });
+    }
+
+    @FXML
+    public void getOperatorsListView() {
+        TC_B_OPERATOR.setCellValueFactory(param -> {
+            List<Operator> operatorList = param.getValue().operator();
+            if (operatorList != null && !operatorList.isEmpty()) {
+                StringBuilder operatorInfo = new StringBuilder();
+                for (Operator operator : operatorList) {
+                    operatorInfo.append(operator.username())
+                            .append(", ")
+                            .append(operator.firstName())
+                            .append(", ")
+                            .append(operator.lastName())
+                            .append("\n");
+                }
+                return new SimpleObjectProperty<>(operatorInfo.toString());
+            }else {
+                return new SimpleObjectProperty<>("");
+            }
+        });
     }
 
     @FXML
