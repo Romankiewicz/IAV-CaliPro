@@ -2,7 +2,6 @@ package de.iav.backend.controller;
 
 import de.iav.backend.exceptions.NoSuchMetrologyException;
 import de.iav.backend.exceptions.NoSuchTestBenchException;
-import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
 import de.iav.backend.model.TestBench;
 import de.iav.backend.model.TestBenchDTO;
 import de.iav.backend.service.TestBenchService;
@@ -51,13 +50,13 @@ public class TestBenchController {
 
     @PutMapping("/{testBenchId}/operator/{username}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addOperatorToTestBench(@PathVariable String testBenchId, @PathVariable String username) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+    public void addOperatorToTestBench(@PathVariable String testBenchId, @PathVariable String username) throws NoSuchTestBenchException {
         testBenchService.addOperatorToTestBench(testBenchId, username);
     }
 
     @DeleteMapping("/{testBenchId}/operator/{username}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeOperatorFromTestBench(@PathVariable String testBenchId, @PathVariable String username) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+    public void removeOperatorFromTestBench(@PathVariable String testBenchId, @PathVariable String username) throws NoSuchTestBenchException {
         testBenchService.removeOperatorFromTestBench(testBenchId, username);
     }
 

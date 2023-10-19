@@ -48,9 +48,9 @@ public class TestBenchDetailViewController {
     @FXML
     private TableColumn<TestBench, Date> TC_B_CALIBRATION;
     @FXML
-    private TableColumn<TestBench, List<Operator>> TC_B_OPERATOR;
+    private TableColumn<TestBench, String> TC_B_OPERATOR;
     @FXML
-    private TableColumn<TestBench, List<Metrology>> TC_B_METROLOGY;
+    private TableColumn<TestBench, String> TC_B_METROLOGY;
 
     @FXML
     private TableView<Metrology> TV_METROLOGY;
@@ -157,8 +157,38 @@ public class TestBenchDetailViewController {
             TC_B_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
             TC_B_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
             TC_B_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
-            TC_B_METROLOGY.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().metrology()));
-            TC_B_OPERATOR.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().operator()));
+            TC_B_METROLOGY.setCellValueFactory(param -> {
+                List<Metrology> metrologyList = param.getValue().metrology();
+                if (metrologyList != null && !metrologyList.isEmpty()) {
+                    StringBuilder metrologyInfo = new StringBuilder();
+                    for (Metrology metrology : metrologyList) {
+                        metrologyInfo.append(metrology.iavInventory())
+                                .append(", ")
+                                .append(metrology.type())
+                                .append("\n");
+                    }
+                    return new SimpleObjectProperty<>(metrologyInfo.toString());
+                }else {
+                    return new SimpleObjectProperty<>("");
+                }
+            });
+            TC_B_OPERATOR.setCellValueFactory(param -> {
+                List<Operator> operatorList = param.getValue().operator();
+                if (operatorList != null && !operatorList.isEmpty()) {
+                    StringBuilder operatorInfo = new StringBuilder();
+                    for (Operator operator : operatorList) {
+                        operatorInfo.append(operator.username())
+                                .append(", ")
+                                .append(operator.firstName())
+                                .append(", ")
+                                .append(operator.lastName())
+                                .append("\n");
+                    }
+                    return new SimpleObjectProperty<>(operatorInfo.toString());
+                }else {
+                    return new SimpleObjectProperty<>("");
+                }
+            });
             TV_BENCH.getItems().addAll(testBench);
             TV_BENCH.setVisible(true);
         } else {
