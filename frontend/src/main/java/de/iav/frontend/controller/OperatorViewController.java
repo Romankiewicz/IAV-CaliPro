@@ -16,7 +16,6 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DateStringConverter;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -81,7 +80,7 @@ public class OperatorViewController {
         List<Metrology> metrologyData = testBenchData.metrology();
         StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
 
-        TC_M_MANUFACTURER.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().manufacturer()));;
+        TC_M_MANUFACTURER.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().manufacturer()));
         TC_M_TYPE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
         TC_M_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
         TC_M_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
