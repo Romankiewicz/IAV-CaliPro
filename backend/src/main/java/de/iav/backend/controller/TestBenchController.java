@@ -49,16 +49,16 @@ public class TestBenchController {
         testBenchService.removeMetrologyFromTestBench(testBenchId, metrologyId);
     }
 
-    @PutMapping("/{testBenchId}/operator/{operatorId}")
+    @PutMapping("/{testBenchId}/operator/{username}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addOperatorToTestBench(@PathVariable String testBenchId, @PathVariable String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
-        testBenchService.addOperatorToTestBench(testBenchId, operatorId);
+    public void addOperatorToTestBench(@PathVariable String testBenchId, @PathVariable String username) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+        testBenchService.addOperatorToTestBench(testBenchId, username);
     }
 
-    @DeleteMapping("/{testBenchId}/operator/{operatorId}")
+    @DeleteMapping("/{testBenchId}/operator/{username}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeOperatorFromTestBench(@PathVariable String testBenchId, @PathVariable String operatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
-        testBenchService.removeOperatorFromTestBench(testBenchId, operatorId);
+    public void removeOperatorFromTestBench(@PathVariable String testBenchId, @PathVariable String username) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+        testBenchService.removeOperatorFromTestBench(testBenchId, username);
     }
 
     @PutMapping("/{testBenchId}")

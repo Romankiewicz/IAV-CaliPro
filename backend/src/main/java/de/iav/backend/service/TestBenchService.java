@@ -1,9 +1,6 @@
 package de.iav.backend.service;
 
-import de.iav.backend.exceptions.NoSuchMetrologyException;
-import de.iav.backend.exceptions.NoSuchTestBenchException;
-import de.iav.backend.exceptions.NoSuchTestBenchOperatorException;
-import de.iav.backend.exceptions.TestBenchAleadyExistException;
+import de.iav.backend.exceptions.*;
 import de.iav.backend.model.Metrology;
 import de.iav.backend.model.Operator;
 import de.iav.backend.model.TestBench;
@@ -16,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -86,15 +84,15 @@ public class TestBenchService {
         testBenchRepository.save(testBench);
     }
 
-    public void addOperatorToTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+    public void addOperatorToTestBench(String testBenchId, String username) throws NoSuchTestBenchException {
 
         TestBench testBench = testBenchRepository
                 .findTestBenchByBenchId(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
 
         Operator operator = operatorRepository
-                .findOperatorByOperatorId(testBenchOperatorId)
-                .orElseThrow(() -> new NoSuchTestBenchOperatorException(testBenchOperatorId));
+                .findOperatorByUsername(username)
+                .orElseThrow(NoSuchUserException::new);
 
         testBench.operator().add(operator);
         operator.testBench().add(testBench);
@@ -102,13 +100,13 @@ public class TestBenchService {
         testBenchRepository.save(testBench);
     }
 
-    public void removeOperatorFromTestBench(String testBenchId, String testBenchOperatorId) throws NoSuchTestBenchException, NoSuchTestBenchOperatorException {
+    public void removeOperatorFromTestBench(String testBenchId, String username) throws NoSuchTestBenchException {
         TestBench testBench = testBenchRepository
                 .findTestBenchByBenchId(testBenchId)
                 .orElseThrow(() -> new NoSuchTestBenchException(testBenchId));
         Operator operator = operatorRepository
-                .findOperatorByOperatorId(testBenchOperatorId)
-                .orElseThrow(() -> new NoSuchTestBenchOperatorException(testBenchOperatorId));
+                .findOperatorByUsername(username)
+                .orElseThrow(NoSuchElementException::new);
         operator.testBench().remove(testBench);
         testBench.operator().remove(operator);
         testBenchRepository.save(testBench);
