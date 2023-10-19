@@ -308,7 +308,7 @@ class TestBenchControllerTest {
         operatorRepository.save(operator);
 
         mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + testBench.benchId()
-                                + "/operator/" + operator.operatorId())
+                                + "/operator/" + operator.username())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(operator.operatorId()))
                 .andExpect(status().isCreated())
@@ -365,7 +365,7 @@ class TestBenchControllerTest {
         operatorRepository.save(operator);
 
         mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + testBench.benchId()
-                                + "/operator/" + operator.operatorId())
+                                + "/operator/" + operator.username())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(operator.operatorId()))
                 .andExpect(status().isCreated())
@@ -393,7 +393,7 @@ class TestBenchControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL
                         + "/" + testBench.benchId()
-                        + "/operator/" + operator.operatorId()))
+                        + "/operator/" + operator.username()))
                 .andExpect(status().isNoContent())
                 .andReturn();
 

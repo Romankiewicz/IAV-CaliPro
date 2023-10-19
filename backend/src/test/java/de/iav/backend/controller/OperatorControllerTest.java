@@ -47,7 +47,7 @@ class OperatorControllerTest {
                 "johnny.knoxville@jackass.com",
                 new ArrayList<>(),
                 UserRole.OPERATOR);
-        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated());
@@ -55,7 +55,7 @@ class OperatorControllerTest {
 
     @Test
     @DirtiesContext
-    void addOperator_whenNotLoggedIn_thenGetStatusIsCreated() throws Exception {
+    void addOperator_whenNotLoggedIn_thenGetStatusIsUnauthrized() throws Exception {
 
         Operator operator = new Operator(
                 "1",
@@ -65,7 +65,7 @@ class OperatorControllerTest {
                 "johnny.knoxville@jackass.com",
                 new ArrayList<>(),
                 UserRole.OPERATOR);
-        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isUnauthorized());
@@ -85,7 +85,7 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())
@@ -121,7 +121,7 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())
@@ -157,7 +157,7 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())
@@ -208,7 +208,7 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())
@@ -238,7 +238,7 @@ class OperatorControllerTest {
                 new ArrayList<>(),
                 UserRole.OPERATOR);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(operator)))
                 .andExpect(status().isCreated())

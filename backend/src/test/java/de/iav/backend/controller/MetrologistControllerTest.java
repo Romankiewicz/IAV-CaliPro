@@ -46,7 +46,7 @@ class MetrologistControllerTest {
                 "master.chief@activision.com",
                 UserRole.METROLOGIST);
 
-        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated());
@@ -64,7 +64,7 @@ class MetrologistControllerTest {
                 "master.chief@activision.com",
                 UserRole.METROLOGIST);
 
-        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isUnauthorized());
@@ -83,7 +83,7 @@ class MetrologistControllerTest {
                 "DK.notDriftKing@Nintendo.jp",
                 UserRole.METROLOGIST);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
@@ -116,7 +116,7 @@ class MetrologistControllerTest {
                 "DK.notDriftKing@Nintendo.jp",
                 UserRole.METROLOGIST);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
@@ -150,7 +150,7 @@ class MetrologistControllerTest {
                 "g.freeman@blackmesa.com",
                 UserRole.METROLOGIST);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
@@ -198,7 +198,7 @@ class MetrologistControllerTest {
                 "jack.carver@crytec.com",
                 UserRole.METROLOGIST);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())
@@ -227,7 +227,7 @@ class MetrologistControllerTest {
                 "jack.carver@crytec.com",
                 UserRole.METROLOGIST);
 
-        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL)
+        MvcResult response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(metrologist)))
                 .andExpect(status().isCreated())

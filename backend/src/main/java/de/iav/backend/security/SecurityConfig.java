@@ -29,14 +29,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(c -> {
-                    c.requestMatchers(HttpMethod.POST, "/api/metrologist/register").permitAll();
-                    c.requestMatchers(HttpMethod.POST, "/api/metrologist").authenticated();
+                    c.requestMatchers(HttpMethod.POST, "/api/metrologist/**").authenticated();
                     c.requestMatchers(HttpMethod.PUT, "/api/metrologist/**").authenticated();
                     c.requestMatchers(HttpMethod.GET, "/api/metrologist/**").authenticated();
                     c.requestMatchers(HttpMethod.DELETE, "/api/metrologist/**").hasRole(UserRole.METROLOGIST.name());
 
-//                    c.requestMatchers(HttpMethod.POST, "/api/operator/register").permitAll();
-                    c.requestMatchers(HttpMethod.POST, "/api/operator").authenticated();
+                    c.requestMatchers(HttpMethod.POST, "/api/operator/**").authenticated();
                     c.requestMatchers(HttpMethod.PUT, "/api/operator/**").authenticated();
                     c.requestMatchers(HttpMethod.GET, "/api/operator/**").authenticated();
                     c.requestMatchers(HttpMethod.DELETE, "/api/operator/**").hasRole(UserRole.OPERATOR.name());
