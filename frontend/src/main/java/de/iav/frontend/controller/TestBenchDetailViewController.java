@@ -34,7 +34,6 @@ public class TestBenchDetailViewController {
     private Date selectedDate;
     private Operator selectedOperator;
     private TestBench selectedTestBench;
-    private Metrology selectedMetrology;
 
 
     @FXML
@@ -53,7 +52,7 @@ public class TestBenchDetailViewController {
     @FXML
     private TableView<Metrology> TV_METROLOGY;
     @FXML
-    private TableColumn<Metrology,String> TC_M_INVENTORY;
+    private TableColumn<Metrology, String> TC_M_INVENTORY;
     @FXML
     private TableColumn<Metrology, String> TC_M_MANUFACTURER;
     @FXML
@@ -73,19 +72,28 @@ public class TestBenchDetailViewController {
     private final SceneSwitchService sceneSwitchService = SceneSwitchService.getInstance();
 
     private List<Operator> getAllOperators() {
+
         return operatorViewService.getAllOperators();
     }
 
     private List<TestBench> getAllTestBenches() {
+
         return testBenchService.getAllTestBenches();
     }
 
     private List<Metrology> getAllMetrologies() {
+
         return metrologyService.getAllMetrologies();
+    }
+
+    private Metrology selectedMetrology() {
+
+        return TV_METROLOGY.getSelectionModel().getSelectedItem();
     }
 
 
     public void initialize() {
+
         List<Metrology> allMetrologies = getAllMetrologies();
         List<TestBench> allTestBenches = getAllTestBenches();
         List<Operator> allOperators = getAllOperators();
@@ -99,6 +107,8 @@ public class TestBenchDetailViewController {
         CB_TESTBENCH.getItems().addAll(allTestBenches);
 
         updateTestBenchComboBox();
+
+        updateMetrologyTableView();
     }
 
     @FXML
@@ -155,11 +165,79 @@ public class TestBenchDetailViewController {
     }
 
     @FXML
+    public void updateMetrologyTableView() {
+
+        List<Metrology> metrologyData = getAllMetrologies();
+        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
+        TV_METROLOGY.getItems().clear();
+
+        TC_M_INVENTORY.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().iavInventory()));
+        TC_M_MANUFACTURER.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().manufacturer()));
+        TC_M_TYPE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
+        TC_M_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_M_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+        TC_M_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+        TC_M_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
+        TV_METROLOGY.getItems().addAll(metrologyData);
+    }
+
+    @FXML
+    public void onClick_PB_ADD_METROLOGY() {
+
+        testBenchService.addMetrologyToTestBench(selectedMetrology().metrologyId(), selectedTestBench.benchId());
+        CB_TESTBENCH.setValue(null);
+        TV_METROLOGY.getItems().clear();
+        TV_BENCH.getItems().clear();
+        updateTestBenchComboBox();
+        updateMetrologyTableView();
+        updateTestBenchTableView();
+    }
+
+    @FXML
+    public void onClick_PB_REMOVE_METROLOGY() {
+
+        testBenchService.removeMetrologyFromTestBench(selectedMetrology().metrologyId(), selectedTestBench.benchId());
+        CB_TESTBENCH.setValue(null);
+        TV_METROLOGY.getItems().clear();
+        TV_BENCH.getItems().clear();
+        updateTestBenchComboBox();
+        updateMetrologyTableView();
+        updateTestBenchTableView();
+    }
+
+    @FXML
+    public void onClick_PB_ADD_OPERATOR() {
+
+        testBenchService.addOperatorToTestBench(selectedOperator.username(), selectedTestBench.benchId());
+        CB_TESTBENCH.setValue(null);
+        CB_OPERATOR.setValue(null);
+        TV_BENCH.getItems().clear();
+        updateTestBenchComboBox();
+        updateOperatorComboBox();
+        updateTestBenchTableView();
+    }
+
+    @FXML
+    public void onClick_PB_REMOVE_OPERATOR() {
+
+        testBenchService.removeOperatorFromTestBench(selectedOperator.username(), selectedTestBench.benchId());
+        CB_TESTBENCH.setValue(null);
+        CB_OPERATOR.setValue(null);
+        TV_BENCH.getItems().clear();
+        updateTestBenchComboBox();
+        updateOperatorComboBox();
+        updateTestBenchTableView();
+    }
+
+    @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
+
         sceneSwitchService.switchToStartView(event);
     }
+
     @FXML
     public void onClick_PB_CLOSE(ActionEvent event) throws IOException {
+
         sceneSwitchService.switchToMetrologistView(event);
     }
 }

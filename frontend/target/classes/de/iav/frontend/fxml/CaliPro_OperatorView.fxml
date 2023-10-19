@@ -1,124 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.OperatorViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0"
+            prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.iav.frontend.controller.OperatorViewController">
     <ImageView fitHeight="830.0" fitWidth="1200.0">
-        <Image url="@../png/Background.png" />
+        <Image url="@../png/Background.png"/>
     </ImageView>
     <ImageView layoutX="1060.0" scaleX="0.25" scaleY="0.25">
-        <Image url="@../png/HomeButton.png" />
+        <Image url="@../png/HomeButton.png"/>
     </ImageView>
-    <Button layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME" prefHeight="40.0" prefWidth="40.0" style="           -fx-background-color: #ffffff00;" textFill="#ffffff00" />
-   <Label layoutX="120.0" layoutY="80.0" text="Dein Prüfstand:">
-      <font>
-         <Font size="24.0" />
-      </font>
-   </Label>
-   <Label layoutX="120.0" layoutY="300.0" text="Verbaute Messtechnik:">
-      <font>
-         <Font size="24.0" />
-      </font>
-   </Label>
+    <Button layoutX="1115.0" layoutY="57.0" mnemonicParsing="false" onAction="#onClick_PB_HOME" prefHeight="40.0"
+            prefWidth="40.0" style="           -fx-background-color: #ffffff00;" textFill="#ffffff00"/>
+    <Label layoutX="120.0" layoutY="80.0" text="Dein Prüfstand:">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
+    <Label layoutX="120.0" layoutY="300.0" text="Verbaute Messtechnik:">
+        <font>
+            <Font size="24.0"/>
+        </font>
+    </Label>
 
-    <TableView fx:id="TV_BENCH" layoutX="50.0" layoutY="130.0" prefHeight="100.0" prefWidth="800.0" style="-fx-background-radius: 20; -fx-background-color: #FE2EF710;">
+    <TableView fx:id="TV_BENCH" layoutX="50.0" layoutY="130.0" prefHeight="100.0" prefWidth="800.0"
+               style="-fx-background-radius: 20; -fx-background-color: #FE2EF710;">
         <columns>
 
-            <TableColumn fx:id="TC_B_NAME" prefWidth="75.0" style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;" text="Prüfstand:">
+            <TableColumn fx:id="TC_B_NAME" prefWidth="75.0"
+                         style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;"
+                         text="Prüfstand:">
                 <cellValueFactory>
-                    <PropertyValueFactory property="name" />
+                    <PropertyValueFactory property="name"/>
                 </cellValueFactory>
             </TableColumn>
 
-            <TableColumn fx:id="TC_B_MAINTENANCE" prefWidth="75.0" style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;" text="Wartung am:">
+            <TableColumn fx:id="TC_B_MAINTENANCE" prefWidth="75.0"
+                         style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;"
+                         text="Wartung am:">
                 <cellValueFactory>
-                    <PropertyValueFactory property="maintenance" />
+                    <PropertyValueFactory property="maintenance"/>
                 </cellValueFactory>
             </TableColumn>
 
-            <TableColumn fx:id="TC_B_CALIBRATION" prefWidth="75.0" style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;" text="Kalibrierung am:">
+            <TableColumn fx:id="TC_B_CALIBRATION" prefWidth="75.0"
+                         style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;"
+                         text="Kalibrierung am:">
                 <cellValueFactory>
-                    <PropertyValueFactory property="calibration" />
+                    <PropertyValueFactory property="calibration"/>
                 </cellValueFactory>
             </TableColumn>
 
-<!--            <TableColumn fx:id="TC_B_METROLOGY" prefWidth="75.0"-->
-<!--                         style="-fx-background-radius: 20;                 -fx-background-color: #FE2EF750;"-->
-<!--                         text="Messgeräte:">-->
-<!--                <cellValueFactory>-->
-<!--                    <PropertyValueFactory property="metrology"/>-->
-<!--                </cellValueFactory>-->
-<!--            </TableColumn>-->
-<!---->
-<!--            <TableColumn fx:id="TC_M_MANUFACTURER" prefWidth="75.0"-->
-<!--                         style="-fx-background-radius: 20;                 -fx-background-color: #FE2EF750;"-->
-<!--                         text="Messgerät Hersteller:">-->
-<!--                <cellValueFactory>-->
-<!--                    <PropertyValueFactory property="manufacturer"/>-->
-<!--                </cellValueFactory>-->
-<!--            </TableColumn>-->
-
-<!--            <TableColumn fx:id="TC_M_TYPE" prefWidth="75.0"-->
-<!--                         style="-fx-background-radius: 20;                 -fx-background-color: #FE2EF750;"-->
-<!--                         text="Messgerät Bezeichnung:">-->
-<!--                <cellValueFactory>-->
-<!--                    <PropertyValueFactory property="type"/>-->
-<!--                </cellValueFactory>-->
-<!--            </TableColumn>-->
-
-<!--            <TableColumn fx:id="TC_M_MAINTENANCE" prefWidth="75.0"-->
-<!--                         style="-fx-background-radius: 20;                 -fx-background-color: #FE2EF750;"-->
-<!--                         text="Wartung Messgerät:">-->
-<!--                <cellValueFactory>-->
-<!--                    <PropertyValueFactory property="maintenance"/>-->
-<!--                </cellValueFactory>-->
-<!--            </TableColumn>-->
-
-<!--            <TableColumn fx:id="TC_M_CALIBRATION" prefWidth="75.0"-->
-<!--                         style="-fx-background-radius: 20;                 -fx-background-color: #FE2EF750;"-->
-<!--                         text="Kalibrierung Messgerät:">-->
-<!--                <cellValueFactory>-->
-<!--                    <PropertyValueFactory property="calibration"/>-->
-<!--                </cellValueFactory>-->
-<!--            </TableColumn>-->
         </columns>
         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
         </columnResizePolicy>
     </TableView>
-   <TableView fx:id="TV_METROLOGY" layoutX="50.0" layoutY="350.0" prefHeight="200.0" prefWidth="800.0" style="-fx-background-radius: 20; -fx-background-color: #FE2EF710;">
-      <columns>
-         <TableColumn fx:id="TC_M_MANUFACTURER" prefWidth="75.0" style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;" text="Hersteller:">
-            <cellValueFactory>
-               <PropertyValueFactory property="manufacturer" />
-            </cellValueFactory>
-         </TableColumn>
-         <TableColumn fx:id="TC_M_TYPE" prefWidth="75.0" style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;" text="Herstellerbezeichnung">
-            <cellValueFactory>
-               <PropertyValueFactory property="type" />
-            </cellValueFactory>
-         </TableColumn>
-         <TableColumn fx:id="TC_M_MAINTENANCE" prefWidth="75.0" style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;" text="Wartung am:">
-            <cellValueFactory>
-               <PropertyValueFactory property="maintenance" />
-            </cellValueFactory>
-         </TableColumn>
-         <TableColumn fx:id="TC_M_CALIBRATION" prefWidth="75.0" style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;" text="Kalibrierung am:">
-            <cellValueFactory>
-               <PropertyValueFactory property="calibration" />
-            </cellValueFactory>
-         </TableColumn>
-      </columns>
-      <columnResizePolicy>
-         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-      </columnResizePolicy>
-   </TableView>
+    <TableView fx:id="TV_METROLOGY" layoutX="50.0" layoutY="350.0" prefHeight="200.0" prefWidth="800.0"
+               style="-fx-background-radius: 20; -fx-background-color: #FE2EF710;">
+        <columns>
+            <TableColumn fx:id="TC_M_MANUFACTURER" prefWidth="75.0"
+                         style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;"
+                         text="Hersteller:">
+                <cellValueFactory>
+                    <PropertyValueFactory property="manufacturer"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="TC_M_TYPE" prefWidth="75.0"
+                         style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;"
+                         text="Herstellerbezeichnung">
+                <cellValueFactory>
+                    <PropertyValueFactory property="type"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="TC_M_MAINTENANCE" prefWidth="75.0"
+                         style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;"
+                         text="Wartung am:">
+                <cellValueFactory>
+                    <PropertyValueFactory property="maintenance"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="TC_M_CALIBRATION" prefWidth="75.0"
+                         style="-fx-background-radius: 20;                   -fx-background-color: #FE2EF750;"
+                         text="Kalibrierung am:">
+                <cellValueFactory>
+                    <PropertyValueFactory property="calibration"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
 </AnchorPane>

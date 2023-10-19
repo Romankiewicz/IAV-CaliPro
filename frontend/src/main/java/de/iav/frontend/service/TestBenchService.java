@@ -120,6 +120,57 @@ public class TestBenchService {
                 .join();
     }
 
+    public void addMetrologyToTestBench(String metrologyId, String benchId) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "testbenches/" + benchId + "/metrology/" + metrologyId))
+                .header("Content-Type", JSON)
+                .header("Acceot", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .PUT(HttpRequest.BodyPublishers.ofString(""))
+                .build();
+        testBenchClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .join();
+    }
+
+    public void removeMetrologyFromTestBench(String metrologyId, String benchId) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "testbenches/" + benchId + "/metrology/" + metrologyId))
+                .header("Content-Type", JSON)
+                .header("Acceot", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .DELETE()
+                .build();
+        testBenchClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .join();
+    }
+
+    public void addOperatorToTestBench(String username, String benchId) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "testbenches/" + benchId + "/operator/" + username))
+                .header("Content-Type", JSON)
+                .header("Acceot", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .PUT(HttpRequest.BodyPublishers.ofString(""))
+                .build();
+        testBenchClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .join();
+    }
+
+    public void removeOperatorFromTestBench(String username, String benchId) {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(IAVCALIPRO_URL_BACKEND + "testbenches/" + benchId + "/operator/" + username))
+                .header("Content-Type", JSON)
+                .header("Acceot", JSON)
+                .header("Cookie", "JSESSIONID=" + authenticationService.getSessionId())
+                .DELETE()
+                .build();
+        testBenchClient.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .join();
+    }
 
     public List<TestBench> getTestBenchesByMaintenanceOrCalibrationDue() {
 

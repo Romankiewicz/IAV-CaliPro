@@ -134,7 +134,7 @@ public class MetrologyDetailViewController {
             CB_METROLOGY.setValue(null);
             TV_METROLOGY_DETAIL.getItems().clear();
             updateChoiceBox();
-            updateChoiceBox();
+            updateTableView();
         }
     }
 
@@ -159,7 +159,7 @@ public class MetrologyDetailViewController {
             CB_METROLOGY.setValue(null);
             TV_METROLOGY_DETAIL.getItems().clear();
             updateChoiceBox();
-            updateChoiceBox();
+            updateTableView();
         }
     }
 
