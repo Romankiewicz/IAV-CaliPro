@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="830.0" maxWidth="1200.0" minHeight="830.0" minWidth="1200.0"
+            prefHeight="830.0" prefWidth="1200.0"
+            xmlns="http://javafx.com/javafx/20.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.iav.frontend.controller.StartViewController">
+    <effect>
+        <Blend/>
+    </effect>
+    <ImageView fitHeight="830.0" fitWidth="1200.0">
+        <Image url="@../png/Background.png"/>
+    </ImageView>
+    <Button layoutX="650.0" layoutY="620.0"
+            mnemonicParsing="false" onAction="#onClick_PB_REGISTRATION"
+            prefHeight="50.0" prefWidth="200.0"
+            style="-fx-background-color: BAB9B9;" text="Registrieren">
+        <font>
+            <Font name="Baloo 2 Regular" size="22.0"/>
+        </font>
+        <effect>
+            <DropShadow height="30.0" radius="19.5" width="50.0"/>
+        </effect>
+    </Button>
+    <Button layoutX="350.0" layoutY="620.0"
+            mnemonicParsing="false" onAction="#onClick_PB_LOGIN"
+            prefHeight="50.0" prefWidth="200.0"
+            style="-fx-background-color: BAB9B9;" text="Anmelden" textAlignment="CENTER">
+        <font>
+            <Font name="Baloo 2 Regular" size="22.0"/>
+        </font>
+        <effect>
+            <DropShadow height="30.0" radius="22.0" width="60.0"/>
+        </effect>
+    </Button>
+    <Text layoutX="40.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cali Pro">
+        <font>
+            <Font name="Hiragino Sans W0" size="44.0"/>
+        </font>
+        <fill>
+            <LinearGradient cycleMethod="REFLECT">
+                <stops>
+                    <Stop>
+                        <color>
+                            <Color red="0.06666667014360428" blue="1.0"/>
+                        </color>
+                    </Stop>
+                    <Stop offset="0.006711409395973154">
+                        <color>
+                            <Color green="0.06687863916158676" blue="1.0"/>
+                        </color>
+                    </Stop>
+                    <Stop offset="1.0">
+                        <color>
+                            <Color red="0.9166666865348816" blue="1.0"/>
+                        </color>
+                    </Stop>
+                </stops>
+            </LinearGradient>
+        </fill>
+    </Text>
+    <Text layoutX="320.0" layoutY="720.0" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="Messtechnik kalibrierung auf einen Blick">
+        <font>
+            <Font name="Hiragino Sans W0" size="32.0"/>
+        </font>
+    </Text>
+</AnchorPane>
