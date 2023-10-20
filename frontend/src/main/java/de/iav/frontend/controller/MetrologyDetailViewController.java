@@ -142,6 +142,7 @@ public class MetrologyDetailViewController {
             metrologyService.updateMetrologyMaintenanceByMetrologyId(selectedMetrology.metrologyId(), metrologyUpdate);
 
             CB_METROLOGY.setValue(null);
+            selectedMetrology = null;
             TV_METROLOGY_DETAIL.getItems().clear();
             updateChoiceBox();
             updateTableView();
@@ -167,6 +168,7 @@ public class MetrologyDetailViewController {
             metrologyService.updateMetrologyCalibrationByMetrologyId(selectedMetrology.metrologyId(), metrologyUpdate);
 
             CB_METROLOGY.setValue(null);
+            selectedMetrology = null;
             TV_METROLOGY_DETAIL.getItems().clear();
             updateChoiceBox();
             updateTableView();

@@ -67,10 +67,10 @@
             </LinearGradient>
         </fill>
     </Text>
-    <Text layoutX="320.0" layoutY="720.0" strokeType="OUTSIDE" strokeWidth="0.0"
-          text="Messtechnik kalibrierung auf einen Blick">
-        <font>
-            <Font name="Hiragino Sans W0" size="32.0"/>
-        </font>
-    </Text>
+<!--    <Text layoutX="320.0" layoutY="720.0" strokeType="OUTSIDE" strokeWidth="0.0"-->
+<!--          text="Messtechnik kalibrierung auf einen Blick">-->
+<!--        <font>-->
+<!--            <Font name="Hiragino Sans W0" size="32.0"/>-->
+<!--        </font>-->
+<!--    </Text>-->
 </AnchorPane>
