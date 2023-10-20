@@ -8,15 +8,19 @@ import de.iav.frontend.service.RegistrationViewService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
 public class RegistrationViewController {
 
+    @FXML
+    private AnchorPane AP;
+    @FXML
+    private Button PB_REGISTER;
     @FXML
     private ChoiceBox<String> CB_ROLE;
     @FXML
@@ -54,6 +58,14 @@ public class RegistrationViewController {
                     }
                 }
         );
+
+        PB_REGISTER.setOnAction(this::onClick_PB_REGISTER_SwitchToNextView);
+
+        AP.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                onClick_PB_REGISTER_SwitchToNextView(new ActionEvent(PB_REGISTER, null));
+            }
+        });
     }
 
 
@@ -63,15 +75,23 @@ public class RegistrationViewController {
     }
 
     @FXML
-    public void onClick_PB_REGISTER_SwitchToNextView(ActionEvent event) throws IOException {
+    public void onClick_PB_REGISTER_SwitchToNextView(ActionEvent event) {
 
 
         if (selectedRole.equals(UserRole.METROLOGIST)) {
             registerMetrologist();
-            sceneSwitchService.switchToStartView(event);
+            try {
+                sceneSwitchService.switchToStartView(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else if (selectedRole.equals(UserRole.OPERATOR)) {
             registerOperator();
-            sceneSwitchService.switchToStartView(event);
+            try {
+                sceneSwitchService.switchToStartView(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

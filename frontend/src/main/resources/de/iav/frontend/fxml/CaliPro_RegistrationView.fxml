@@ -7,7 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import java.lang.String?>
-<AnchorPane maxHeight="830.0" maxWidth="1200.0" minHeight="830.0" minWidth="1200.0" prefHeight="830.0"
+<AnchorPane fx:id="AP" maxHeight="830.0" maxWidth="1200.0" minHeight="830.0" minWidth="1200.0" prefHeight="830.0"
             prefWidth="1200.0"
             xmlns="http://javafx.com/javafx/20.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -51,7 +51,7 @@
             <DropShadow/>
         </effect>
     </TextField>
-    <Button layoutX="950.0" layoutY="760.0" mnemonicParsing="false" prefHeight="30.0"
+    <Button fx:id="PB_REGISTER" layoutX="950.0" layoutY="760.0" mnemonicParsing="false" prefHeight="30.0"
             prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Registrieren"
             onAction="#onClick_PB_REGISTER_SwitchToNextView">
         <effect>
