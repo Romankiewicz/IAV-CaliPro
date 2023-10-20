@@ -60,32 +60,42 @@ public class OperatorViewController {
         List<TestBench> testBenchData = loginOperator.testBench();
         StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
 
-
-        TC_B_NAME.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().name()));
-        TC_B_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
-        TC_B_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
-        TC_B_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
-        TC_B_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
-        TV_BENCH.getItems().addAll(testBenchData);
+        if (!testBenchData.isEmpty()) {
+            TC_B_NAME.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().name()));
+            TC_B_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+            TC_B_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+            TC_B_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+            TC_B_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
+            TV_BENCH.getItems().addAll(testBenchData);
+            TV_BENCH.setVisible(true);
+        }else {
+            TV_BENCH.setVisible(false);
+        }
     }
 
     @FXML
     private void getTestBenchMetrology() {
 
         Operator loginOperator = operatorViewService.getLoginOperator();
+        List<TestBench> testBenches = loginOperator.testBench();
 
-        TestBench testBenchData = loginOperator.testBench().get(0);
+        if (!testBenches.isEmpty()) {
+            TestBench testBenchData = loginOperator.testBench().get(0);
 
-        List<Metrology> metrologyData = testBenchData.metrology();
-        StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
+            List<Metrology> metrologyData = testBenchData.metrology();
+            StringConverter<Date> dateConverter = new DateStringConverter("dd.MM.yyyy");
 
-        TC_M_MANUFACTURER.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().manufacturer()));
-        TC_M_TYPE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
-        TC_M_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
-        TC_M_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
-        TC_M_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
-        TC_M_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
-        TV_METROLOGY.getItems().addAll(metrologyData);
+            TC_M_MANUFACTURER.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().manufacturer()));
+            TC_M_TYPE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().type()));
+            TC_M_MAINTENANCE.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+            TC_M_MAINTENANCE.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().maintenance()));
+            TC_M_CALIBRATION.setCellFactory(TextFieldTableCell.forTableColumn(dateConverter));
+            TC_M_CALIBRATION.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().calibration()));
+            TV_METROLOGY.getItems().addAll(metrologyData);
+            TV_METROLOGY.setVisible(true);
+        } else {
+            TV_METROLOGY.setVisible(false);
+        }
     }
 
     @FXML
