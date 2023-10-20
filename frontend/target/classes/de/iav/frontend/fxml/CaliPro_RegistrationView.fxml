@@ -7,7 +7,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import java.lang.String?>
-<AnchorPane maxHeight="830.0" maxWidth="1200.0" minHeight="830.0" minWidth="1200.0" prefHeight="830.0"
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:id="AP" maxHeight="830.0" maxWidth="1200.0" minHeight="830.0" minWidth="1200.0" prefHeight="830.0"
             prefWidth="1200.0"
             xmlns="http://javafx.com/javafx/20.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -51,7 +56,7 @@
             <DropShadow/>
         </effect>
     </TextField>
-    <Button layoutX="950.0" layoutY="760.0" mnemonicParsing="false" prefHeight="30.0"
+    <Button fx:id="PB_REGISTER" layoutX="950.0" layoutY="760.0" mnemonicParsing="false" prefHeight="30.0"
             prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Registrieren"
             onAction="#onClick_PB_REGISTER_SwitchToNextView">
         <effect>
@@ -73,4 +78,31 @@
             prefHeight="40.0" prefWidth="40.0" style="
           -fx-background-color: #ffffff00;" textFill="#ffffff00"
             onAction="#onClick_PB_HOME"/>
+
+    <Text layoutX="40.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cali Pro">
+        <font>
+            <Font name="Hiragino Sans W0" size="44.0"/>
+        </font>
+        <fill>
+            <LinearGradient cycleMethod="REFLECT">
+                <stops>
+                    <Stop>
+                        <color>
+                            <Color red="0.06666667014360428" blue="1.0"/>
+                        </color>
+                    </Stop>
+                    <Stop offset="0.006711409395973154">
+                        <color>
+                            <Color green="0.06687863916158676" blue="1.0"/>
+                        </color>
+                    </Stop>
+                    <Stop offset="1.0">
+                        <color>
+                            <Color red="0.9166666865348816" blue="1.0"/>
+                        </color>
+                    </Stop>
+                </stops>
+            </LinearGradient>
+        </fill>
+    </Text>
 </AnchorPane>
