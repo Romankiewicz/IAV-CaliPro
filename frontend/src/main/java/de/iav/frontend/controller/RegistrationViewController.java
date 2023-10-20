@@ -64,6 +64,7 @@ public class RegistrationViewController {
         AP.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 onClick_PB_REGISTER_SwitchToNextView(new ActionEvent(PB_REGISTER, null));
+                event.consume();
             }
         });
     }

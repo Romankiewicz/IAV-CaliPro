@@ -1,5 +1,6 @@
 package de.iav.frontend.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import de.iav.frontend.model.Metrology;
 import de.iav.frontend.security.AuthenticationService;
 import de.iav.frontend.service.IdService;
@@ -7,9 +8,13 @@ import de.iav.frontend.service.MetrologyService;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -18,6 +23,10 @@ import java.util.Date;
 
 public class AddMetrologyViewController {
 
+    @FXML
+    private AnchorPane AP;
+    @FXML
+    private Button PB_ADD;
     @FXML
     private TextField TF_INVENTORY;
     @FXML
@@ -44,6 +53,19 @@ public class AddMetrologyViewController {
     }
 
     @FXML
+    public void initialize() {
+
+        PB_ADD.setOnAction(this::onClick_PB_ADD_addMetrology);
+
+        AP.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                onClick_PB_ADD_addMetrology(new ActionEvent(PB_ADD, null));
+                event.consume();
+            }
+        });
+    }
+
+    @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
         authenticationService.logout();
         sceneSwitchService.switchToStartView(event);
@@ -56,7 +78,7 @@ public class AddMetrologyViewController {
 
 
     @FXML
-    public void onClick_PB_ADD_addMetrology(ActionEvent event) throws IOException {
+    public void onClick_PB_ADD_addMetrology(ActionEvent event) {
 
         if (isEveryTextFieldValid()) {
             String iavInventory = TF_INVENTORY.getText();
@@ -79,8 +101,16 @@ public class AddMetrologyViewController {
                     calibrationDate
                     );
 
-            metrologyService.addMetrology(metrologyToAdd);
-            sceneSwitchService.switchToMetrologistView(event);
+            try {
+                metrologyService.addMetrology(metrologyToAdd);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                sceneSwitchService.switchToMetrologistView(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

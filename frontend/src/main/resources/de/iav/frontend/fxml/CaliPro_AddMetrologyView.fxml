@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Text?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1"
+<AnchorPane fx:id="AP" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.iav.frontend.controller.AddMetrologyViewController">
 
     <ImageView fitHeight="830.0" fitWidth="1200.0">
@@ -65,7 +65,7 @@
             <Font size="14.0"/>
         </font>
     </Label>
-    <Button layoutX="960.0" layoutY="770.0" mnemonicParsing="false" onAction="#onClick_PB_ADD_addMetrology"
+    <Button fx:id="PB_ADD" layoutX="960.0" layoutY="770.0" mnemonicParsing="false" onAction="#onClick_PB_ADD_addMetrology"
             prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Messgerät hinzufügen">
         <effect>
             <DropShadow/>
