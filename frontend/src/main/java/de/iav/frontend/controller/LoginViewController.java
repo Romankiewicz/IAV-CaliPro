@@ -5,9 +5,13 @@ import de.iav.frontend.security.UserRole;
 import de.iav.frontend.service.SceneSwitchService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URI;
@@ -22,15 +26,33 @@ public class LoginViewController {
     private final AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     @FXML
+    private AnchorPane AP;
+    @FXML
     private Label LF_ERROR;
     @FXML
     private TextField TF_USERNAME;
     @FXML
     private PasswordField PF_PASSWORD;
+    @FXML
+    private Button PB_LOGIN;
     private static final String JSON = "application/json";
     @FXML
     private final String IAVCALIPRO_URL_BACKEND = System.getenv("BACKEND_IAVCALIPRO_URI");
 
+
+    @FXML
+    public void initialize() {
+
+        PB_LOGIN.setOnAction(this::handleLoginButtonClick);
+
+        AP.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleLoginButtonClick(new ActionEvent(PB_LOGIN, null));
+                event.consume();
+            }
+        });
+
+    }
 
     @FXML
     public void onClick_PB_HOME(ActionEvent event) throws IOException {
@@ -38,7 +60,7 @@ public class LoginViewController {
     }
 
     @FXML
-    public void onClick_PB_LOGIN(ActionEvent event) throws IOException {
+    public void handleLoginButtonClick(ActionEvent event) {
         if (isEveryTextFieldValid()) {
             String username = TF_USERNAME.getText();
             String password = PF_PASSWORD.getText();
@@ -49,7 +71,11 @@ public class LoginViewController {
                 UserRole role = extractRoleFromUsername(usernameResponse);
 
                 if (role != null) {
-                    handleLoginForRole(username, role, event);
+                    try {
+                        handleLoginForRole(username, role, event);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 } else {
                     LF_ERROR.setText("Unerwartete Benuzerrolle!");
                 }

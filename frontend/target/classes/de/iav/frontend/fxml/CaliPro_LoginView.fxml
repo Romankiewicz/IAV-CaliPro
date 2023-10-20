@@ -6,7 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0"
+<AnchorPane fx:id="AP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0"
             prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="de.iav.frontend.controller.LoginViewController">
     <ImageView fitHeight="830.0" fitWidth="1200.0">
@@ -27,7 +27,7 @@
             <DropShadow/>
         </effect>
     </PasswordField>
-    <Button layoutX="960.0" layoutY="770.0" mnemonicParsing="false" onAction="#onClick_PB_LOGIN"
+    <Button fx:id="PB_LOGIN" layoutX="960.0" layoutY="770.0" mnemonicParsing="false" onAction="#handleLoginButtonClick"
             prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: BAB9B9;" text="Login">
         <effect>
             <DropShadow/>
